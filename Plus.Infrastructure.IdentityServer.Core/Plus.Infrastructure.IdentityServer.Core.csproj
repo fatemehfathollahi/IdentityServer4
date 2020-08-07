@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Plus.Infrastructure.Core" Version="1.0.0" />
+    <PackageReference Include="Plus.Infrastructure.Domain" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Plus.Infrastructure.IdentityServer</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataAccess\DbContext\" />
+  </ItemGroup>
+  
+</Project>

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>Plus</Company>
+    <Authors>Plus</Authors>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4" Version="4.0.4" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.0.4" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="4.0.4" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Plus.Infrastructure.Core" Version="1.0.0" />
+    <PackageReference Include="Plus.Infrastructure.Domain" Version="1.0.0" />
+    <PackageReference Include="Scrutor" Version="3.2.1" />
+    <PackageReference Include="SeptaNSFCore.Core" Version="1.0.5" />
+    <PackageReference Include="SeptaNSFCore.Helper" Version="1.0.5" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plus.Infrastructure.IdentityServer.Core\Plus.Infrastructure.IdentityServer.Core.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Migration\" />
+  </ItemGroup>
+
+</Project>
