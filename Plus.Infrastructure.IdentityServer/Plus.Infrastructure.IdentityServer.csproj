@@ -9,6 +9,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200815080518_MyFirstMigration.cs" />
+    <Compile Remove="Migrations\20200815080518_MyFirstMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815080953_MysecondMigration.cs" />
+    <Compile Remove="Migrations\20200815080953_MysecondMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815081535_MyThreeMigration.cs" />
+    <Compile Remove="Migrations\20200815081535_MyThreeMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815082705_MyfourMigration.cs" />
+    <Compile Remove="Migrations\20200815082705_MyfourMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815090411_MycoreMigration.cs" />
+    <Compile Remove="Migrations\20200815090411_MycoreMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815090608_MyfiveMigration.cs" />
+    <Compile Remove="Migrations\20200815090608_MyfiveMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815090730_MysevenMigration.cs" />
+    <Compile Remove="Migrations\20200815090730_MysevenMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815091013_MyeightMigration.cs" />
+    <Compile Remove="Migrations\20200815091013_MyeightMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815091113_MyMigration.cs" />
+    <Compile Remove="Migrations\20200815091113_MyMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200815131149_MyfirstMigration.cs" />
+    <Compile Remove="Migrations\20200815131149_MyfirstMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="4.0.4" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.0.4" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="4.0.4" />

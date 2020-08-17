@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Plus.Infrastructure.Core.Domain.Model;
+using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Models;
 using System;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
+      //  private readonly IPlusClientStore _clientStore; TODO
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
 
@@ -33,6 +35,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers.Account
             SignInManager<ApplicationUser> signInManager,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
+            //IPlusClientStore clientStore TODO
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events)
         {
