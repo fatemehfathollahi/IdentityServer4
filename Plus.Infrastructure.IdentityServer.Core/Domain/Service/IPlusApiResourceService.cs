@@ -8,6 +8,6 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
   
     public interface IPlusApiResourceService
     {
-        Task<ApiResource> CreateAsync(PlusApiResource apiResource);
+        Task<IdentityServer4.Models.ApiResource> CreateAsync(Models.ApiResource apiResource);
     }
 }

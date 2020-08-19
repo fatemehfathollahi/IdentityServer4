@@ -16,27 +16,27 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
 {
     public class PlusClientStore : IClientStore
     {
-        private readonly IConfigurationDbContext _context;
+        private readonly IIdentityConfigurationDbContext _context;
         private readonly ILogger<PlusClientStore> _logger;
 
 
-        public PlusClientStore(IConfigurationDbContext context, ILogger<PlusClientStore> logger)
+        public PlusClientStore(IIdentityConfigurationDbContext context, ILogger<PlusClientStore> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger;
         }
 
-        public Task<Client> CreateAsync(PlusClient client)
+        public Task<IdentityServer4.Models.Client> CreateAsync(Domain.Models.Client client)
         {
-            _context.PlusClients.Add(client);
+            _context.Clients.Add(client);
             _context.SaveChangesAsync();
             var model =   client.ToModel();
             return Task.FromResult(model);
         }
 
-        public Task<Client> FindClientByIdAsync(string clientId)
+        public Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
         {
-            var client = _context.PlusClients
+            var client = _context.Clients
                 .Include(x => x.AllowedGrantTypes)
                 .Include(x => x.RedirectUris)
                 .Include(x => x.PostLogoutRedirectUris)

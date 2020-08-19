@@ -9,7 +9,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusClientService
     {
-        Task<Client> CreateAsync(PlusClient client);
+        Task<IdentityServer4.Models.Client> CreateAsync(Models.Client client);
 
     }
 }

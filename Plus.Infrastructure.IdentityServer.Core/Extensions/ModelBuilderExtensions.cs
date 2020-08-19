@@ -8,18 +8,18 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
 
     public static class ModelBuilderExtensions
     {
-        private static EntityTypeBuilder<TEntity> ToTable<TEntity>(this EntityTypeBuilder<TEntity> entityTypeBuilder, TableConfiguration configuration)
+        private static EntityTypeBuilder<TEntity> ToTable<TEntity>(this EntityTypeBuilder<TEntity> entityTypeBuilder, IdentityTableConfiguration configuration)
             where TEntity : class
         {
             return string.IsNullOrWhiteSpace(configuration.Schema) ? entityTypeBuilder.ToTable(configuration.Name) : entityTypeBuilder.ToTable(configuration.Name, configuration.Schema);
         }
-        public static void ConfigureClientContext(this ModelBuilder modelBuilder, ConfigurationStoreOptions storeOptions)
+        public static void ConfigureClientContext(this ModelBuilder modelBuilder, IdentityConfigurationStoreOptions storeOptions)
         {
             if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
 
-            modelBuilder.Entity<PlusClient>(client =>
+            modelBuilder.Entity<Client>(client =>
             {
-                client.ToTable(storeOptions.PlusClient);
+                client.ToTable(storeOptions.Client);
                 client.HasKey(x => x.Id);
 
                 client.Property(x => x.ClientId).HasMaxLength(200).IsRequired();
@@ -47,72 +47,72 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
                 client.HasMany(x => x.Properties).WithOne(x => x.Client).HasForeignKey(x => x.ClientId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<PlusClientGrantType>(grantType =>
+            modelBuilder.Entity<ClientGrantType>(grantType =>
             {
-                grantType.ToTable(storeOptions.PlusClientGrantType);
+                grantType.ToTable(storeOptions.ClientGrantType);
                 grantType.Property(x => x.GrantType).HasMaxLength(250).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientRedirectUri>(redirectUri =>
+            modelBuilder.Entity<ClientRedirectUri>(redirectUri =>
             {
-                redirectUri.ToTable(storeOptions.PlusClientRedirectUri);
+                redirectUri.ToTable(storeOptions.ClientRedirectUri);
                 redirectUri.Property(x => x.RedirectUri).HasMaxLength(2000).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientPostLogoutRedirectUri>(postLogoutRedirectUri =>
+            modelBuilder.Entity<ClientPostLogoutRedirectUri>(postLogoutRedirectUri =>
             {
-                postLogoutRedirectUri.ToTable(storeOptions.PlusClientPostLogoutRedirectUri);
+                postLogoutRedirectUri.ToTable(storeOptions.ClientPostLogoutRedirectUri);
                 postLogoutRedirectUri.Property(x => x.PostLogoutRedirectUri).HasMaxLength(2000).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientScope>(scope =>
+            modelBuilder.Entity<ClientScope>(scope =>
             {
-                scope.ToTable(storeOptions.PlusClientScopes);
+                scope.ToTable(storeOptions.ClientScopes);
                 scope.Property(x => x.Scope).HasMaxLength(200).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientSecret>(secret =>
+            modelBuilder.Entity<ClientSecret>(secret =>
             {
-                secret.ToTable(storeOptions.PlusClientSecret);
+                secret.ToTable(storeOptions.ClientSecret);
                 secret.Property(x => x.Value).HasMaxLength(4000).IsRequired();
                 secret.Property(x => x.Type).HasMaxLength(250).IsRequired();
                 secret.Property(x => x.Description).HasMaxLength(2000);
             });
 
-            modelBuilder.Entity<PlusClientClaim>(claim =>
+            modelBuilder.Entity<ClientClaim>(claim =>
             {
-                claim.ToTable(storeOptions.PlusClientClaim);
+                claim.ToTable(storeOptions.ClientClaim);
                 claim.Property(x => x.Type).HasMaxLength(250).IsRequired();
                 claim.Property(x => x.Value).HasMaxLength(250).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientIdPRestriction>(idPRestriction =>
+            modelBuilder.Entity<ClientIdPRestriction>(idPRestriction =>
             {
-                idPRestriction.ToTable(storeOptions.PlusClientIdPRestriction);
+                idPRestriction.ToTable(storeOptions.ClientIdPRestriction);
                 idPRestriction.Property(x => x.Provider).HasMaxLength(200).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientCorsOrigin>(corsOrigin =>
+            modelBuilder.Entity<ClientCorsOrigin>(corsOrigin =>
             {
-                corsOrigin.ToTable(storeOptions.PlusClientCorsOrigin);
+                corsOrigin.ToTable(storeOptions.ClientCorsOrigin);
                 corsOrigin.Property(x => x.Origin).HasMaxLength(150).IsRequired();
             });
 
-            modelBuilder.Entity<PlusClientProperty>(property =>
+            modelBuilder.Entity<ClientProperty>(property =>
             {
-                property.ToTable(storeOptions.PlusClientProperty);
+                property.ToTable(storeOptions.ClientProperty);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
             });
         }
 
-        public static void ConfigurePersistedGrantContext(this ModelBuilder modelBuilder, OperationalStoreOptions storeOptions)
+        public static void ConfigurePersistedGrantContext(this ModelBuilder modelBuilder, IdentityOperationalStoreOptions storeOptions)
         {
             if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
 
-            modelBuilder.Entity<PlusPersistedGrant>(grant =>
+            modelBuilder.Entity<PersistedGrant>(grant =>
             {
-                grant.ToTable(storeOptions.PlusApiPersistedGrants);
+                grant.ToTable(storeOptions.ApiPersistedGrants);
 
                 grant.Property(x => x.Key).HasMaxLength(200).ValueGeneratedNever();
                 grant.Property(x => x.Type).HasMaxLength(50).IsRequired();
@@ -128,9 +128,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
                 grant.HasIndex(x => new { x.SubjectId, x.ClientId, x.Type });
             });
 
-            modelBuilder.Entity<PlusDeviceFlowCodes>(codes =>
+            modelBuilder.Entity<DeviceFlowCodes>(codes =>
             {
-                codes.ToTable(storeOptions.PlusDeviceFlowCodes);
+                codes.ToTable(storeOptions.DeviceFlowCodes);
 
                 codes.Property(x => x.DeviceCode).HasMaxLength(200).IsRequired();
                 codes.Property(x => x.UserCode).HasMaxLength(200).IsRequired();
@@ -149,13 +149,13 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
             });
         }
 
-        public static void ConfigureResourcesContext(this ModelBuilder modelBuilder, ConfigurationStoreOptions storeOptions)
+        public static void ConfigureResourcesContext(this ModelBuilder modelBuilder, IdentityConfigurationStoreOptions storeOptions)
         {
             if (!string.IsNullOrWhiteSpace(storeOptions.DefaultSchema)) modelBuilder.HasDefaultSchema(storeOptions.DefaultSchema);
 
-            modelBuilder.Entity<PlusIdentityResource>(identityResource =>
+            modelBuilder.Entity<IdentityResource>(identityResource =>
             {
-                identityResource.ToTable(storeOptions.PlusIdentityResource).HasKey(x => x.Id);
+                identityResource.ToTable(storeOptions.IdentityResource).HasKey(x => x.Id);
 
                 identityResource.Property(x => x.Name).HasMaxLength(200).IsRequired();
                 identityResource.Property(x => x.DisplayName).HasMaxLength(200);
@@ -167,23 +167,23 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
                 identityResource.HasMany(x => x.Properties).WithOne(x => x.IdentityResource).HasForeignKey(x => x.IdentityResourceId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<PlusIdentityClaim>(claim =>
+            modelBuilder.Entity<IdentityClaim>(claim =>
             {
-                claim.ToTable(storeOptions.PlusIdentityClaim).HasKey(x => x.Id);
+                claim.ToTable(storeOptions.IdentityClaim).HasKey(x => x.Id);
 
                 claim.Property(x => x.Type).HasMaxLength(200).IsRequired();
             });
 
-            modelBuilder.Entity<PlusIdentityResourceProperty>(property =>
+            modelBuilder.Entity<IdentityResourceProperty>(property =>
             {
-                property.ToTable(storeOptions.PlusIdentityResourceProperty);
+                property.ToTable(storeOptions.IdentityResourceProperty);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
             });
 
-            modelBuilder.Entity<PlusApiResource>(apiResource =>
+            modelBuilder.Entity<ApiResource>(apiResource =>
             {
-                apiResource.ToTable(storeOptions.PlusApiResource).HasKey(x => x.Id);
+                apiResource.ToTable(storeOptions.ApiResource).HasKey(x => x.Id);
 
                 apiResource.Property(x => x.Name).HasMaxLength(200).IsRequired();
                 apiResource.Property(x => x.DisplayName).HasMaxLength(200);
@@ -197,25 +197,25 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
                 apiResource.HasMany(x => x.Properties).WithOne(x => x.ApiResource).HasForeignKey(x => x.ApiResourceId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<PlusApiSecret>(apiSecret =>
+            modelBuilder.Entity<ApiSecret>(apiSecret =>
             {
-                apiSecret.ToTable(storeOptions.PlusApiSecret).HasKey(x => x.Id);
+                apiSecret.ToTable(storeOptions.ApiSecret).HasKey(x => x.Id);
 
                 apiSecret.Property(x => x.Description).HasMaxLength(1000);
                 apiSecret.Property(x => x.Value).HasMaxLength(4000).IsRequired();
                 apiSecret.Property(x => x.Type).HasMaxLength(250).IsRequired();
             });
 
-            modelBuilder.Entity<PlusApiResourceClaim>(apiClaim =>
+            modelBuilder.Entity<ApiResourceClaim>(apiClaim =>
             {
-                apiClaim.ToTable(storeOptions.PlusApiClaim).HasKey(x => x.Id);
+                apiClaim.ToTable(storeOptions.ApiClaim).HasKey(x => x.Id);
 
                 apiClaim.Property(x => x.Type).HasMaxLength(200).IsRequired();
             });
 
-            modelBuilder.Entity<PlusApiScope>(apiScope =>
+            modelBuilder.Entity<ApiScope>(apiScope =>
             {
-                apiScope.ToTable(storeOptions.PlusApiScope).HasKey(x => x.Id);
+                apiScope.ToTable(storeOptions.ApiScope).HasKey(x => x.Id);
 
                 apiScope.Property(x => x.Name).HasMaxLength(200).IsRequired();
                 apiScope.Property(x => x.DisplayName).HasMaxLength(200);
@@ -226,16 +226,16 @@ namespace Plus.Infrastructure.IdentityServer.Core.Extensions
                 apiScope.HasMany(x => x.UserClaims).WithOne(x => x.ApiScope).HasForeignKey(x => x.ApiScopeId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<PlusApiScopeClaim>(apiScopeClaim =>
+            modelBuilder.Entity<ApiScopeClaim>(apiScopeClaim =>
             {
-                apiScopeClaim.ToTable(storeOptions.PlusApiScopeClaim).HasKey(x => x.Id);
+                apiScopeClaim.ToTable(storeOptions.ApiScopeClaim).HasKey(x => x.Id);
 
                 apiScopeClaim.Property(x => x.Type).HasMaxLength(200).IsRequired();
             });
 
-            modelBuilder.Entity<PlusApiResourceProperty>(property =>
+            modelBuilder.Entity<ApiResourceProperty>(property =>
             {
-                property.ToTable(storeOptions.PlusApiResourceProperty);
+                property.ToTable(storeOptions.ApiResourceProperty);
                 property.Property(x => x.Key).HasMaxLength(250).IsRequired();
                 property.Property(x => x.Value).HasMaxLength(2000).IsRequired();
             });

@@ -16,13 +16,13 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
 
     public class PlusDeviceFlowStore : IDeviceFlowStore
     {
-        private readonly IPersistedGrantDbContext _context;
+        private readonly IIdentityPersistedGrantDbContext _context;
         private readonly IPersistentGrantSerializer _serializer;
         private readonly ILogger _logger;
 
       
         public PlusDeviceFlowStore(
-            IPersistedGrantDbContext context, 
+            IIdentityPersistedGrantDbContext context, 
             IPersistentGrantSerializer serializer, 
             ILogger<PlusDeviceFlowStore> logger)
         {
@@ -34,7 +34,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
       
         public Task StoreDeviceAuthorizationAsync(string deviceCode, string userCode, DeviceCode data)
         {
-            _context.PlusDeviceFlowCodes.Add(ToEntity(data, deviceCode, userCode));
+            _context.DeviceFlowCodes.Add(ToEntity(data, deviceCode, userCode));
 
             _context.SaveChanges();
 
@@ -44,7 +44,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task<DeviceCode> FindByUserCodeAsync(string userCode)
         {
-            var deviceFlowCodes = _context.PlusDeviceFlowCodes.AsNoTracking().FirstOrDefault(x => x.UserCode == userCode);
+            var deviceFlowCodes = _context.DeviceFlowCodes.AsNoTracking().FirstOrDefault(x => x.UserCode == userCode);
             var model = ToModel(deviceFlowCodes?.Data);
 
             _logger.LogDebug("{userCode} found in database: {userCodeFound}", userCode, model != null);
@@ -55,7 +55,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task<DeviceCode> FindByDeviceCodeAsync(string deviceCode)
         {
-            var deviceFlowCodes = _context.PlusDeviceFlowCodes.AsNoTracking().FirstOrDefault(x => x.DeviceCode == deviceCode);
+            var deviceFlowCodes = _context.DeviceFlowCodes.AsNoTracking().FirstOrDefault(x => x.DeviceCode == deviceCode);
             var model = ToModel(deviceFlowCodes?.Data);
 
             _logger.LogDebug("{deviceCode} found in database: {deviceCodeFound}", deviceCode, model != null);
@@ -66,7 +66,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
       
         public Task UpdateByUserCodeAsync(string userCode, DeviceCode data)
         {
-            var existing = _context.PlusDeviceFlowCodes.SingleOrDefault(x => x.UserCode == userCode);
+            var existing = _context.DeviceFlowCodes.SingleOrDefault(x => x.UserCode == userCode);
             if (existing == null)
             {
                 _logger.LogError("{userCode} not found in database", userCode);
@@ -94,13 +94,13 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task RemoveByDeviceCodeAsync(string deviceCode)
         {
-            var deviceFlowCodes = _context.PlusDeviceFlowCodes.FirstOrDefault(x => x.DeviceCode == deviceCode);
+            var deviceFlowCodes = _context.DeviceFlowCodes.FirstOrDefault(x => x.DeviceCode == deviceCode);
 
             if(deviceFlowCodes != null)
             {
                 _logger.LogDebug("removing {deviceCode} device code from database", deviceCode);
 
-                _context.PlusDeviceFlowCodes.Remove(deviceFlowCodes);
+                _context.DeviceFlowCodes.Remove(deviceFlowCodes);
 
                 try
                 {
@@ -119,11 +119,11 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
             return Task.FromResult(0);
         }
 
-        private PlusDeviceFlowCodes ToEntity(DeviceCode model, string deviceCode, string userCode)
+        private DeviceFlowCodes ToEntity(DeviceCode model, string deviceCode, string userCode)
         {
             if (model == null || deviceCode == null || userCode == null) return null;
 
-            return new PlusDeviceFlowCodes
+            return new DeviceFlowCodes
             {
                 DeviceCode = deviceCode,
                 UserCode = userCode,

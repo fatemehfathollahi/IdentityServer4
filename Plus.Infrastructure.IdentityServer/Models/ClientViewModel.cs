@@ -10,10 +10,10 @@ namespace Plus.Infrastructure.IdentityServer.Models
     {
         public string ClientId { get; set; }
 
-        public List<PlusClientSecret> ClientSecrets { get; set; }
+        public List<ClientSecret> ClientSecrets { get; set; }
 
-        public List<PlusClientScope> AllowedScopes { get; set; }
+        public List<ClientScope> AllowedScopes { get; set; }
 
-        public List<PlusClientGrantType> AllowedGrantTypes { get; set; }
+        public List<ClientGrantType> AllowedGrantTypes { get; set; }
     }
 }

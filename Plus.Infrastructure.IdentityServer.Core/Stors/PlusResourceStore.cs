@@ -14,10 +14,10 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
 {
     public class PlusResourceStore : IResourceStore
     {
-        private readonly IConfigurationDbContext _context;
+        private readonly IIdentityConfigurationDbContext _context;
         private readonly ILogger<PlusResourceStore> _logger;
 
-        public PlusResourceStore(IConfigurationDbContext context, ILogger<PlusResourceStore> logger)
+        public PlusResourceStore(IIdentityConfigurationDbContext context, ILogger<PlusResourceStore> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger;
@@ -27,7 +27,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
         public Task<ApiResource> FindApiResourceAsync(string name)
         {
             var query =
-                from apiResource in _context.PlusApiResources
+                from apiResource in _context.ApiResources
                 where apiResource.Name == name
                 select apiResource;
 
@@ -63,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
             var names = scopeNames.ToArray();
 
             var query =
-                from api in _context.PlusApiResources
+                from api in _context.ApiResources
                 where api.Scopes.Where(x=>names.Contains(x.Name)).Any()
                 select api;
 
@@ -98,7 +98,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
             var scopes = scopeNames.ToArray();
 
             var query =
-                from identityResource in _context.PlusIdentityResources
+                from identityResource in _context.IdentityResources
                 where scopes.Contains(identityResource.Name)
                 select identityResource;
 
@@ -121,24 +121,35 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
 
         public Task<Resources> GetAllResourcesAsync()
         {
-            var identity = _context.PlusIdentityResources
-              .Include(x => x.UserClaims);
-
-            var apis = _context.PlusApiResources
-                .Include(x => x.Secrets)
-                .Include(x => x.Scopes)
-                    .ThenInclude(s => s.UserClaims)
-                .Include(x => x.UserClaims)
-                .Include(x => x.Properties)
-                .AsNoTracking();
-
-            //var result = new Resources(   TODO
-            //    identity.ToArray().Select(x => x.ToModel()).AsEnumerable(),
-            //    apis.ToArray().Select(x => x.ToModel()).AsEnumerable());
-
-            //_logger.LogDebug("Found {scopes} as all scopes in database", result.IdentityResources.Select(x=>x.Name).Union(result.ApiResources.SelectMany(x=>x.Scopes).Select(x=>x.Name)));
-
-            return null;//Task.FromResult(result);
+            throw new NotImplementedException();
         }
+
+        //public Task<Resources> GetAllResourcesAsync()
+        //{
+        //    var identity = _context.IdentityResources
+        //      .Include(x => x.UserClaims);
+
+        //    var apiScope = _context.ApiScops
+        //      .Include(x => x.UserClaims);
+
+        //    var apis = _context.ApiResources
+        //        .Include(x => x.Secrets)
+        //        .Include(x => x.Scopes)
+        //            .ThenInclude(s => s.UserClaims)
+        //        .Include(x => x.UserClaims)
+        //        .Include(x => x.Properties)
+        //        .AsNoTracking();
+
+
+
+        //    var result = new Resources(
+        //        identity.ToArray().Select(x => x.ToModel()).AsEnumerable(),
+        //        apiScope.ToArray().Select(x => x.ToModel()).AsEnumerable(),
+        //        apis.ToArray().Select(x => x.ToModel()).AsEnumerable());
+
+        //    _logger.LogDebug("Found {scopes} as all scopes in database", result.IdentityResources.Select(x => x.Name).Union(result.ApiResources.SelectMany(x => x.Scopes).Select(x => x.Name)));
+
+        //    return Task.FromResult(result);
+        //}
     }
 }

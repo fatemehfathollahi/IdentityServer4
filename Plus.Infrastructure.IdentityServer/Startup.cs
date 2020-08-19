@@ -14,7 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Plus.Infrastructure.Core.Domain.Model;
 using Plus.Infrastructure.Core.Domain.Service;
 using Plus.Infrastructure.Domain.DataAccess.DataContext;
+using Plus.Infrastructure.IdentityServer.Core.DataAccess;
+using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
+using Plus.Infrastructure.IdentityServer.Core.Options;
 using Plus.Infrastructure.IdentityServer.Core.Service;
+using Septa.PayamGostar.CommonLayer.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -82,7 +86,36 @@ namespace Plus.Infrastructure.IdentityServer
                .AddAspNetIdentity<ApplicationUser>()
                .AddConfigurationStore<PlusConfigurationDbContext>();
 
-            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+
+            #region MyConfigure
+
+              services.AddDbContext<IdentityConfigurationDbContext>();
+
+              services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
+
+              services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
+
+
+            //var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            //var connectionString = "Data source=.;Initial Catalog=Payamgostar3;User ID=payamgostardba;Password=12345";//Configuration.GetConnectionString("db");
+
+            //services.AddOperationalDbContext(options =>
+            //{
+            //    options.ConfigureDbContext = b =>
+            //        b.UseSqlServer(connectionString, dbOpts => dbOpts.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+            //});
+
+            //services.AddConfigurationDbContext(options =>
+            //{
+            //    options.ConfigureDbContext = b =>
+            //        b.UseSqlServer(connectionString, dbOpts => dbOpts.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+            //});
+
+            #endregion
+
+
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                      .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => configuration.Bind(Constant.JwtSettingsName, options))

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccess\DataContext\PlusIdentityOperationalDbContext.cs" />
+    <Compile Remove="Migrations\20200818141428_migratedplus.cs" />
+    <Compile Remove="Migrations\20200818141428_migratedplus.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="IdentityServer4.Storage" Version="4.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />

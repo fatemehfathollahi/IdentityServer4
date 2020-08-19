@@ -46,7 +46,7 @@ namespace Plus.Infrastructure.IdentityServer
                     {
                         foreach (var resource in Config.IdentityResources)
                         {
-                            context.IdentityResources.Add(resource.ToEntity());
+                           context.IdentityResources.Add(resource.ToEntity());
                         }
                         context.SaveChanges();
                     }

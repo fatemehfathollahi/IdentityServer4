@@ -9,6 +9,6 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface  IPlusIdentityResourceService
     {
-        Task<IdentityResource> CreateAsync(PlusIdentityResource identityResource);
+        Task<IdentityServer4.Models.IdentityResource> CreateAsync(Models.IdentityResource identityResource);
     }
 }

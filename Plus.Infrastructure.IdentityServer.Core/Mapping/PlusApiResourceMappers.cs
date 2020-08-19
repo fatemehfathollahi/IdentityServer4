@@ -16,15 +16,15 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
 
         internal static IMapper Mapper { get; }
        
-        public static ApiResource ToModel(this PlusApiResource entity)
+        public static IdentityServer4.Models.ApiResource ToModel(this Domain.Models.ApiResource entity)
         {
-            return entity == null ? null : Mapper.Map<ApiResource>(entity);
+            return entity == null ? null : Mapper.Map<IdentityServer4.Models.ApiResource>(entity);
         }
 
        
-        public static PlusApiResource ToEntity(this ApiResource model)
+        public static Domain.Models.ApiResource ToEntity(this IdentityServer4.Models.ApiResource model)
         {
-            return model == null ? null : Mapper.Map<PlusApiResource>(model);
+            return model == null ? null : Mapper.Map<Domain.Models.ApiResource>(model);
         }
     }
 
@@ -33,28 +33,28 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
       
         public ApiResourceMapperProfile()
         {
-            CreateMap<PlusApiResourceProperty, KeyValuePair<string, string>>()
+            CreateMap<ApiResourceProperty, KeyValuePair<string, string>>()
                 .ReverseMap();
 
-            CreateMap<PlusApiResource, ApiResource>(MemberList.Destination)
-                .ConstructUsing(src => new ApiResource())
+            CreateMap<Domain.Models.ApiResource, IdentityServer4.Models.ApiResource>(MemberList.Destination)
+                .ConstructUsing(src => new IdentityServer4.Models.ApiResource())
                 .ForMember(x => x.ApiSecrets, opts => opts.MapFrom(x => x.Secrets))
                 .ReverseMap();
 
-            CreateMap<PlusApiResourceClaim, string>()
+            CreateMap<Domain.Models.ApiResourceClaim, string>()
                 .ConstructUsing(x => x.Type)
                 .ReverseMap()
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
 
-            CreateMap<PlusApiSecret, Secret>(MemberList.Destination)
+            CreateMap<Domain.Models.ApiSecret, IdentityServer4.Models.Secret>(MemberList.Destination)
                 .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null))
                 .ReverseMap();
 
-            CreateMap<PlusApiScope, ApiScope>(MemberList.Destination)
-                .ConstructUsing(src => new ApiScope())
+            CreateMap<Domain.Models.ApiScope, IdentityServer4.Models.ApiScope>(MemberList.Destination)
+                .ConstructUsing(src => new IdentityServer4.Models.ApiScope())
                 .ReverseMap();
 
-            CreateMap<PlusApiScopeClaim, string>()
+            CreateMap<Domain.Models.ApiScopeClaim, string>()
                .ConstructUsing(x => x.Type)
                .ReverseMap()
                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));

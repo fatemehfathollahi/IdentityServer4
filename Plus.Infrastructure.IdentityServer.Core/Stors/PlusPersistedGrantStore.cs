@@ -14,11 +14,11 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
    
     public class PlusPersistedGrantStore : IPersistedGrantStore
     {
-        private readonly IPersistedGrantDbContext _context;
+        private readonly IIdentityPersistedGrantDbContext _context;
         private readonly ILogger _logger;
 
         
-        public PlusPersistedGrantStore(IPersistedGrantDbContext context, ILogger<PlusPersistedGrantStore> logger)
+        public PlusPersistedGrantStore(IIdentityPersistedGrantDbContext context, ILogger<PlusPersistedGrantStore> logger)
         {
             _context = context;
             _logger = logger;
@@ -27,13 +27,13 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task StoreAsync(PersistedGrant token)
         {
-            var existing = _context.PlusPersistedGrants.SingleOrDefault(x => x.Key == token.Key);
+            var existing = _context.PersistedGrants.SingleOrDefault(x => x.Key == token.Key);
             if (existing == null)
             {
                 _logger.LogDebug("{persistedGrantKey} not found in database", token.Key);
 
                 var persistedGrant = token.ToEntity();
-                _context.PlusPersistedGrants.Add(persistedGrant);
+                _context.PersistedGrants.Add(persistedGrant);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
       
         public Task<PersistedGrant> GetAsync(string key)
         {
-            var persistedGrant = _context.PlusPersistedGrants.AsNoTracking().FirstOrDefault(x => x.Key == key);
+            var persistedGrant = _context.PersistedGrants.AsNoTracking().FirstOrDefault(x => x.Key == key);
             var model = persistedGrant?.ToModel();
 
             _logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, model != null);
@@ -68,7 +68,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task<IEnumerable<PersistedGrant>> GetAllAsync(string subjectId)
         {
-            var persistedGrants = _context.PlusPersistedGrants.Where(x => x.SubjectId == subjectId).AsNoTracking().ToList();
+            var persistedGrants = _context.PersistedGrants.Where(x => x.SubjectId == subjectId).AsNoTracking().ToList();
             var model = persistedGrants.Select(x => x.ToModel());
 
             _logger.LogDebug("{persistedGrantCount} persisted grants found for {subjectId}", persistedGrants.Count, subjectId);
@@ -79,12 +79,12 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
         
         public Task RemoveAsync(string key)
         {
-            var persistedGrant = _context.PlusPersistedGrants.FirstOrDefault(x => x.Key == key);
+            var persistedGrant = _context.PersistedGrants.FirstOrDefault(x => x.Key == key);
             if (persistedGrant!= null)
             {
                 _logger.LogDebug("removing {persistedGrantKey} persisted grant from database", key);
 
-                _context.PlusPersistedGrants.Remove(persistedGrant);
+                _context.PersistedGrants.Remove(persistedGrant);
 
                 try
                 {
@@ -106,11 +106,11 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
       
         public Task RemoveAllAsync(string subjectId, string clientId)
         {
-            var persistedGrants = _context.PlusPersistedGrants.Where(x => x.SubjectId == subjectId && x.ClientId == clientId).ToList();
+            var persistedGrants = _context.PersistedGrants.Where(x => x.SubjectId == subjectId && x.ClientId == clientId).ToList();
 
             _logger.LogDebug("removing {persistedGrantCount} persisted grants from database for subject {subjectId}, clientId {clientId}", persistedGrants.Count, subjectId, clientId);
 
-            _context.PlusPersistedGrants.RemoveRange(persistedGrants);
+            _context.PersistedGrants.RemoveRange(persistedGrants);
 
             try
             {
@@ -127,14 +127,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
        
         public Task RemoveAllAsync(string subjectId, string clientId, string type)
         {
-            var persistedGrants = _context.PlusPersistedGrants.Where(x =>
+            var persistedGrants = _context.PersistedGrants.Where(x =>
                 x.SubjectId == subjectId &&
                 x.ClientId == clientId &&
                 x.Type == type).ToList();
 
             _logger.LogDebug("removing {persistedGrantCount} persisted grants from database for subject {subjectId}, clientId {clientId}, grantType {persistedGrantType}", persistedGrants.Count, subjectId, clientId, type);
 
-            _context.PlusPersistedGrants.RemoveRange(persistedGrants);
+            _context.PersistedGrants.RemoveRange(persistedGrants);
 
             try
             {

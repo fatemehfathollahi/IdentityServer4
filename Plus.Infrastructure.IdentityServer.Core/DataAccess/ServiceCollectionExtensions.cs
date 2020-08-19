@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Plus.Infrastructure.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
 using Plus.Infrastructure.IdentityServer.Core.Options;
 using System;
@@ -9,24 +10,25 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Plus.Infrastructure.IdentityServer.Core.DataAccess // DL.Data.ConfigurationStore.EfCore.Extentions//
+namespace Plus.Infrastructure.IdentityServer.Core.DataAccess 
 /// <summary>
 {   /// Extension methods to add EF database support to IdentityServer.
     /// </summary>
     public static class IdentityServerBuilderExtensions
     {
+      
         public static IServiceCollection AddConfigurationDbContext(this IServiceCollection services,
-            Action<ConfigurationStoreOptions> storeOptionsAction = null)
+            Action<IdentityConfigurationStoreOptions> storeOptionsAction = null)
         {
-            return services.AddConfigurationDbContext<ConfigurationDbContext>(storeOptionsAction);
+            return services.AddConfigurationDbContext<IdentityConfigurationDbContext>(storeOptionsAction);
         }
 
-
         public static IServiceCollection AddConfigurationDbContext<TContext>(this IServiceCollection services,
-        Action<ConfigurationStoreOptions> storeOptionsAction = null)
-        where TContext : DbContext, IConfigurationDbContext
+        Action<IdentityConfigurationStoreOptions> storeOptionsAction = null)
+        where TContext : DbContext, IIdentityConfigurationDbContext
         {
-            var options = new ConfigurationStoreOptions();
+            var options = new IdentityConfigurationStoreOptions();
+
             services.AddSingleton(options);
             storeOptionsAction?.Invoke(options);
 
@@ -41,24 +43,24 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess // DL.Data.Configur
                     options.ConfigureDbContext?.Invoke(dbCtxBuilder);
                 });
             }
-            services.AddScoped<IConfigurationDbContext, TContext>();
+            services.AddScoped<IIdentityConfigurationDbContext, TContext>();
 
             return services;
         }
 
 
         public static IServiceCollection AddOperationalDbContext(this IServiceCollection services,
-            Action<OperationalStoreOptions> storeOptionsAction = null)
+            Action<IdentityOperationalStoreOptions> storeOptionsAction = null)
         {
-            return services.AddOperationalDbContext<PersistedGrantDbContext>(storeOptionsAction);
+            return services.AddOperationalDbContext<IdentityPersistedGrantDbContext>(storeOptionsAction);
         }
 
 
         public static IServiceCollection AddOperationalDbContext<TContext>(this IServiceCollection services,
-            Action<OperationalStoreOptions> storeOptionsAction = null)
-            where TContext : DbContext, IPersistedGrantDbContext
+            Action<IdentityOperationalStoreOptions> storeOptionsAction = null)
+            where TContext : DbContext, IIdentityPersistedGrantDbContext
         {
-            var storeOptions = new OperationalStoreOptions();
+            var storeOptions = new IdentityOperationalStoreOptions();
             services.AddSingleton(storeOptions);
             storeOptionsAction?.Invoke(storeOptions);
 
@@ -74,11 +76,12 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess // DL.Data.Configur
                 });
             }
 
-            services.AddScoped<IPersistedGrantDbContext, TContext>();
+            services.AddScoped<IIdentityPersistedGrantDbContext, TContext>();
             // services.AddSingleton<TokenCleanup>();
 
             return services;
         }
+
 
 
         //public static IServiceCollection AddOperationalStoreNotification<T>(this IServiceCollection services)
@@ -89,35 +92,21 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess // DL.Data.Configur
         //}
 
 
-        //public static IIdentityServerBuilder AddEFConfigurationStore(
-        //     this IIdentityServerBuilder builder, IDomainService domainService)
+        //public static IIdentityServerBuilder AddEFConfigurationStore<TContext>(
+        //     this IIdentityServerBuilder builder)
+        //    where TContext : DbContext, IIdentityConfigurationDbContext
         //{
-        //    domainService = domainService;
-        //    string assemblyNamespace = typeof(Core.DataAccess.IdentityServerBuilderExtensions).GetTypeInfo()
+        //    Type typeParameterType = typeof(TContext);
+        //  var _domainService =  typeParameterType.GetField("domainService");
+
+        //    string assemblyNamespace = typeof(IdentityServerBuilderExtensions).GetTypeInfo()
         //        .Assembly
         //        .GetName()
         //        .Name;
         //    builder.AddConfigurationStore(options =>
-        //    options.ConfigureDbContext = b => b.UseSqlServer(domainService.GetDomainInfo().ConnectionString, optionsBuilder =>
+        //    options.ConfigureDbContext = b => b.UseSqlServer(((IDomainService)_domainService).GetDomainInfo().ConnectionString, optionsBuilder =>
         //         optionsBuilder.MigrationsAssembly(assemblyNamespace)));
         //    return builder;
         //}
-
-
-
-        //public static IdentityServerBuilderExtensions AddEfConfigurationStore<TContext>(
-        //    this IdentityServerBuilderExtensions builder,
-        //    Action<Core.Options.ConfigurationStoreOptions> storeOptionsAction = null)
-        //    where TContext : DbContext, Core.DataAccess.DataContext.IConfigurationDbContext
-        //{
-        //    builder.AddConfigurationDbContext<TContext>(storeOptionsAction);
-
-        //    //builder.AddClientStore<ClientStore>();
-        //    //builder.AddResourceStore<ResourceStore>();
-        //    //builder.AddCorsPolicyService<CorsPolicyService>();
-
-        //    return builder;
-        //}
-
     }
 }

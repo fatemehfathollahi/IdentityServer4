@@ -17,14 +17,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
         internal static IMapper Mapper { get; }
 
        
-        public static IdentityResource ToModel(this PlusIdentityResource entity)
+        public static IdentityServer4.Models.IdentityResource ToModel(this Domain.Models.IdentityResource entity)
         {
-            return entity == null ? null : Mapper.Map<IdentityResource>(entity);
+            return entity == null ? null : Mapper.Map<IdentityServer4.Models.IdentityResource>(entity);
         }
       
-        public static PlusIdentityResource ToEntity(this IdentityResource model)
+        public static Domain.Models.IdentityResource ToEntity(this IdentityServer4.Models.IdentityResource model)
         {
-            return model == null ? null : Mapper.Map<PlusIdentityResource>(model);
+            return model == null ? null : Mapper.Map<Domain.Models.IdentityResource>(model);
         }
     }
 
@@ -32,14 +32,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     {
         public IdentityResourceMapperProfile()
         {
-            CreateMap<PlusIdentityResourceProperty, KeyValuePair<string, string>>()
+            CreateMap<Domain.Models.IdentityResourceProperty, KeyValuePair<string, string>>()
                 .ReverseMap();
 
-            CreateMap<PlusIdentityResource, IdentityResource>(MemberList.Destination)
-                .ConstructUsing(src => new IdentityResource())
+            CreateMap<Domain.Models.IdentityResource, IdentityServer4.Models.IdentityResource>(MemberList.Destination)
+                .ConstructUsing(src => new IdentityServer4.Models.IdentityResource())
                 .ReverseMap();
 
-            CreateMap<PlusIdentityClaim, string>()
+            CreateMap<Domain.Models.IdentityClaim, string>()
                .ConstructUsing(x => x.Type)
                .ReverseMap()
                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
