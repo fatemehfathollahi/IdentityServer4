@@ -4,12 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Client = Plus.Infrastructure.IdentityServer.Core.Domain.Models.Client;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusClientService
     {
-        Task<IdentityServer4.Models.Client> CreateAsync(Models.Client client);
+        Client Insert(Client client);
+        bool UpdateClient(Client client);
+        Client GetByClientId(string clientId);
+        IEnumerable<Client> GetAll();
 
     }
 }

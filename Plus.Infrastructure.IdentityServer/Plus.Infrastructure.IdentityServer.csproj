@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Plus.Infrastructure.Core" Version="1.0.0" />
     <PackageReference Include="Plus.Infrastructure.Domain" Version="1.0.0" />
     <PackageReference Include="Scrutor" Version="3.2.1" />

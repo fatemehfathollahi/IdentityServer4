@@ -20,20 +20,35 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
     /// This controller processes the client UI
     /// </summary>
     [SecurityHeaders]
-    [Authorize]
+    [AllowAnonymous]
     public class ClientController : Controller
     {
         private readonly ILogger<ClientController> _logger;
-        private readonly IPlusClientService _clients;
+        //private readonly IPlusClientService _clientService;
 
-        public ClientController(IPlusClientService clients,
+        public ClientController(//IPlusClientService clientService,
             ILogger<ClientController> logger)
         {
-            _clients = clients;
+           // _clientService = clientService;
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+           // var _allClient = _clientService.GetAll();
 
-      
+            var vm = new List<ClientViewModel>();
+            //_allClient.ToList().ForEach(client => vm.Add(new ClientViewModel
+            //{
+            //    ClientId = client.ClientId,
+            //   // AllowedScopes = client.AllowedScopes,
+            //  //  AllowedGrantTypes = client.AllowedGrantTypes,
+
+            //})); 
+            
+            return View("AllClient", vm);
+        }
+
     }
 }

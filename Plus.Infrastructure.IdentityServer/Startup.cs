@@ -74,6 +74,8 @@ namespace Plus.Infrastructure.IdentityServer
                 .AddSignInManager<PlusSignInManager>()
                 .AddDefaultTokenProviders();
 
+            
+
             services
                 .AddIdentityServer(options =>
                 {
@@ -90,11 +92,11 @@ namespace Plus.Infrastructure.IdentityServer
 
             #region MyConfigure
 
-              services.AddDbContext<IdentityConfigurationDbContext>();
+           //   services.AddDbContext<IdentityConfigurationDbContext>();
 
-              services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
+             //services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
 
-              services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
+             // services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
 
 
             //var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
