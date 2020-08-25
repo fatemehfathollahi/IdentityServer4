@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Plus.Infrastructure.IdentityServer.Models.IdentityResourceViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>IdentityResource List</h1>
+<hr />
+
+<a class="btn btn-sm btn-primary" asp-action="Create" asp-controller="IdentityResource">Create</a>
+
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table table-hover data-table small" data-order-col="8" data-order-dir="asc" data-index="false">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>DisplayName</th>
+                    <th>Description</th>
+                    <th>Enabled</th>
+                    <th>Emphasize</th>
+                    <th>Required</th>
+                    <th>ShowInDiscoveryDocument</th>
+                    <th>NonEditable</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.DisplayName
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Enabled
+                    </td>
+                    <td>
+                        @item.Emphasize
+                    </td>
+                    <td>
+                        @item.Required
+                    </td>
+                    <td>
+                        @item.ShowInDiscoveryDocument
+                    </td>
+                    <td>
+                        @item.NonEditable
+                    </td>
+                    <td>
+                        @item.Created.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Updated
+                    </td>
+                    <td class="text-center action-cell">
+                        <a class="action-link hover-primary" asp-action="Edit"
+                           asp-controller="IdentityResource"
+                           asp-route-id="@item.Id">ٍEdit</a>
+                        <span></span>
+                        <a class="action-link hover-primary" asp-action="Delete"
+                           asp-controller="IdentityResource"
+                           asp-route-id="@item.Id">ٍDelete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

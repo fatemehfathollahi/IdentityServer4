@@ -1,0 +1,76 @@
+﻿@model Plus.Infrastructure.IdentityServer.Models.AddEditIdentityResourceViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create IdentiyResource</h1>
+<hr />
+
+<partial name="_ValidationSummary" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DisplayName" class="control-label"></label>
+                <input asp-for="DisplayName" class="form-control" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input asp-for="Enabled" type="checkbox" class="form-check-input" />
+                <label asp-for="Enabled" class="form-check-label"></label>
+                 <span asp-validation-for="Enabled" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input asp-for="Required" type="checkbox" class="form-check-input" />
+                <label asp-for="Required" class="form-check-label"></label>
+                <span asp-validation-for="Required" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input asp-for="Emphasize" type="checkbox" class="form-check-input" />
+                <label asp-for="Emphasize" class="form-check-label"></label>
+                <span asp-validation-for="Emphasize" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input asp-for="ShowInDiscoveryDocument" type="checkbox" class="form-check-input" />
+                <label asp-for="ShowInDiscoveryDocument" class="form-check-label"></label>
+                <span asp-validation-for="ShowInDiscoveryDocument" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <input asp-for="NonEditable" type="checkbox" class="form-check-input" />
+                <label asp-for="NonEditable" class="form-check-label"></label>
+                <span asp-validation-for="NonEditable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Created" class="control-label"></label>
+                <input asp-for="Created" type="date" class="form-control" />
+                <span asp-validation-for="Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Updated" class="control-label"></label>
+                <input asp-for="Updated" type="date" class="form-control" />
+                <span asp-validation-for="Updated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

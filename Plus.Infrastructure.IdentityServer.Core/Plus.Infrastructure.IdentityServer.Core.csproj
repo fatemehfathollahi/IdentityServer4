@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="DataAccess\DataContext\PlusIdentityOperationalDbContext.cs" />
-    <Compile Remove="Migrations\20200818141428_migratedplus.cs" />
-    <Compile Remove="Migrations\20200818141428_migratedplus.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +13,7 @@
     <PackageReference Include="IdentityServer4.EntityFramework" Version="4.0.4" />
     <PackageReference Include="IdentityServer4.Storage" Version="4.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />

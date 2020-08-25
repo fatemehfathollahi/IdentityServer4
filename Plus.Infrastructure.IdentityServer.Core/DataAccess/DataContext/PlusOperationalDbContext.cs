@@ -3,7 +3,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Plus.Infrastructure.Core.Domain.Service;
 
-namespace Plus.Infrastructure.IdentityServer
+namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
 {
     public class PlusOperationalDbContext : PersistedGrantDbContext
     {

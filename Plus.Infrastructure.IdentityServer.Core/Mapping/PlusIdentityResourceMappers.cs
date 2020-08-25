@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using IdentityServer4.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
+using Entities = IdentityServer4.EntityFramework.Entities;
 using System.Collections.Generic;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Mapping
@@ -17,14 +17,20 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
         internal static IMapper Mapper { get; }
 
        
-        public static IdentityServer4.Models.IdentityResource ToModel(this Domain.Models.IdentityResource entity)
+        public static Entities.IdentityResource ToEntity(this IdentityResource model)
         {
-            return entity == null ? null : Mapper.Map<IdentityServer4.Models.IdentityResource>(entity);
+            return model == null ? null : Mapper.Map<Entities.IdentityResource>(model);
         }
       
-        public static Domain.Models.IdentityResource ToEntity(this IdentityServer4.Models.IdentityResource model)
+        public static IdentityResource ToModel(this Entities.IdentityResource entity)
         {
-            return model == null ? null : Mapper.Map<Domain.Models.IdentityResource>(model);
+            return entity == null ? null : Mapper.Map<IdentityResource>(entity);
+        }
+
+        public static IEnumerable<IdentityResource> ToModel(this IEnumerable<Entities.IdentityResource> entities)
+        {
+            var modelList = entities == null ? null : Mapper.Map<IEnumerable<IdentityResource>>(entities);
+            return modelList;
         }
     }
 
@@ -32,14 +38,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     {
         public IdentityResourceMapperProfile()
         {
-            CreateMap<Domain.Models.IdentityResourceProperty, KeyValuePair<string, string>>()
+            CreateMap<IdentityResourceProperty, KeyValuePair<string, string>>()
                 .ReverseMap();
 
-            CreateMap<Domain.Models.IdentityResource, IdentityServer4.Models.IdentityResource>(MemberList.Destination)
-                .ConstructUsing(src => new IdentityServer4.Models.IdentityResource())
+            CreateMap<IdentityResource, Entities.IdentityResource>(MemberList.Destination)
+                .ConstructUsing(src => new Entities.IdentityResource())
                 .ReverseMap();
 
-            CreateMap<Domain.Models.IdentityClaim, string>()
+            CreateMap<IdentityClaim, string>()
                .ConstructUsing(x => x.Type)
                .ReverseMap()
                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));

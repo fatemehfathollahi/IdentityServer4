@@ -20,5 +20,4 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Models
         public DateTime? Updated { get; set; }
         public bool NonEditable { get; set; }
     }
-
 }

@@ -16,8 +16,12 @@ using Plus.Infrastructure.Core.Domain.Service;
 using Plus.Infrastructure.Domain.DataAccess.DataContext;
 using Plus.Infrastructure.IdentityServer.Core.DataAccess;
 using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
+using Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository;
+using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
+using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Core.Options;
 using Plus.Infrastructure.IdentityServer.Core.Service;
+using Plus.Infrastructure.IdentityServer.Core.Stors;
 using Septa.PayamGostar.CommonLayer.Core;
 using System;
 using System.Collections.Generic;
@@ -44,6 +48,7 @@ namespace Plus.Infrastructure.IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             var dependencyRegistrars = GetAllClasses<IDependencyRegistrar>().Select(x => Activator.CreateInstance(x) as IDependencyRegistrar);
 
@@ -62,9 +67,16 @@ namespace Plus.Infrastructure.IdentityServer
             services.AddTransient<DbContextOptions<ConfigurationDbContext>>();
             services.AddTransient<DbContextOptions<PersistedGrantDbContext>>();
 
+           
+
             services.AddDbContext<PlusDataContext>();
             services.AddDbContext<PlusConfigurationDbContext>();
             services.AddDbContext<PlusOperationalDbContext>();
+
+            services.AddScoped<IPlusClientRepository, PlusClientRepository>();
+            services.AddScoped<IPlusClientService, PlusClientService>();
+            services.AddScoped<IPlusIdentityResourceRepository, PlusIdentityResourceRepository>();
+            services.AddScoped<IPlusIdentityResourceService, PlusIdentityResourceService>();
 
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>()
@@ -75,7 +87,7 @@ namespace Plus.Infrastructure.IdentityServer
                 .AddDefaultTokenProviders();
 
             
-
+            
             services
                 .AddIdentityServer(options =>
                 {
@@ -84,19 +96,21 @@ namespace Plus.Infrastructure.IdentityServer
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
+              //  .AddClientStore<PlusClientStore>()
                .AddSigningCredential(IdentityServerHelper.GetCertificate2(webHostEnvironment))
                .AddAspNetIdentity<ApplicationUser>()
                .AddConfigurationStore<PlusConfigurationDbContext>();
 
 
+           
 
             #region MyConfigure
 
-           //   services.AddDbContext<IdentityConfigurationDbContext>();
+            //   services.AddDbContext<IdentityConfigurationDbContext>();
 
-             //services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
+            //services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
 
-             // services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
+            // services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
 
 
             //var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;

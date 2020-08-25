@@ -1,10 +1,5 @@
-﻿using IdentityServer4.Models;
-using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Client = Plus.Infrastructure.IdentityServer.Core.Domain.Models.Client;
+﻿using System.Collections.Generic;
+using  Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {

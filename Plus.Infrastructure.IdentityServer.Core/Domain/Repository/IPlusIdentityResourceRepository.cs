@@ -2,15 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
+namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface  IPlusIdentityResourceService
+    public interface IPlusIdentityResourceRepository
     {
         void Insert(IdentityResource identityResource);
+
         void Update(IdentityResource identityResource);
+
         IdentityResource GetById(int id);
+
         IEnumerable<IdentityResource> GetAll();
     }
 }

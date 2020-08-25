@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IdentityServer4.Models;
-using IdentityServer4.Stores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
@@ -14,7 +12,7 @@ using Plus.Infrastructure.IdentityServer.Core.Mapping;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Stors
 {
-    public class PlusClientStore : IClientStore
+    public class PlusClientStore //: IClientStore
     {
         private readonly IPlusClientService clientService;
        // private readonly IIdentityConfigurationDbContext _context;
@@ -39,14 +37,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Stors
         //    return Task.FromResult(model);
         //}
 
-        public Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
-        {
-            var _client = clientService.GetByClientId(clientId);
-            var model = _client?.ToModel();
-            _logger.LogDebug("{clientId} found in database: {clientIdFound}", clientId, model != null);
+        //public Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
+        //{
+        //    var _client = clientService.GetByClientId(clientId);
+        //    var model = _client?.ToModel();
+        //    _logger.LogDebug("{clientId} found in database: {clientIdFound}", clientId, model != null);
 
-            return Task.FromResult(model);
-        }
+        //    return Task.FromResult(model);
+        //}
 
         //public Task<IdentityServer4.Models.Client> FindClientByIdAsync(string clientId)
         //{

@@ -24,19 +24,19 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
     public class ClientController : Controller
     {
         private readonly ILogger<ClientController> _logger;
-        //private readonly IPlusClientService _clientService;
+        private readonly IPlusClientService _clientService;
 
-        public ClientController(//IPlusClientService clientService,
+        public ClientController(IPlusClientService clientService,
             ILogger<ClientController> logger)
         {
-           // _clientService = clientService;
+            _clientService = clientService;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           // var _allClient = _clientService.GetAll();
+            var _allClient = _clientService.GetAll();
 
             var vm = new List<ClientViewModel>();
             //_allClient.ToList().ForEach(client => vm.Add(new ClientViewModel
@@ -47,7 +47,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
 
             //})); 
             
-            return View("AllClient", vm);
+            return View("Index", vm);
         }
 
     }
