@@ -7,38 +7,39 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Service
 {
-    public class PlusIdentityResourceService : IPlusIdentityResourceService,IDisposable
+    public class PlusIdentityResourceService : IPlusIdentityResourceService
     {
-        private readonly IPlusIdentityResourceRepository identityResourceRepository;
+        private readonly IPlusIdentityResourceRepository _identityResourceRepository;
 
         public PlusIdentityResourceService(IPlusIdentityResourceRepository identityResourceRepository)
         {
-            this.identityResourceRepository = identityResourceRepository;
+            _identityResourceRepository = identityResourceRepository;
         }
 
-        public void Dispose()
-        {
-
-        }
 
         public IEnumerable<IdentityResource> GetAll()
         {
-           return identityResourceRepository.GetAll();
+           return _identityResourceRepository.GetAll();
         }
 
         public IdentityResource GetById(int id)
         {
-           return identityResourceRepository.GetById(id);
+           return _identityResourceRepository.GetById(id);
         }
 
         public void Insert(IdentityResource identityResource)
         {
-            identityResourceRepository.Insert(identityResource);
+            _identityResourceRepository.Insert(identityResource);
         }
 
         public void Update(IdentityResource identityResource)
         {
-            identityResourceRepository.Update(identityResource);
+            _identityResourceRepository.Update(identityResource);
         }
+        public void Delete(int id)
+        {
+            _identityResourceRepository.Delete(id);
+        }
+
     }
 }

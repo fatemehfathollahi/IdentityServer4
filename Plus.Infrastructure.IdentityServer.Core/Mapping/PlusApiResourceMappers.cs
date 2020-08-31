@@ -39,7 +39,8 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
       
         public ApiResourceMapperProfile()
         {
-            CreateMap<ApiResourceProperty, KeyValuePair<string, string>>()
+            CreateMap<ApiResourceProperty, Entities.ApiResourceProperty>(MemberList.Destination)
+                .ConstructUsing(src => new Entities.ApiResourceProperty())
                 .ReverseMap();
 
             CreateMap<ApiResource, Entities.ApiResource>(MemberList.Destination)
@@ -47,23 +48,18 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
                 .ForMember(x => x.Secrets, opts => opts.MapFrom(x => x.Secrets))
                 .ReverseMap();
 
-            CreateMap<ApiResourceClaim, string>()
-                .ConstructUsing(x => x.Type)
-                .ReverseMap()
-                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
-
-            CreateMap<ApiSecret, Entities.Secret>(MemberList.Destination)
+            CreateMap<ApiResourceClaim, Entities.ApiResourceClaim>(MemberList.Destination)
                 .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null))
                 .ReverseMap();
 
-            CreateMap<ApiScope, Entities.ApiScope>(MemberList.Destination)
-                .ConstructUsing(src => new Entities.ApiScope())
+            CreateMap<ApiResourceSecret, Entities.ApiResourceSecret>(MemberList.Destination)
+                .ForMember(dest => dest.Type, opt => opt.Condition(srs => srs != null))
                 .ReverseMap();
 
-            CreateMap<ApiScopeClaim, string>()
-               .ConstructUsing(x => x.Type)
-               .ReverseMap()
-               .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
+            CreateMap<ApiResourceScope, Entities.ApiResourceScope>(MemberList.Destination)
+                .ConstructUsing(src => new Entities.ApiResourceScope())
+                .ReverseMap();
+
         }
     }
 }

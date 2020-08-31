@@ -77,6 +77,18 @@ namespace Plus.Infrastructure.IdentityServer
             services.AddScoped<IPlusClientService, PlusClientService>();
             services.AddScoped<IPlusIdentityResourceRepository, PlusIdentityResourceRepository>();
             services.AddScoped<IPlusIdentityResourceService, PlusIdentityResourceService>();
+            services.AddScoped<IPlusApiResourceRepository, PlusApiResourceRepository>();
+            services.AddScoped<IPlusApiResourceService, PlusApiResourceService>();
+            services.AddScoped<IPlusApiResourceScopeRepository, PlusApiResourceScopeRepository>();
+            services.AddScoped<IPlusApiResourceScopeService, PlusApiResourceScopeService>();
+            services.AddScoped<IPlusApiResourceSecretRepository, PlusApiResourceSecretRepository>();
+            services.AddScoped<IPlusApiResourceSecretService, PlusApiResourceSecretService>();
+            services.AddScoped<IPlusApiResourceClaimRepository, PlusApiResourceClaimRepository>();
+            services.AddScoped<IPlusApiResourceClaimService, PlusApiResourceClaimService>();
+            services.AddScoped<IPlusApiResourcePropertyRepository, PlusApiResourcePropertyRepository>();
+            services.AddScoped<IPlusApiResourcePropertyService, PlusApiResourcePropertyService>();
+
+
 
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>()
@@ -181,6 +193,7 @@ namespace Plus.Infrastructure.IdentityServer
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "login",
                     pattern: "{controller=Account}/{action=Login}");

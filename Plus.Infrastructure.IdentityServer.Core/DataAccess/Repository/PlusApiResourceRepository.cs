@@ -10,50 +10,49 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
-    public class PlusIdentityResourceRepository : IPlusIdentityResourceRepository
+    public class PlusApiResourceRepository : IPlusApiResourceRepository
     {
         private readonly PlusConfigurationDbContext _plusDataContext;
-        public PlusIdentityResourceRepository(PlusConfigurationDbContext plusDataContext)
+        public PlusApiResourceRepository(PlusConfigurationDbContext plusDataContext)
         {
             _plusDataContext = plusDataContext;
         }
-
-        public IEnumerable<IdentityResource> GetAll()
+        
+        public IEnumerable<ApiResource> GetAll()
         {
-            var _entityList = _plusDataContext.IdentityResources.ToList();
+            var _entityList = _plusDataContext.ApiResources.ToList();
             return _entityList.ToModel();
         }
 
-        public IdentityResource GetById(int id)
+        public ApiResource GetById(int id)
         {
-            var _entity = _plusDataContext.IdentityResources.Find(id);
+            var _entity = _plusDataContext.ApiResources.Find(id);
             return _entity.ToModel();
         }
 
-        public void Insert(IdentityResource identityResource)
+        public void Insert(ApiResource apiResource)
         {
-            var _entity = identityResource.ToEntity();
+            var _entity = apiResource.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
-            _plusDataContext.IdentityResources.Add(_entity);
+            _plusDataContext.ApiResources.Add(_entity);
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(IdentityResource identityResource)
+        public void Update(ApiResource apiResource)
         {
-            var _entity = identityResource.ToEntity();
-            // plusDataContext.Entry(_entity).State = EntityState.Detached;
+            var _entity = apiResource.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Modified;
-             _plusDataContext.IdentityResources.Update(_entity);
+            _plusDataContext.ApiResources.Update(_entity);
             _plusDataContext.SaveChanges();
         }
-
         public void Delete(int id)
         {
-            var _entity = _plusDataContext.IdentityResources.Find(id);
+            var _entity = _plusDataContext.ApiResources.Find(id);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
-            _plusDataContext.IdentityResources.Remove(_entity);
+            _plusDataContext.ApiResources.Remove(_entity);
             _plusDataContext.SaveChanges();
         }
+
 
         private bool disposed = false;
 

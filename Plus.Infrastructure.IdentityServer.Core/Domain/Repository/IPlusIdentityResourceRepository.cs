@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusIdentityResourceRepository
+    public interface IPlusIdentityResourceRepository : IDisposable
     {
         void Insert(IdentityResource identityResource);
 
         void Update(IdentityResource identityResource);
+
+        void Delete(int id);
 
         IdentityResource GetById(int id);
 

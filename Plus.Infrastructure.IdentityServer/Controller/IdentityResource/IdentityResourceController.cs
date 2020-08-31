@@ -16,10 +16,7 @@ using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Controllers
 {
-    /// <summary>
-    /// This controller processes the client UI
-    /// </summary>
-    [SecurityHeaders]
+   // [SecurityHeaders]
     [AllowAnonymous]
     public class IdentityResourceController : Controller
     {
@@ -94,7 +91,8 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var _model = _identityResourceService.GetById(id);
-
+            if (_model != null)
+            {
                 var vm = new AddEditIdentityResourceViewModel
                 {
                     Id = _model.Id,
@@ -110,6 +108,8 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                     NonEditable = _model.NonEditable
                 };
                 return View("Edit", vm);
+            }
+            return NotFound();
         }
 
         [HttpPost]
@@ -134,10 +134,32 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             identityResource.Updated = model.Updated;
 
             _identityResourceService.Update(identityResource);
-             return View( Redirect("index"));
+            return View("Success", model);
+            //  return View( Redirect("index"));
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var _entity = _identityResourceService.GetById(id);
+            if (_entity != null)
+            {
+                var _model = new DeleteIdentityResourceViewModel
+                {
+                    Id = _entity.Id,
+                    Name = _entity.Name
+                };
+                return View("Delete", _model);
+            }
+            return NotFound();
+           
+        }
 
-
+        [HttpPost]
+        public async Task<ActionResult> Delete(DeleteIdentityResourceViewModel model)
+        {
+            _identityResourceService.Delete(model.Id);
+            return Redirect("Index");
+        }
     }
 }

@@ -1,16 +1,20 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
+namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-  
-    public interface IPlusApiResourceService
+    public interface IPlusApiResourceRepository: IDisposable
     {
         void Insert(ApiResource apiResource);
+
         void Update(ApiResource apiResource);
+
         void Delete(int id);
+
         ApiResource GetById(int id);
+
         IEnumerable<ApiResource> GetAll();
     }
 }
