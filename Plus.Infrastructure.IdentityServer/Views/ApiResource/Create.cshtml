@@ -10,82 +10,281 @@
 <partial name="_ValidationSummary" />
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-9">
+        <form asp-action="Create" id="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Created" class="control-label"></label>
+                        <input asp-for="Created" type="date" class="form-control" />
+                        <span asp-validation-for="Created" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DisplayName" class="control-label"></label>
-                <input asp-for="DisplayName" class="form-control" />
-                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Updated" class="control-label"></label>
+                        <input asp-for="Updated" type="date" class="form-control" />
+                        <span asp-validation-for="Updated" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="LastAccessed" class="control-label"></label>
+                        <input asp-for="LastAccessed" type="date" class="form-control" />
+                        <span asp-validation-for="LastAccessed" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <input asp-for="Enabled" type="checkbox" class="form-check-input" />
-                <label asp-for="Enabled" class="form-check-label"></label>
-                <span asp-validation-for="Enabled" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="AllowedAccessTokenSigningAlgorithms" class="control-label"></label>
+                        <input asp-for="AllowedAccessTokenSigningAlgorithms" class="form-control" />
+                        <span asp-validation-for="AllowedAccessTokenSigningAlgorithms" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="ShowInDiscoveryDocument" type="checkbox" class="form-check-input" />
+                        <label asp-for="ShowInDiscoveryDocument" class="form-check-label"></label>
+                        <span asp-validation-for="ShowInDiscoveryDocument" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <input asp-for="NonEditable" type="checkbox" class="form-check-input" />
-                <label asp-for="NonEditable" class="form-check-label"></label>
-                <span asp-validation-for="NonEditable" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="Enabled" type="checkbox" class="form-check-input" />
+                        <label asp-for="Enabled" class="form-check-label"></label>
+                        <span asp-validation-for="Enabled" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="NonEditable" type="checkbox" class="form-check-input" />
+                        <label asp-for="NonEditable" class="form-check-label"></label>
+                        <span asp-validation-for="NonEditable" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" type="date" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="scopeItemsContainer">
+                        @Html.EditorFor(model => model.Scopes)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="claimItemsContainer">
+                        @Html.EditorFor(model => model.Claims)
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Updated" class="control-label"></label>
-                <input asp-for="Updated" type="date" class="form-control" />
-                <span asp-validation-for="Updated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastAccessed" class="control-label"></label>
-                <input asp-for="LastAccessed" type="date" class="form-control" />
-                <span asp-validation-for="LastAccessed" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="btn btn-secondary" type="button" id="btnAdd" value="Add Scope" />
+                        @*<span></span>
+                        <input class="btn btn-secondary" type="button" id="btnRemove" value="Remove Scope" />*@
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="btn btn-secondary" type="button" id="btnAddClaim" value="Add Claim" />
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Scopes" class="control-label"></label>
-                <select multiple="multiple" asp-for="Scopes" class="form-control"></select>
-                <span asp-validation-for="Scopes" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="propertyItemsContainer">
+                        @Html.EditorFor(model => model.Properties)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="btn btn-secondary" type="button" id="btnAddProperty" value="Add Property" />
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Secrets" class="control-label"></label>
-                <select multiple="multiple" asp-for="Secrets" class="form-control"></select>
-                <span asp-validation-for="Secrets" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="secretItemsContainer">
+                        @Html.EditorFor(model => model.Secrets)
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="UserClaims" class="control-label"></label>
-                <select multiple="multiple" asp-for="UserClaims" class="form-control"></select>
-                <span asp-validation-for="UserClaims" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Properties" class="control-label"></label>
-                <select multiple="multiple" asp-for="Properties" class="form-control"></select>
-                <span asp-validation-for="Properties" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input class="btn btn-secondary" type="button" id="btnAddSecret" value="Add Secret" />
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
+
+
+
+
+
+            @*<div class="form-group">
+                    <label asp-for="Scopes" class="control-label"></label>
+                    <select multiple="multiple" asp-for="Scopes"  class="form-control" id="#scopeList"></select>
+                    <span asp-validation-for="Scopes" class="text-danger"></span>
+                    <div id="PlaceHolderHere"></div>
+                    <span>
+                        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addScope"
+                                data-url="@Url.Action("AddScope")">
+                            Add Scope
+                        </button>
+                    </span>
+                </div>*@
+
+            @*<div class="form-group">
+                    <label asp-for="Secrets" class="control-label"></label>
+                    <select multiple="multiple" asp-for="Secrets" class="form-control"></select>
+                    <span asp-validation-for="Secrets" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserClaims" class="control-label"></label>
+                    <select multiple="multiple" asp-for="UserClaims" class="form-control"></select>
+                    <span asp-validation-for="UserClaims" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Properties" class="control-label"></label>
+                    <select multiple="multiple" asp-for="Properties" class="form-control"></select>
+                    <span asp-validation-for="Properties" class="text-danger"></span>
+
+                </div>*@
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                    </div>
+                </div>
             </div>
         </form>
+
     </div>
 </div>
 
-@section Scripts
-{
+
+@*@section Scripts {
+        <script src="~/lib/dynamic-viewmodel-list/dvml.js"></script>
+    }*@
+
+
+@section Scripts {
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+        $("#btnAdd").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/ApiResource/AddScope',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#scopeItemsContainer').html(partialView);
+                }
+            });
+        });
+
+        //$("#btnRemove").on('click', function () {
+        //    $('#scopeItemsContainer').html("");
+        //});
+
+
+        $("#btnAddClaim").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/ApiResource/AddClaim',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#claimItemsContainer').html(partialView);
+                }
+            });
+        });
+
+        $("#btnAddProperty").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/ApiResource/AddProperty',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#propertyItemsContainer').html(partialView);
+                }
+            });
+        });
+
+        $("#btnAddSecret").on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: "POST",
+                url: '/ApiResource/AddSecret',
+                success: function (partialView) {
+                    console.log("partialView: " + partialView);
+                    $('#secretItemsContainer').html(partialView);
+                }
+            });
+        });
+    </script>
+
     <partial name="_ValidationScriptsPartial" />
 }
+
+
+
+@*@section Scripts
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/js/modal.js"></script>
+
+
+       <partial name="_ValidationScriptsPartial" />
+
+
+    }*@
 
 

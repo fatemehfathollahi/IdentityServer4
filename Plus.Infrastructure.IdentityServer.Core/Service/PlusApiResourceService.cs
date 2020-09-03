@@ -26,19 +26,19 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             return _apiResourceRepository.GetById(id);
         }
 
-        public void Insert(ApiResource apiResource)
+        public int Insert(ApiResource apiResource)
         {
-            _apiResourceRepository.Insert(apiResource);
+            return _apiResourceRepository.Insert(apiResource);
         }
 
-        public void Update(ApiResource apiResource)
+        public int Update(ApiResource apiResource)
         {
-            _apiResourceRepository.Update(apiResource);
+            return _apiResourceRepository.Update(apiResource);
         }
 
-        public void Delete(int id)
+        public int Delete(int id)
         {
-            _apiResourceRepository.Delete(id);
+           return  _apiResourceRepository.Delete(id);
         }
 
         

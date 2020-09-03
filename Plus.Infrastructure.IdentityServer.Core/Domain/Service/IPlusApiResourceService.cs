@@ -7,9 +7,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
   
     public interface IPlusApiResourceService
     {
-        void Insert(ApiResource apiResource);
-        void Update(ApiResource apiResource);
-        void Delete(int id);
+        int Insert(ApiResource apiResource);
+        int Update(ApiResource apiResource);
+        int Delete(int id);
         ApiResource GetById(int id);
         IEnumerable<ApiResource> GetAll();
     }

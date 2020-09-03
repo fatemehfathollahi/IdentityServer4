@@ -7,38 +7,38 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Service
 {
-    public class PlusClientService : IPlusClientService,IDisposable
+    public class PlusClientService : IPlusClientService
     {
-        private readonly IPlusClientRepository clientRepository;
+        private readonly IPlusClientRepository _clientRepository;
 
         public PlusClientService(IPlusClientRepository clientRepository)
         {
-            this.clientRepository = clientRepository;
+            _clientRepository = clientRepository;
         }
 
-        public void Dispose()
+        public void Delete(int id)
         {
-          
+            _clientRepository.Delete(id);
         }
 
         public IEnumerable<Client> GetAll()
         {
-            return clientRepository.GetAll();
+           return _clientRepository.GetAll();
         }
 
-        public Client GetByClientId(string clientId)
+        public Client GetById(string id)
         {
-            return clientRepository.GetByClientId(clientId);
+            return _clientRepository.GetById(id);
         }
 
-        public Client Insert(Client client)
+        public void Insert(Client client)
         {
-            throw new NotImplementedException();
+            _clientRepository.Insert(client);
         }
 
-        public bool UpdateClient(Client client)
+        public void Update(Client client)
         {
-            throw new NotImplementedException();
+            _clientRepository.Update(client);
         }
     }
 }

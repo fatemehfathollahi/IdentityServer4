@@ -3,9 +3,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Plus.Infrastructure.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using Plus.Infrastructure.IdentityServer.Core.Extensions;
-using Plus.Infrastructure.IdentityServer.Core.Options;
-using System;
+using Entities = IdentityServer4.EntityFramework.Entities;
 using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
@@ -24,13 +22,20 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
         //public new DbSet<Client> Clients { get; set; }
 
         //public new DbSet<ClientCorsOrigin> ClientCorsOrigins { get; set; }
-               
+
         //public new DbSet<IdentityResource> IdentityResources { get; set; }
-               
+
         //public new DbSet<ApiResource> ApiResources { get; set; }
-               
+
         //public new DbSet<ApiScope> ApiScopes { get; set; }
 
+        public DbSet<Entities.ApiResourceScope> ApiResourceScopes { get; set; }
+
+        public DbSet<Entities.ApiResourceSecret> ApiResourceSecrets { get; set; }
+
+        public DbSet<Entities.ApiResourceClaim> ApiResourceClaims { get; set; }
+
+        public DbSet<Entities.ApiResourceProperty> ApiResourceProperties { get; set; }
 
 
         public Task<int> SaveChangesAsync()

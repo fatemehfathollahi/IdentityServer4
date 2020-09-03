@@ -22,9 +22,9 @@
                     <th>Updated</th>
                     <th>LastAccessed</th>
                     <th>Scopes</th>
-                    <th>Secrets</th>
+                    @*<th>Secrets</th>
                     <th>UserClaims</th>
-                    <th>Properties</th>
+                    <th>Properties</th>*@
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -63,7 +63,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                                        Scope List
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         @foreach (var scope in item.Scopes)
@@ -75,7 +75,7 @@
                             </div>
                         }
                     </td>
-                    <td>
+                    @*<td>
                         @if (item.Secrets.Any())
                         {
                             <div class="form-group">
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                         }
-                    </td>
+                    </td>*@
 
 
                     <td class="text-center action-cell">

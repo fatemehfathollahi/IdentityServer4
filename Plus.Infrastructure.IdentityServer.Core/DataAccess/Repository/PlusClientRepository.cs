@@ -12,33 +12,69 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
     public class PlusClientRepository : IPlusClientRepository
     {
-        private readonly PlusConfigurationDbContext plusDataContext;
+        private readonly PlusConfigurationDbContext _plusDataContext;
         public PlusClientRepository(PlusConfigurationDbContext plusDataContext)
         {
-            this.plusDataContext = plusDataContext;
+            this._plusDataContext = plusDataContext;
         }
 
         public IEnumerable<Client> GetAll()
         {
-            return plusDataContext.Clients.ToModel().ToList();
+            var _entityList = _plusDataContext.Clients.ToList();
+            return _entityList.ToModel();
         }
 
-        public Client GetByClientId(string clientId)
+        public Client GetById(string id)
         {
-            return plusDataContext.Clients.ToModel().Single(c => c.ClientId.Equals(clientId));
+            var _entity = _plusDataContext.Clients.Find(id);
+            return _entity.ToModel();
         }
 
         public void Insert(Client client)
         {
-            plusDataContext.Entry(client).State = EntityState.Added;
-            plusDataContext.Clients.Add(client.ToEntity());
-            plusDataContext.SaveChanges();
+            var _entity = client.ToEntity();
+            _plusDataContext.Entry(_entity).State = EntityState.Added;
+            _plusDataContext.Clients.Add(_entity);
+            _plusDataContext.SaveChanges();
         }
 
         public void Update(Client client)
         {
-            plusDataContext.Clients.Update(client.ToEntity());
-            plusDataContext.SaveChanges();
+            var _entity = client.ToEntity();
+            // plusDataContext.Entry(_entity).State = EntityState.Detached;
+            _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            _plusDataContext.Clients.Update(_entity);
+            _plusDataContext.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var _entity = _plusDataContext.Clients.Find(id);
+            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
+            _plusDataContext.Clients.Remove(_entity);
+            _plusDataContext.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _plusDataContext.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+       
     }
 }

@@ -5,9 +5,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusClientService
     {
-        Client Insert(Client client);
-        bool UpdateClient(Client client);
-        Client GetByClientId(string clientId);
+        void Insert(Client client);
+
+        void Update(Client client);
+
+        void Delete(int id);
+
+        Client GetById(string id);
+
         IEnumerable<Client> GetAll();
 
     }

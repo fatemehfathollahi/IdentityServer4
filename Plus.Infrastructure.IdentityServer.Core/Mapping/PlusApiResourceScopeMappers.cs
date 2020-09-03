@@ -35,17 +35,35 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
 
     public class ApiResourceScopeMapperProfile : Profile
     {
+
+        public override string ProfileName
+        {
+            get
+            {
+                return "PlusApiResourceScopeMappers";
+            }
+        }
+
         public ApiResourceScopeMapperProfile()
         {
-            CreateMap<ApiResource, Entities.ApiResource>(MemberList.Destination)
-                .ConstructUsing(src => new Entities.ApiResource())
-                .ReverseMap();
-
-            CreateMap<IdentityClaim, string>()//todo
-               .ConstructUsing(x => x.Type)
-               .ReverseMap()
-               .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
+            ConfigureMappings();
         }
+
+        private void ConfigureMappings()
+        {
+            CreateMap<ApiResourceScope, Entities.ApiResourceScope>().ReverseMap();
+        }
+        //public ApiResourceScopeMapperProfile()
+        //{
+        //    CreateMap<ApiResource, Entities.ApiResource>(MemberList.Destination)
+        //        .ConstructUsing(src => new Entities.ApiResource())
+        //        .ReverseMap();
+
+        //    CreateMap<IdentityClaim, string>()//todo
+        //       .ConstructUsing(x => x.Type)
+        //       .ReverseMap()
+        //       .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
+        //}
     
     }
 

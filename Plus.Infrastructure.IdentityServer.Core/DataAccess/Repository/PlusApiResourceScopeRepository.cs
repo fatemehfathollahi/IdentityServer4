@@ -27,8 +27,10 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 
         public IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId)
         {
-            var _entityList = _plusDataContext.ApiResources
-               .Single(r => r.Id.Equals(resourceId)).Scopes.ToList();
+            //var _entityList = _plusDataContext.ApiResources
+            //   .Single(r => r.Id.Equals(resourceId)).Scopes.ToList();
+            var _entityList = _plusDataContext.ApiResourceScopes.Where
+                (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
@@ -36,7 +38,10 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
         {
             var _entity = apiScope.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Scopes.Add(_entity);
+            _plusDataContext.ApiResourceScopes.Add(_entity);
+
+          //  var _resource = _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId));
+          //  _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Scopes.Add(_entity);
             _plusDataContext.SaveChanges();
         }
 

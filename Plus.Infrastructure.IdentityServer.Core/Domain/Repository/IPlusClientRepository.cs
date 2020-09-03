@@ -5,13 +5,15 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientRepository
+    public interface IPlusClientRepository: IDisposable
     {
         void Insert(Client client);
 
         void Update(Client client);
 
-        Client GetByClientId(string clientId);
+        void Delete(int id);
+
+        Client GetById(string id);
 
         IEnumerable<Client> GetAll();
     }

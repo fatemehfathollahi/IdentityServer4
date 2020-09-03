@@ -7,11 +7,11 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusApiResourceRepository: IDisposable
     {
-        void Insert(ApiResource apiResource);
+        int Insert(ApiResource apiResource);
 
-        void Update(ApiResource apiResource);
+        int Update(ApiResource apiResource);
 
-        void Delete(int id);
+        int Delete(int id);
 
         ApiResource GetById(int id);
 

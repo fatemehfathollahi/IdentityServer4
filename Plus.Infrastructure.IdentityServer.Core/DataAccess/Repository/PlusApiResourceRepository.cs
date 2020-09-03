@@ -30,27 +30,38 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             return _entity.ToModel();
         }
 
-        public void Insert(ApiResource apiResource)
+        public int Insert(ApiResource apiResource)
         {
             var _entity = apiResource.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
             _plusDataContext.ApiResources.Add(_entity);
             _plusDataContext.SaveChanges();
+            return _entity.Id;
         }
 
-        public void Update(ApiResource apiResource)
+        public int Update(ApiResource apiResource)
         {
+            var _entityorg = GetById(apiResource.Id).ToEntity();
             var _entity = apiResource.ToEntity();
-            _plusDataContext.Entry(_entity).State = EntityState.Modified;
-            _plusDataContext.ApiResources.Update(_entity);
+            if (_plusDataContext.Entry(_entity).State == EntityState.Modified)
+            {
+                _plusDataContext.ApiResources.Update(_entity);
+
+                // _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            }
+
+
+            _plusDataContext.Entry(_entityorg).CurrentValues.SetValues(_entity);
             _plusDataContext.SaveChanges();
+            return _entity.Id;
         }
-        public void Delete(int id)
+        public int Delete(int id)
         {
             var _entity = _plusDataContext.ApiResources.Find(id);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
             _plusDataContext.ApiResources.Remove(_entity);
             _plusDataContext.SaveChanges();
+            return _entity.Id;
         }
 
 

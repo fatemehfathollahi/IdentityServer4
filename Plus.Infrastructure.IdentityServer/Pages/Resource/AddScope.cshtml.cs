@@ -46,5 +46,7 @@ namespace Plus.Infrastructure.IdentityServer.Pages.Resource
 
             return RedirectToPage("Index");
         }
+
+
     }
 }

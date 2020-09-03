@@ -76,7 +76,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
+           GC.SuppressFinalize(this);
         }
     }
 }
