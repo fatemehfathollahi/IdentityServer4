@@ -1,9 +1,3 @@
-using DynamicVML;
-using IdentityServer4.Events;
-using IdentityServer4.Extensions;
-using IdentityServer4.Models;
-using IdentityServer4.Services;
-using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,23 +16,11 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
     {
         private readonly ILogger<ApiResourceController> _logger;
         private readonly IPlusApiResourceService _apiResourceService;
-        private readonly IPlusApiResourceScopeService _apiResourceScopeService;
-        private readonly IPlusApiResourceSecretService _apiResourceSecretService;
-        private readonly IPlusApiResourceClaimService _apiResourceClaimService;
-        private readonly IPlusApiResourcePropertyService _apiResourcePropertyService;
 
         public ApiResourceController(IPlusApiResourceService apiResourceService,
-            IPlusApiResourceScopeService apiResourceScopeService,
-            IPlusApiResourceSecretService apiResourceSecretService,
-             IPlusApiResourceClaimService apiResourceClaimService,
-             IPlusApiResourcePropertyService apiResourcePropertyService,
             ILogger<ApiResourceController> logger)
         {
             _apiResourceService = apiResourceService;
-            _apiResourceScopeService = apiResourceScopeService;
-            _apiResourceSecretService = apiResourceSecretService;
-            _apiResourceClaimService = apiResourceClaimService;
-            _apiResourcePropertyService = apiResourcePropertyService;
             _logger = logger;
         }
 
@@ -58,51 +40,45 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 NonEditable = model.NonEditable,
                 Created = model.Created,
                 Updated = model.Updated,
-                LastAccessed = model.LastAccessed
-
+                LastAccessed = model.LastAccessed,
+                AllowedAccessTokenSigningAlgorithms = model.AllowedAccessTokenSigningAlgorithms,
+                ShowInDiscoveryDocument = model.ShowInDiscoveryDocument
             }));
 
-            var _vmScope = new List<ApiResourceScopeViewModel>();
-
-
-
-            _vm.ForEach(v => v.Scopes =  _apiResourceScopeService.GetScopesByResourceId(v.Id)
-            .ToList().Select(s => new ApiResourceScopeViewModel
+            
+            _vm.ForEach(v => v.Scopes = _apiResourceService.GetScopesByResourceId(v.Id)
+            .ToList().Select(s => new ScopeItem
             {
                 Id = s.Id,
-                Scope = s.Scope,
-                ApiResourceId = v.Id
+                Scope = s.Scope
             }));
 
-           // _vm.ForEach(v => v.Secrets = _apiResourceSecretService.GetSecretsByResourceId(v.Id)
-           //.ToList().Select(s => new ApiResourceSecretViewModel
-           //{
-           //    Id = s.Id,
-           //    Description = s.Description,
-           //    Value = s.Value,
-           //    Expiration = s.Expiration,
-           //    Type = s.Type,
-           //    Created = s.Created,
-           //    ApiResourceId = v.Id
-           //}));
+            _vm.ForEach(v => v.Secrets = _apiResourceService.GetSecretsByResourceId(v.Id)
+           .ToList().Select(s => new SecretItem
+           {
+               Id = s.Id,
+               Value = s.Value,
+               Type = s.Type,
+               Description = s.Description,
+               Expiration = s.Expiration,
+               Created = s.Created
+           }));
 
-           // _vm.ForEach(v => v.UserClaims = _apiResourceClaimService.GetClaimsByResourceId(v.Id)
-           //.ToList().Select(s => new ApiResourceClaimViewModel
-           //{
-           //    Id = s.Id,
-           //    Type = s.Type,
-           //    ApiResourceId = v.Id
-           //}));
+            _vm.ForEach(v => v.UserClaims = _apiResourceService.GetClaimsByResourceId(v.Id)
+          .ToList().Select(s => new ClaimItem
+          {
+              Id = s.Id,
+              Type = s.Type
+          }));
 
-        //_vm.ForEach(v => v.Properties = _apiResourcePropertyService.GetPropertiesByResourceId(v.Id)
-        //.ToList().Select(s => new ApiResourcePropertyViewModel
-        //{
-        //    Id = s.Id,
-        //    Key = s.Key,
-        //    Value = s.Value,
-        //    ApiResourceId = v.Id
-        //}));
-            
+            _vm.ForEach(v => v.Properties = _apiResourceService.GetPropertiesByResourceId(v.Id)
+       .ToList().Select(s => new PropertyItem
+       {
+           Id = s.Id,
+           Key = s.Key,
+           Value = s.Value
+       }));
+
             return View("Index", _vm);
         }
 
@@ -114,7 +90,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( AddEditApiResourceViewModel model)
+        public async Task<IActionResult> Create(AddEditApiResourceViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -134,57 +110,46 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 ShowInDiscoveryDocument = model.ShowInDiscoveryDocument,
                 AllowedAccessTokenSigningAlgorithms = model.AllowedAccessTokenSigningAlgorithms
             };
-            //model.Scopes.ForEach(s => obj.Scopes.Add(new Core.Domain.Models.ApiResourceScope
-            //{
-            //    Id = s.Id,
-            //    Scope = s.Scope
-            //}));
 
             var _resourceId = _apiResourceService.Insert(obj);
 
 
-            model.Scopes.ForEach(s => _apiResourceScopeService.Insert(_resourceId,
+            model.Scopes.ForEach(s => _apiResourceService.AddScope(
                new Core.Domain.Models.ApiResourceScope
                {
                    ApiResourceId = _resourceId,
                    Scope = s.Scope
                }));
 
-            //var _resource = _apiResourceService.GetById(_resourceId);
-            //_resource.Scopes.ForEach(s => s.ApiResourceId = _resource.Id) ;
-            //_apiResourceService.Update(_resource);
+            model.Secrets.ForEach(s => _apiResourceService.AddSecret(
+              new Core.Domain.Models.ApiResourceSecret
+              {
+                  ApiResourceId = _resourceId,
+                  Description = s.Description,
+                  Value = s.Value,
+                  Type = s.Type,
+                  Created = s.Created,
+                  Expiration = s.Expiration
+              }));
 
+            model.Claims.ForEach(s => _apiResourceService.AddClaim(
+              new Core.Domain.Models.ApiResourceClaim
+              {
+                  ApiResourceId = _resourceId,
+                  Type = s.Type
+              }));
 
-           
+            model.Properties.ForEach(s => _apiResourceService.AddProperty(
+              new Core.Domain.Models.ApiResourceProperty
+              {
+                  ApiResourceId = _resourceId,
+                  Value = s.Value,
+                  Key = s.Key
+              }));
 
-            //model.Secrets.ForEach(s => _apiResourceSecretService.Insert(_resourceId,
-            //    new Core.Domain.Models.ApiResourceSecret
-            //    {
-            //        ApiResourceId = _resourceId,
-            //        Description = s.Description,
-            //        Value = s.Value,
-            //        Type = s.Type,
-            //        Created = s.Created,
-            //        Expiration = s.Expiration
-            //    }));
-
-            //model.Claims.ForEach(c => _apiResourceClaimService.Insert(_resourceId,
-            //    new Core.Domain.Models.ApiResourceClaim
-            //    {
-            //        ApiResourceId = _resourceId,
-            //        Type = c.Type
-            //    }));
-
-            //model.Properties.ForEach(p => _apiResourcePropertyService.Insert(_resourceId,
-            //    new Core.Domain.Models.ApiResourceProperty
-            //    {
-            //        ApiResourceId = _resourceId,
-            //        Key = p.Key,
-            //        Value = p.Value
-            //    }));
-
+            ViewBag.Message = "Created";
             return View("Success", model);
-            // return View( Redirect("index"));
+            // return Redirect("index");
         }
 
         [HttpGet]
@@ -203,8 +168,41 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                     LastAccessed = _model.LastAccessed,
                     Created = _model.Created,
                     Updated = _model.Updated,
-                    NonEditable = _model.NonEditable
+                    NonEditable = _model.NonEditable,
+                    ShowInDiscoveryDocument = _model.ShowInDiscoveryDocument,
+                    AllowedAccessTokenSigningAlgorithms = _model.AllowedAccessTokenSigningAlgorithms,
                 };
+
+                _model.Scopes.ForEach(s => vm.Scopes.Add(new ScopeItem
+                {
+                    Id = s.Id,
+                    Scope = s.Scope
+                }));
+
+                _model.Secrets.ForEach(s => vm.Secrets.Add(new SecretItem
+                {
+                    Id = s.Id,
+                    Value = s.Value,
+                    Description = s.Description,
+                    Type = s.Type,
+                    Created = s.Created,
+                    Expiration = s.Expiration
+                }));
+
+                _model.UserClaims.ForEach(s => vm.Claims.Add(new ClaimItem
+                {
+                    Id = s.Id,
+                    Type = s.Type
+                }));
+
+                _model.Properties.ForEach(s => vm.Properties.Add(new PropertyItem
+                {
+                    Id = s.Id,
+                    Key = s.Key,
+                    Value = s.Value
+                }));
+
+                
                 return View("Edit", vm);
             }
             return NotFound();
@@ -228,10 +226,50 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             apiResource.Created = model.Created;
             apiResource.Updated = model.Updated;
             apiResource.LastAccessed = model.LastAccessed;
+            apiResource.AllowedAccessTokenSigningAlgorithms = model.AllowedAccessTokenSigningAlgorithms;
+            apiResource.ShowInDiscoveryDocument = model.ShowInDiscoveryDocument;
 
-            _apiResourceService.Update(apiResource);
+            var _resourceId = _apiResourceService.Update(apiResource);
+
+           
+
+            foreach (var scope in model.Scopes)
+            {
+                var _scope = apiResource.Scopes.Where(s => s.Id.Equals(scope.Id)).FirstOrDefault();
+                _scope.Scope = scope.Scope;
+                _apiResourceService.UpdateScope(_scope);
+            }
+
+            foreach (var secret in model.Secrets)
+            {
+                var _secret = apiResource.Secrets.Where(s => s.Id.Equals(secret.Id)).FirstOrDefault();
+                _secret.Value = secret.Value;
+                _secret.Description = secret.Description;
+                _secret.Type = secret.Type;
+                _secret.Created = secret.Created;
+                _secret.Expiration = secret.Expiration;
+                _secret.ApiResourceId = _resourceId;
+                _apiResourceService.UpdateSecret(_secret);
+            }
+
+            foreach (var claim in model.Claims)
+            {
+                var _claim = apiResource.UserClaims.Where(s => s.Id.Equals(claim.Id)).FirstOrDefault();
+                _claim.Type = claim.Type;
+                _apiResourceService.UpdateClaim(_claim);
+            }
+
+            foreach (var property in model.Properties)
+            {
+                var _property = apiResource.Properties.Where(s => s.Id.Equals(property.Id)).FirstOrDefault();
+                _property.Key = property.Key;
+                _property.Value = property.Value;
+                _apiResourceService.UpdateProperty(_property);
+            }
+
+            ViewBag.Message = "Edited";
             return View("Success", model);
-            //  return View( Redirect("index"));
+            // return Redirect("index");
         }
 
         [HttpGet]
@@ -258,15 +296,10 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             return Redirect("Index");
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> AddScope()
-        //{
-        //    ApiResourceScopeViewModel scope = new ApiResourceScopeViewModel();
-        //    return PartialView("_AddScopeItem", scope);
-        //}
+        #region EditorFor
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddScope( [Bind("Scopes")] AddEditApiResourceViewModel model)
+        public async Task<ActionResult> AddScope([Bind("Scopes")] AddEditApiResourceViewModel model)
         {
             model.Scopes.Add(new ScopeItem());
             return PartialView("_ScopeItems", model);
@@ -295,5 +328,6 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             model.Properties.Add(new PropertyItem());
             return PartialView("_PropertyItems", model);
         }
+        #endregion
     }
 }

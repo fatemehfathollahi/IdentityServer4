@@ -16,29 +16,39 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             _apiResoureScopeRepository = apiScopeRepository;
         }
 
-        public ApiResourceScope GetById(int resourceId, int scopId)
+        public ApiResourceScope GetById(int scopId)
         {
-            return _apiResoureScopeRepository.GetById(resourceId,scopId);
+            return _apiResoureScopeRepository.GetById(scopId);
         }
        
-        public void Insert(int resourceId, ApiResourceScope apiScope)
+        public void Insert(ApiResourceScope apiScope)
         {
-            _apiResoureScopeRepository.Insert(resourceId,apiScope);
+            _apiResoureScopeRepository.Insert(apiScope);
         }
 
-        public void Update(int resourceId, ApiResourceScope apiScope)
+        public void Update(ApiResourceScope apiScope)
         {
-            _apiResoureScopeRepository.Update(resourceId,apiScope);
+            _apiResoureScopeRepository.Update(apiScope);
         }
 
-        public void Delete(int resourceId, int scopId)
+        public void Delete(int scopId)
         {
-            _apiResoureScopeRepository.Delete(resourceId, scopId);
+            _apiResoureScopeRepository.Delete(scopId);
         }
 
         public IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId)
         {
             return _apiResoureScopeRepository.GetScopesByResourceId(resourceId);
+        }
+
+        public void DeleteAll(int resourceId)
+        {
+           _apiResoureScopeRepository.DeleteAll(resourceId);
+        }
+
+        public IEnumerable<ApiResourceScope> GetAll()
+        {
+            return _apiResoureScopeRepository.GetAll();
         }
     }
 }

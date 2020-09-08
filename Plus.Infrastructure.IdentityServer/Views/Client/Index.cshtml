@@ -1,276 +1,328 @@
-﻿@model IEnumerable<Plus.Infrastructure.IdentityServer.Models.ClientViewModel>
+﻿@model IEnumerable<Plus.Infrastructure.IdentityServer.Models.Client.ClientViewModel>
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Client List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Enabled)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProtocolType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequireClientSecret)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LogoUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequireConsent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AllowRememberConsent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AlwaysIncludeUserClaimsInIdToken)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequirePkce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AllowPlainTextPkce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AllowAccessTokensViaBrowser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FrontChannelLogoutUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FrontChannelLogoutSessionRequired)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BackChannelLogoutUri)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BackChannelLogoutSessionRequired)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AllowOfflineAccess)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdentityTokenLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccessTokenLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AuthorizationCodeLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsentLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AbsoluteRefreshTokenLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SlidingRefreshTokenLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RefreshTokenUsage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateAccessTokenClaimsOnRefresh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RefreshTokenExpiration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccessTokenType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnableLocalLogin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IncludeJwtId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AlwaysSendClientClaims)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientClaimsPrefix)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PairWiseSubjectSalt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Updated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastAccessed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserSsoLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserCodeType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeviceCodeLifetime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NonEditable)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enabled)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProtocolType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequireClientSecret)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientUri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LogoUri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequireConsent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowRememberConsent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlwaysIncludeUserClaimsInIdToken)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequirePkce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowPlainTextPkce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowAccessTokensViaBrowser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FrontChannelLogoutUri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FrontChannelLogoutSessionRequired)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BackChannelLogoutUri)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BackChannelLogoutSessionRequired)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllowOfflineAccess)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdentityTokenLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessTokenLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorizationCodeLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsentLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AbsoluteRefreshTokenLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SlidingRefreshTokenLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RefreshTokenUsage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateAccessTokenClaimsOnRefresh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RefreshTokenExpiration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccessTokenType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnableLocalLogin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IncludeJwtId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlwaysSendClientClaims)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientClaimsPrefix)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PairWiseSubjectSalt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastAccessed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserSsoLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserCodeType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeviceCodeLifetime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NonEditable)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<a class="btn btn-sm btn-primary" asp-action="Create" asp-controller="Client">Create</a>
+
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table table-hover data-table small" data-order-col="5" data-order-dir="asc" data-index="false">
+            <thead>
+                <tr>
+                    <th> ClientId</th>
+                    <th> ProtocolType</th>
+                    <th> RequireClientSecret</th>
+                    <th> ClientName</th>
+                    <th> Description</th>
+                    <th> ClientUri</th>
+                    <th> LogoUri</th>
+                    <th> RequireConsent</th>
+                    <th> AccessTokenLifetime</th>
+                    <th> AuthorizationCodeLifetime</th>
+                    <th> ConsentLifetime</th>
+                    <th> AbsoluteRefreshTokenLifetime</th>
+                    <th> SlidingRefreshTokenLifetime</th>
+                    <th> RefreshTokenUsage</th>
+                    <th> UpdateAccessTokenClaimsOnRefresh</th>
+                    <th> RefreshTokenExpiration</th>
+                    <th> AccessTokenType</th>
+                    <th> EnableLocalLogin</th>
+                    <th> IncludeJwtId</th>
+                    <th> AlwaysSendClientClaims</th>
+                    <th> ClientClaimsPrefix</th>
+                    <th> PairWiseSubjectSalt</th>
+                    <th> Created</th>
+                    <th> Updated</th>
+                    <th> LastAccessed</th>
+                    <th> UserSsoLifetime</th>
+                    <th> UserCodeType</th>
+                    <th> AllowedIdentityTokenSigningAlgorithms</th>
+                    <th> IdentityTokenLifetime</th>
+                    <th> AllowOfflineAccess</th>
+                    <th> Enabled</th>
+                    <th> DeviceCodeLifetime</th>
+                    <th> AllowRememberConsent</th>
+                    <th> RequirePkce</th>
+                    <th> AllowPlainTextPkce</th>
+                    <th> RequireRequestObject</th>
+                    <th> AllowAccessTokensViaBrowser</th>
+                    <th> FrontChannelLogoutUri</th>
+                    <th> FrontChannelLogoutSessionRequired</th>
+                    <th> BackChannelLogoutUri</th>
+                    <th> BackChannelLogoutSessionRequired</th>
+                    <th> AlwaysIncludeUserClaimsInIdToken</th>
+                    <th> NonEditable</th>
+                    <th>Scopes</th>
+                    <th>Secrets</th>
+                    <th>Claims</th>
+                    <th>Properties</th>
+                    <th>RedirectUris</th>
+                    <th>CorsOrigins</th>
+                    <th>GrantTypes</th>
+                    <th>PostLogoutRedirectUris</th>
+                    <th>IdentityProviderRestrictions</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @item.ClientId
+                    </td>
+                    <td>
+                        @item.ProtocolType
+                    </td>
+                    <td>
+                        @item.RequireClientSecret
+                    </td>
+                    <td>
+                        @item.ClientName
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.NonEditable
+                    </td>
+                    <td>
+                        @item.ClientUri
+                    </td>
+                    <td>
+                        @item.LogoUri
+                    </td>
+                    <td>@item.RequireConsent</td>
+                    <td>@item.AccessTokenLifetime</td>
+                    <td>@item.AuthorizationCodeLifetime</td>
+                    <td>@item.ConsentLifetime</td>
+                    <td>@item.AbsoluteRefreshTokenLifetime</td>
+                    <td>@item.SlidingRefreshTokenLifetime</td>
+                    <td>@item.RefreshTokenUsage</td>
+                    <td>@item.UpdateAccessTokenClaimsOnRefresh</td>
+                    <td>@item.RefreshTokenExpiration</td>
+                    <td>@item.AccessTokenType</td>
+                    <td>@item.EnableLocalLogin</td>
+                    <td>@item.IncludeJwtId</td>
+                    <td>@item.AlwaysSendClientClaims</td>
+                    <td>@item.ClientClaimsPrefix</td>
+                    <td>@item.PairWiseSubjectSalt</td>
+                    <td>@item.UserSsoLifetime</td>
+                    <td>@item.UserCodeType</td>
+                    <td>@item.AllowedIdentityTokenSigningAlgorithms</td>
+                    <td>@item.IdentityTokenLifetime</td>
+                    <td>@item.AllowOfflineAccess</td>
+                    <td>@item.Enabled</td>
+                    <td>@item.DeviceCodeLifetime</td>
+                    <td>@item.AllowRememberConsent</td>
+                    <td>@item.RequirePkce</td>
+                    <td>@item.AllowPlainTextPkce</td>
+                    <td>@item.RequireRequestObject</td>
+                    <td>@item.AllowAccessTokensViaBrowser</td>
+                    <td>@item.FrontChannelLogoutUri</td>
+                    <td>@item.FrontChannelLogoutSessionRequired</td>
+                    <td>@item.BackChannelLogoutUri</td>
+                    <td>@item.BackChannelLogoutSessionRequired</td>
+                    <td>@item.AlwaysIncludeUserClaimsInIdToken</td>
+                    <td>@item.NonEditable</td>
+                    <td>
+                        @item.Created.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Updated
+                    </td>
+                    <td>
+                        @item.LastAccessed
+                    </td>
+                    <td>
+                        @if (item.Scopes.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        Scope List
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var scope in item.Scopes)
+                                        {
+                                            <partial name="_ClientScopeListItem" model="scope" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Secrets.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        Personal Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var secret in item.Secrets)
+                                        {
+                                            <partial name="_ClientSecretListItem" model="secret" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Claims.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        Personal Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var claim in item.Claims)
+                                        {
+                                            <partial name="_ClientClaimListItem" model="claim" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Properties.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        Personal Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var property in item.Properties)
+                                        {
+                                            <partial name="_ClientPropertyListItem" model="property" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.RedirectUris.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        RedirectUri List
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var redirectUri in item.RedirectUris)
+                                        {
+                                            <partial name="_ClientRedirectUriListItem" model="redirectUri" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.CorsOrigins.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        CorsOrigin Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var corsOrigin in item.CorsOrigins)
+                                        {
+                                            <partial name="_ClientCorsOriginListItem" model="corsOrigin" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.GrantTypes.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        GrantType Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var grantType in item.GrantTypes)
+                                        {
+                                            <partial name="_ClientGrantTypeListItem" model="grantType" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.PostLogoutRedirectUris.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        PostLogoutRedirectUri Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var postLogout in item.PostLogoutRedirectUris)
+                                        {
+                                            <partial name="_ClientPostLogoutRedirectUriListItem" model="postLogout" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IdentityProviderRestrictions.Any())
+                        {
+                            <div class="form-group">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        ProviderRestriction Information
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var idPRestriction in item.IdentityProviderRestrictions)
+                                        {
+                                            <partial name="_ClientIdPRestrictionListItem" model="idPRestriction" />
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+
+
+                    <td class="text-center action-cell">
+                        <a class="action-link hover-primary" asp-action="Edit"
+                           asp-controller="Client"
+                           asp-route-id="@item.Id">Edit</a>
+                        <span></span>
+                        <a class="action-link hover-primary" asp-action="Delete"
+                           asp-controller="Client"
+                           asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

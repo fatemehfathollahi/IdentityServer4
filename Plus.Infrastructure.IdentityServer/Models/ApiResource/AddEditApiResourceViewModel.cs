@@ -21,19 +21,22 @@ namespace Plus.Infrastructure.IdentityServer.Models.ApiResource
         public bool Enabled { get; set; } = false;
         public bool NonEditable { get; set; } = false;
         public bool ShowInDiscoveryDocument { get; set; } = false;
-
+       
         public List<ScopeItem> Scopes { get; set; }
         public List<SecretItem> Secrets { get; set; } 
         public List<ClaimItem> Claims { get; set; }
         public List<PropertyItem> Properties { get; set; }
 
+       // public bool IsEdit { get; set; }
 
         public AddEditApiResourceViewModel()
         {
+          
             Scopes = new List<ScopeItem>();
             Claims = new List<ClaimItem>();
             Secrets = new List<SecretItem>();
             Properties = new List<PropertyItem>();
+           
         }
 
     }

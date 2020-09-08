@@ -39,10 +39,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
         public ClientClaimMapperProfile()
         {
             CreateMap<Entities.ClientClaim, ClientClaim>()
-                .ConstructUsing(src => new ClientClaim())
-                .ForMember(x => x.Type, opt => opt.MapFrom(src => src.Type))
-                 .ForMember(x => x.Value, opt => opt.MapFrom(src => src.Value));
-                  // .ForMember(x => x.ValueType, opt => opt.MapFrom(src => src.ValueType)) todo
+                .ConstructUsing(src => new ClientClaim()).ReverseMap();
         }
     }
 }

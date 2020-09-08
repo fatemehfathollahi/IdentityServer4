@@ -7,13 +7,17 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusApiResourceSecretService
     {
-        void Insert(int resourceId, ApiResourceSecret apiSecret);
+        void Insert(ApiResourceSecret apiSecret);
 
-        void Update(int resourceId, ApiResourceSecret apiSecret);
+        void Update(ApiResourceSecret apiSecret);
 
-        void Delete(int resourceId, int secretId);
+        void Delete(int secretId);
 
-        ApiResourceSecret GetById(int resourceId, int secretId);
+        void DeleteAll(int resourceId);
+
+        ApiResourceSecret GetById(int secretId);
+
+        IEnumerable<ApiResourceSecret> GetAll();
 
         IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId);
     }

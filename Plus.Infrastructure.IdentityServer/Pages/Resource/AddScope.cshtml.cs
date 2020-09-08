@@ -42,7 +42,7 @@ namespace Plus.Infrastructure.IdentityServer.Pages.Resource
                 ApiResourceId = Scope.ApiResourceId
             };
 
-            _apiResourceScopeService.Insert(Scope.ApiResourceId, _scope);
+            _apiResourceScopeService.Insert(_scope);
 
             return RedirectToPage("Index");
         }

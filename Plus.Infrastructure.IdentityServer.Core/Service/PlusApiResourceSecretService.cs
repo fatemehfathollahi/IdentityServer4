@@ -16,9 +16,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             _apiResoureSecretRepository = apiSecretRepository;
         }
 
-        public ApiResourceSecret GetById(int resourceId, int secretId)
+        public ApiResourceSecret GetById(int secretId)
         {
-            return _apiResoureSecretRepository.GetById(resourceId, secretId);
+            return _apiResoureSecretRepository.GetById(secretId);
         }
 
         public IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId)
@@ -26,19 +26,29 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             return _apiResoureSecretRepository.GetSecretsByResourceId(resourceId);
         }
 
-        public void Insert(int resourceId, ApiResourceSecret apiSecret)
+        public void Insert(ApiResourceSecret apiSecret)
         {
-            _apiResoureSecretRepository.Insert(resourceId, apiSecret);
+            _apiResoureSecretRepository.Insert(apiSecret);
         }
 
-        public void Update(int resourceId, ApiResourceSecret apiSecret)
+        public void Update(ApiResourceSecret apiSecret)
         {
-            _apiResoureSecretRepository.Update(resourceId, apiSecret);
+            _apiResoureSecretRepository.Update(apiSecret);
         }
 
-        public void Delete(int resourceId, int secretId)
+        public void Delete(int secretId)
         {
-            _apiResoureSecretRepository.Delete(resourceId, secretId);
+            _apiResoureSecretRepository.Delete(secretId);
+        }
+
+        public void DeleteAll(int resourceId)
+        {
+            _apiResoureSecretRepository.DeleteAll(resourceId);
+        }
+
+        public IEnumerable<ApiResourceSecret> GetAll()
+        {
+            return _apiResoureSecretRepository.GetAll();
         }
     }
 }

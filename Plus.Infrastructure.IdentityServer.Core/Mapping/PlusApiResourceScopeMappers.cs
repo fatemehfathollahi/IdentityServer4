@@ -9,8 +9,15 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     {
         static PlusApiResourceScopeMappers()
         {
-            Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourceScopeMapperProfile>())
-                .CreateMapper();
+            //Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourceScopeMapperProfile>())
+            //    .CreateMapper();
+
+            Mapper = new MapperConfiguration(cfg => {
+
+                cfg.CreateMap<ApiResourceScope, Entities.ApiResourceScope>().ReverseMap();
+                cfg.CreateMap<ApiResource, Entities.ApiResource>().ReverseMap();
+
+            }).CreateMapper();
         }
 
         internal static IMapper Mapper { get; }
@@ -36,22 +43,25 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     public class ApiResourceScopeMapperProfile : Profile
     {
 
-        public override string ProfileName
-        {
-            get
-            {
-                return "PlusApiResourceScopeMappers";
-            }
-        }
-
         public ApiResourceScopeMapperProfile()
         {
-            ConfigureMappings();
+                  ConfigureMappings();
         }
 
         private void ConfigureMappings()
         {
-            CreateMap<ApiResourceScope, Entities.ApiResourceScope>().ReverseMap();
+            CreateMap<Entities.ApiResourceScope, ApiResourceScope>()
+                .ConstructUsing(src => new ApiResourceScope())
+                .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
+               .ForMember(x => x.Scope, opt => opt.MapFrom(src => src.Scope))
+               .ForMember(x => x.ApiResourceId, opt => opt.MapFrom(src => src.ApiResourceId));
+
+            CreateMap<Entities.ApiResource, ApiResource>(MemberList.Destination)
+                .ConstructUsing(src => new ApiResource());
+
+
+
+
         }
         //public ApiResourceScopeMapperProfile()
         //{
@@ -64,7 +74,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
         //       .ReverseMap()
         //       .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src));
         //}
-    
+
     }
 
 }

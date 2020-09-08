@@ -16,9 +16,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             _apiResourePropertyRepository = apiPropertyRepository;
         }
 
-        public ApiResourceProperty GetById(int resourceId, int propertyId)
+        public ApiResourceProperty GetById(int propertyId)
         {
-            return _apiResourePropertyRepository.GetById(resourceId, propertyId);
+            return _apiResourePropertyRepository.GetById(propertyId);
         }
 
         public IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId)
@@ -26,19 +26,29 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             return _apiResourePropertyRepository.GetPropertiesByResourceId(resourceId);
         }
 
-        public void Insert(int resourceId, ApiResourceProperty apiProperty)
+        public void Insert(ApiResourceProperty apiProperty)
         {
-            _apiResourePropertyRepository.Insert(resourceId, apiProperty);
+            _apiResourePropertyRepository.Insert(apiProperty);
         }
 
-        public void Update(int resourceId, ApiResourceProperty apiProperty)
+        public void Update(ApiResourceProperty apiProperty)
         {
-            _apiResourePropertyRepository.Update(resourceId, apiProperty);
+            _apiResourePropertyRepository.Update(apiProperty);
         }
 
-        public void Delete(int resourceId, int propertyId)
+        public void Delete(int propertyId)
         {
-            _apiResourePropertyRepository.Delete(resourceId, propertyId);
+            _apiResourePropertyRepository.Delete(propertyId);
+        }
+
+        public void DeleteAll(int resourceId)
+        {
+            _apiResourePropertyRepository.DeleteAll(resourceId);
+        }
+
+        public IEnumerable<ApiResourceProperty> GetAll()
+        {
+           return  _apiResourePropertyRepository.GetAll();
         }
     }
 }

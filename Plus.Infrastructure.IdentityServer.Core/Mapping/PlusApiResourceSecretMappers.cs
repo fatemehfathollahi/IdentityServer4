@@ -11,8 +11,15 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     {
         static PlusApiResourceSecretMappers()
         {
-            Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourceSecretMapperProfile>())
-                .CreateMapper();
+            Mapper = new MapperConfiguration(cfg => {
+
+                cfg.CreateMap<ApiResourceSecret, Entities.ApiResourceSecret>().ReverseMap();
+                cfg.CreateMap<ApiResource, Entities.ApiResource>().ReverseMap();
+
+            }).CreateMapper(); 
+
+            //Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourceSecretMapperProfile>())
+            //    .CreateMapper();
         }
 
         internal static IMapper Mapper { get; }

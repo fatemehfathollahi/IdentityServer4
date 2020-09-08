@@ -73,6 +73,17 @@ namespace Plus.Infrastructure.IdentityServer
             services.AddDbContext<PlusConfigurationDbContext>();
             services.AddDbContext<PlusOperationalDbContext>();
 
+
+            services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
+            services.AddScoped<IPlusClientClaimRepository, PlusClientClaimRepository>();
+            services.AddScoped<IPlusClientCorsOriginRepository, PlusClientCorsOriginRepository>();
+            services.AddScoped<IPlusClientGrantTypeRepository, PlusClientGrantTypeRepository>();
+            services.AddScoped<IPlusClientIdPRestrictionRepository, PlusClientIdPRestrictionRepository>();
+            services.AddScoped<IPlusClientPostLogoutRedirectUriRepository, PlusClientPostLogoutRedirectUriRepository>();
+            services.AddScoped<IPlusClientPropertyRepository, PlusClientPropertyRepository>();
+            services.AddScoped<IPlusClientRedirectUriRepository, PlusClientRedirectUriRepository>();
+            services.AddScoped<IPlusClientScopeRepository, PlusClientScopeRepository>();
+            services.AddScoped<IPlusClientSecretRepository, PlusClientSecretRepository>();
             services.AddScoped<IPlusClientRepository, PlusClientRepository>();
             services.AddScoped<IPlusClientService, PlusClientService>();
             services.AddScoped<IPlusIdentityResourceRepository, PlusIdentityResourceRepository>();
@@ -178,7 +189,7 @@ namespace Plus.Infrastructure.IdentityServer
             }
 
             app.UseRouting();
-
+             
 
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()

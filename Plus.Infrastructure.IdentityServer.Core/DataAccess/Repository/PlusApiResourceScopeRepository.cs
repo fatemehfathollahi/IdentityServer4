@@ -17,70 +17,61 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public ApiResourceScope GetById(int resourceId,int scopeId)
+        public ApiResourceScope GetById(int scopeId)
         {
-            var _entity = _plusDataContext.ApiResources
-                .Single(r => r.Id.Equals(resourceId)).Scopes
-                .Single(s => s.Id.Equals(scopeId)); 
+            var _entity = _plusDataContext.ApiResourceScopes.AsNoTracking().FirstOrDefault(r => r.Id.Equals(scopeId));
             return _entity.ToModel();
         }
 
         public IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId)
         {
-            //var _entityList = _plusDataContext.ApiResources
-            //   .Single(r => r.Id.Equals(resourceId)).Scopes.ToList();
             var _entityList = _plusDataContext.ApiResourceScopes.Where
                 (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(int resourceId,ApiResourceScope apiScope)
+        public void Insert(ApiResourceScope apiScope)
         {
             var _entity = apiScope.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
             _plusDataContext.ApiResourceScopes.Add(_entity);
-
-          //  var _resource = _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId));
-          //  _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Scopes.Add(_entity);
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(int resourceId, ApiResourceScope apiScope)
+        public void Update(ApiResourceScope apiScope)
         {
             var _entity = apiScope.ToEntity();
-            _plusDataContext.Entry(_entity).State = EntityState.Modified;
-             Delete(resourceId, apiScope.Id);
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Scopes.Add(_entity);
-            _plusDataContext.SaveChanges();
-        }
-        public void Delete(int resourceId,int scopeId)
-        {
-            var _entity = _plusDataContext.ApiResources
-              .Single(r => r.Id.Equals(resourceId)).Scopes
-              .Single(s => s.Id.Equals(scopeId));
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Scopes.Remove(_entity); 
-            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
-            _plusDataContext.SaveChanges();
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
+            if (_plusDataContext.Entry(_entity).State != EntityState.Detached)
             {
-                if (disposing)
-                {
-                    _plusDataContext.Dispose();
-                }
+                _plusDataContext.Entry(_entity).State = EntityState.Detached;
             }
-            this.disposed = true;
+            _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            _plusDataContext.SaveChanges();
+        }
+      
+        public void DeleteAll(int resourceId)
+        {
+            var _scopes = GetScopesByResourceId(resourceId);
+            _scopes.ToList().ForEach(s =>
+            {
+                _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
+                _plusDataContext.ApiResourceScopes.Remove(s.ToEntity());
+            });
+            _plusDataContext.SaveChanges();
         }
 
-        public void Dispose()
+        public void Delete(int scopeId)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            var _entity = _plusDataContext.ApiResourceScopes.Find(scopeId);
+            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
+            _plusDataContext.ApiResourceScopes.Remove(_entity);
+            _plusDataContext.SaveChanges();
+        }
+
+        public IEnumerable<ApiResourceScope> GetAll()
+        {
+            var _entityList = _plusDataContext.ApiResourceScopes.ToList();
+            return _entityList.ToModel();
         }
     }
 }

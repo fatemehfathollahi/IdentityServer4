@@ -5,17 +5,19 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusApiResourcePropertyRepository: IDisposable
+    public interface IPlusApiResourcePropertyRepository
     {
-        void Insert(int resourceId, ApiResourceProperty apiProperty);
+        void Insert(ApiResourceProperty apiProperty);
 
-        void Update(int resourceId, ApiResourceProperty apiProperty);
+        void Update(ApiResourceProperty apiProperty);
 
-        void Delete(int resourceId, int propertyId);
+        void Delete(int propertyId);
 
-        ApiResourceProperty GetById(int resourceId, int propertyId);
+        void DeleteAll(int resourceId);
 
-        // IEnumerable<ApiResourceSecret> GetAll();
+        ApiResourceProperty GetById(int propertyId);
+
+        IEnumerable<ApiResourceProperty> GetAll();
 
         IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId);
     }

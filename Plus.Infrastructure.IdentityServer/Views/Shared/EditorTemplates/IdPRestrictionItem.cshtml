@@ -1,0 +1,13 @@
+﻿@model Plus.Infrastructure.IdentityServer.Models.IdPRestrictionItem
+
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Provider"></label>
+            <input asp-for="Provider" class="form-control" />
+            <span asp-validation-for="Provider" class="text-danger"></span>
+        </div>
+    </div>
+</div>

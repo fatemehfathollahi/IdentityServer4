@@ -6,7 +6,7 @@
 
 <h1>ApiResource List</h1>
 
- <a class="btn btn-sm btn-primary" asp-action="Create" asp-controller="ApiResource">Create</a>
+<a class="btn btn-sm btn-primary" asp-action="Create" asp-controller="ApiResource">Create</a>
 
 <div class="row">
     <div class="col-sm-6">
@@ -16,134 +16,142 @@
                     <th>Name</th>
                     <th>DisplayName</th>
                     <th>Description</th>
+                    <th>AllowedAccessTokenSigningAlgorithms</th>
                     <th>Enabled</th>
                     <th>NonEditable</th>
+                    <th>ShowInDiscoveryDocument</th>
                     <th>Created</th>
                     <th>Updated</th>
                     <th>LastAccessed</th>
                     <th>Scopes</th>
-                    @*<th>Secrets</th>
+                    <th>Secrets</th>
                     <th>UserClaims</th>
-                    <th>Properties</th>*@
+                    <th>Properties</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.DisplayName
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.Enabled
-                    </td>
-                    <td>
-                        @item.NonEditable
-                    </td>
-                    <td>
-                        @item.Created.ToShortDateString()
-                    </td>
-                    <td>
-                        @item.Updated
-                    </td>
-                    <td>
-                        @item.LastAccessed
-                    </td>
-                    <td>
-                        @if (item.Scopes.Any())
-                        {
-                            <div class="form-group">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        Scope List
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.DisplayName
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+                            @item.AllowedAccessTokenSigningAlgorithms
+                        </td>
+                        <td>
+                            @item.Enabled
+                        </td>
+                        <td>
+                            @item.NonEditable
+                        </td>
+                        <td>
+                            @item.ShowInDiscoveryDocument
+                        </td>
+                        <td>
+                            @item.Created.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Updated
+                        </td>
+                        <td>
+                            @item.LastAccessed
+                        </td>
+                        <td>
+                            @if (item.Scopes.Any())
+                            {
+                                <div class="form-group">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            Scope List
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var scope in item.Scopes)
+                                            {
+                                                <partial name="_ResourceScopeListItem" model="scope" />
+                                            }
+                                        </ul>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        @foreach (var scope in item.Scopes)
-                                        {
-                                            <partial name="_ResourceScopeListItem" model="scope" />
-                                        }
-                                    </ul>
                                 </div>
-                            </div>
-                        }
-                    </td>
-                    @*<td>
-                        @if (item.Secrets.Any())
-                        {
-                            <div class="form-group">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                            }
+                        </td>
+                        <td>
+                            @if (item.Secrets.Any())
+                            {
+                                <div class="form-group">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            Personal Information
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var secret in item.Secrets)
+                                            {
+                                                <partial name="_ResourceSecretListItem" model="secret" />
+                                            }
+                                        </ul>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        @foreach (var secret in item.Secrets)
-                                        {
-                                            <partial name="_ResourceSecretListItem" model="secret" />
-                                        }
-                                    </ul>
                                 </div>
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        @if (item.UserClaims.Any())
-                        {
-                            <div class="form-group">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                            }
+                        </td>
+                        <td>
+                            @if (item.UserClaims.Any())
+                            {
+                                <div class="form-group">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            Personal Information
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var claim in item.UserClaims)
+                                            {
+                                                <partial name="_ResourceClaimListItem" model="claim" />
+                                            }
+                                        </ul>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        @foreach (var claim in item.UserClaims)
-                                        {
-                                            <partial name="_ResourceClaimListItem" model="claim" />
-                                        }
-                                    </ul>
                                 </div>
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Properties.Any())
-                        {
-                            <div class="form-group">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                            }
+                        </td>
+                        <td>
+                            @if (item.Properties.Any())
+                            {
+                                <div class="form-group">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            Personal Information
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var property in item.Properties)
+                                            {
+                                                <partial name="_ResourcePropertyListItem" model="property" />
+                                            }
+                                        </ul>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        @foreach (var property in item.Properties)
-                                        {
-                                            <partial name="_ResourcePropertyListItem" model="property" />
-                                        }
-                                    </ul>
                                 </div>
-                            </div>
-                        }
-                    </td>*@
+                            }
+                        </td>
 
 
-                    <td class="text-center action-cell">
-                        <a class="action-link hover-primary" asp-action="Edit"
-                           asp-controller="ApiResource"
-                           asp-route-id="@item.Id">ٍEdit</a>
-                        <span></span>
-                        <a class="action-link hover-primary" asp-action="Delete"
-                           asp-controller="ApiResource"
-                           asp-route-id="@item.Id">ٍDelete</a>
-                    </td>
-                </tr>
+                        <td class="text-center action-cell">
+                            <a class="action-link hover-primary" asp-action="Edit"
+                               asp-controller="ApiResource"
+                              asp-route-id="@item.Id">Edit</a>
+                            <span></span>
+                            <a class="action-link hover-primary" asp-action="Delete"
+                               asp-controller="ApiResource"
+                               asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

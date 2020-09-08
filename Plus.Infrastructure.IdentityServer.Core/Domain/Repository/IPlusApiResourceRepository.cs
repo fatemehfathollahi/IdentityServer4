@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusApiResourceRepository: IDisposable
+    public interface IPlusApiResourceRepository
     {
         int Insert(ApiResource apiResource);
 

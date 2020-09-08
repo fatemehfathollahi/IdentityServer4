@@ -1,0 +1,13 @@
+﻿@model Plus.Infrastructure.IdentityServer.Models.CorsOriginItem
+
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Origin"></label>
+            <input asp-for="Origin" class="form-control" />
+            <span asp-validation-for="Origin" class="text-danger"></span>
+        </div>
+    </div>
+</div>

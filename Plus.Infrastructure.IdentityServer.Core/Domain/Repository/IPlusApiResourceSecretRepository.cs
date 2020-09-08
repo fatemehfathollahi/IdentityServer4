@@ -5,17 +5,19 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusApiResourceSecretRepository:IDisposable
+    public interface IPlusApiResourceSecretRepository
     {
-        void Insert(int resourceId, ApiResourceSecret apiSecret);
+        void Insert(ApiResourceSecret apiSecret);
 
-        void Update(int resourceId, ApiResourceSecret apiSecret);
+        void Update(ApiResourceSecret apiSecret);
 
-        void Delete(int resourceId, int secretId);
+        void DeleteAll(int resourceId);
 
-        ApiResourceSecret GetById(int resourceId, int secretId);
+        void Delete(int secretId);
 
-        // IEnumerable<ApiResourceSecret> GetAll();
+        ApiResourceSecret GetById(int secretId);
+
+        IEnumerable<ApiResourceSecret> GetAll();
 
         IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId);
     }

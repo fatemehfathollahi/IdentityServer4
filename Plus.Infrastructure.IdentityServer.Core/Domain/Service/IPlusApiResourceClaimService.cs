@@ -7,14 +7,18 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusApiResourceClaimService
     {
-        void Insert(int resourceId, ApiResourceClaim apiClaim);
+        void Insert(ApiResourceClaim apiClaim);
 
-        void Update(int resourceId, ApiResourceClaim apiClaim);
+        void Update(ApiResourceClaim apiClaim);
 
-        void Delete(int resourceId, int claimId);
+        void Delete(int claimId);
 
-        ApiResourceClaim GetById(int resourceId, int claimId);
+        void DeleteAll(int resourceId);
+
+        ApiResourceClaim GetById(int claimId);
 
         IEnumerable<ApiResourceClaim> GetClaimsByResourceId(int resourceId);
+
+        IEnumerable<ApiResourceClaim> GetAll();
     }
 }

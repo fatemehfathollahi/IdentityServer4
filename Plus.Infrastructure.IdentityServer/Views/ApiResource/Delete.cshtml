@@ -1,0 +1,18 @@
+﻿@model Plus.Infrastructure.IdentityServer.Models.ApiResource.DeleteApiResourceViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete IdentiyResource</h1>
+
+<div class="container alert alert-danger">
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <h2>Are you sure for delete?</h2>
+        <p>
+            <input type="submit" value="Delete" class="btn btn-outline btn-danger" />
+            <a asp-page="/Index" class="btn btn-outline btn-info">Cancel</a>
+        </p>
+    </form>
+</div>

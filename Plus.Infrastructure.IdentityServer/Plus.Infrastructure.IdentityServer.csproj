@@ -40,6 +40,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Folder Include="Controller\Scope\" />
     <Folder Include="Migration\" />
   </ItemGroup>
 

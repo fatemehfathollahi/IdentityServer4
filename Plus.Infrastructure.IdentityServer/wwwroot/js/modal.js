@@ -16,7 +16,6 @@ $(function () {
         var actionUrl = form.attr('action');
         var sendData = form.serialize();
         $.post(actionUrl, sendData).done(function (data) {
-            $("#scopeList").append(JSON.parse(data));
           //  $('#scopeList').val(sendData);
            // $("scopeList").html(response);
             

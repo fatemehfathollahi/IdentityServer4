@@ -5,17 +5,19 @@ using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusApiResourceScopeRepository:IDisposable
+    public interface IPlusApiResourceScopeRepository
     {
-        void Insert(int resourceId,ApiResourceScope apiScope);
+        void Insert(ApiResourceScope apiScope);
 
-        void Update(int resourceId,ApiResourceScope apiScope);
+        void Update(ApiResourceScope apiScope);
 
-        void Delete(int resourceId, int scopeId);
+        void DeleteAll(int resourceId);
 
-        ApiResourceScope GetById(int resourceId,int scopeId);
+        void Delete(int scopeId);
 
-       // IEnumerable<ApiResourceScope> GetAll();
+        ApiResourceScope GetById(int scopeId);
+
+        IEnumerable<ApiResourceScope> GetAll();
 
         IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId);
     }

@@ -39,11 +39,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
         public ClientSecretMapperProfile()
         {
             CreateMap<Entities.ClientSecret, ClientSecret>()
-                .ConstructUsing(src => new ClientSecret())
-                .ForMember(x => x.Description, opt => opt.MapFrom(src => src.Description))
-                 .ForMember(x => x.Expiration, opt => opt.MapFrom(src => src.Expiration))
-                  .ForMember(x => x.Value, opt => opt.MapFrom(src => src.Value))
-                  .ForMember(x => x.Type, opt => opt.MapFrom(src => src.Type));
+                .ConstructUsing(src => new ClientSecret()).ReverseMap();
         }
     }
 }

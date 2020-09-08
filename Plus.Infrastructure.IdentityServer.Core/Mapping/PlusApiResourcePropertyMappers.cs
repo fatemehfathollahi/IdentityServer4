@@ -9,8 +9,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.Mapping
     {
         static PlusApiResourcePropertyMappers()
         {
-            Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourcePropertyMapperProfile>())
-                .CreateMapper();
+            Mapper = new MapperConfiguration(cfg => {
+
+                cfg.CreateMap<ApiResourceProperty, Entities.ApiResourceProperty>().ReverseMap();
+                cfg.CreateMap<ApiResource, Entities.ApiResource>().ReverseMap();
+
+            }).CreateMapper();
+            //Mapper = new MapperConfiguration(cfg => cfg.AddProfile<ApiResourcePropertyMapperProfile>())
+            //    .CreateMapper();
         }
 
         internal static IMapper Mapper { get; }

@@ -1,0 +1,166 @@
+﻿@model Plus.Infrastructure.IdentityServer.Models.ApiResource.AddEditApiResourceViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit ApiResource</h1>
+<hr />
+
+<partial name="_ValidationSummary" />
+
+<div class="row">
+    <div class="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-9">
+        <form asp-action="Edit" id="form">
+            <input type="hidden" asp-for="Id" id="#resourceId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Created" class="control-label"></label>
+                        <input asp-for="Created" type="date" class="form-control" />
+                        <span asp-validation-for="Created" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Updated" class="control-label"></label>
+                        <input asp-for="Updated" type="date" class="form-control" />
+                        <span asp-validation-for="Updated" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="LastAccessed" class="control-label"></label>
+                        <input asp-for="LastAccessed" type="date" class="form-control" />
+                        <span asp-validation-for="LastAccessed" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="AllowedAccessTokenSigningAlgorithms" class="control-label"></label>
+                        <input asp-for="AllowedAccessTokenSigningAlgorithms" class="form-control" />
+                        <span asp-validation-for="AllowedAccessTokenSigningAlgorithms" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="ShowInDiscoveryDocument" type="checkbox" class="form-check-input" />
+                        <label asp-for="ShowInDiscoveryDocument" class="form-check-label"></label>
+                        <span asp-validation-for="ShowInDiscoveryDocument" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="Enabled" type="checkbox" class="form-check-input" />
+                        <label asp-for="Enabled" class="form-check-label"></label>
+                        <span asp-validation-for="Enabled" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="NonEditable" type="checkbox" class="form-check-input" />
+                        <label asp-for="NonEditable" class="form-check-label"></label>
+                        <span asp-validation-for="NonEditable" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                @if (Model.Scopes.Count > 0)
+                {
+
+                    <div class="col-sm-6">
+
+                        <div id="scopeItemsContainer">
+                            @Html.EditorFor(model => model.Scopes)
+                        </div>
+                    </div>
+                }
+                @if (Model.Claims.Count > 0)
+                {
+                    <div class="col-sm-6">
+
+                        <div id="claimItemsContainer">
+                            @Html.EditorFor(model => model.Claims)
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+
+            @if (Model.Properties.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="propertyItemsContainer">
+                            @Html.EditorFor(model => model.Properties)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Secrets.Count > 0)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="secretItemsContainer">
+                            @Html.EditorFor(model => model.Secrets)
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="submit" value="Edit" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+}

@@ -7,13 +7,17 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusApiResourceScopeService
     {
-        void Insert(int resourceId,ApiResourceScope apiScope);
+        void Insert(ApiResourceScope apiScope);
 
-        void Update(int resourceId,ApiResourceScope apiScope);
+        void Update(ApiResourceScope apiScope);
 
-        void Delete(int resourceId,int scopId);
+        void DeleteAll(int resourceId);
 
-        ApiResourceScope GetById(int resourceId, int scopId);
+        void Delete(int scopeId);
+
+        ApiResourceScope GetById(int scopeId);
+
+        IEnumerable<ApiResourceScope> GetAll();
 
         IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId);
     }

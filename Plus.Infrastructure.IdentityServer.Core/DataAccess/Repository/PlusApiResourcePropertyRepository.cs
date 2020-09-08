@@ -17,66 +17,62 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public ApiResourceProperty GetById(int resourceId, int propertyId)
+        public ApiResourceProperty GetById(int propertyId)
         {
-            var _entity = _plusDataContext.ApiResources
-                 .Single(r => r.Id.Equals(resourceId)).Properties
-                 .Single(s => s.Id.Equals(propertyId));
+            var _entity = _plusDataContext.ApiResourceProperties.Find(propertyId);
             return _entity.ToModel();
         }
 
         public IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId)
         {
-            var _entityList = _plusDataContext.ApiResources
-             .Single(r => r.Id.Equals(resourceId)).Properties.ToList();
+            var _entityList = _plusDataContext.ApiResourceProperties.Where
+               (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(int resourceId, ApiResourceProperty apiProperty)
+        public void Insert(ApiResourceProperty apiProperty)
         {
             var _entity = apiProperty.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Properties.Add(_entity);
+            _plusDataContext.ApiResourceProperties.Add(_entity);
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(int resourceId, ApiResourceProperty apiProperty)
+        public void Update(ApiResourceProperty apiProperty)
         {
             var _entity = apiProperty.ToEntity();
-            _plusDataContext.Entry(_entity).State = EntityState.Modified;
-            Delete(resourceId, apiProperty.Id);
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Properties.Add(_entity);
-            _plusDataContext.SaveChanges();
-        }
 
-        public void Delete(int resourceId, int propertyId)
-        {
-            var _entity = _plusDataContext.ApiResources
-           .Single(r => r.Id.Equals(resourceId)).Properties
-           .Single(s => s.Id.Equals(propertyId));
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Properties.Remove(_entity);
-            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
-            _plusDataContext.SaveChanges();
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
+            if (_plusDataContext.Entry(_entity).State != EntityState.Detached)
             {
-                if (disposing)
-                {
-                    _plusDataContext.Dispose();
-                }
+                _plusDataContext.Entry(_entity).State = EntityState.Detached;
             }
-            this.disposed = true;
+            _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            _plusDataContext.SaveChanges();
         }
 
-        public void Dispose()
+        public void DeleteAll(int resourceId)
         {
-            Dispose(true);
-           GC.SuppressFinalize(this);
+            var _scopes = GetPropertiesByResourceId(resourceId);
+            _scopes.ToList().ForEach(s =>
+            {
+                _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
+                _plusDataContext.ApiResourceProperties.Remove(s.ToEntity());
+            });
+            _plusDataContext.SaveChanges();
+        }
+
+        public void Delete(int propertyId)
+        {
+            var _entity = _plusDataContext.ApiResourceProperties.Find(propertyId);
+            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
+            _plusDataContext.ApiResourceProperties.Remove(_entity);
+            _plusDataContext.SaveChanges();
+        }
+
+        public IEnumerable<ApiResourceProperty> GetAll()
+        {
+            var _entityList = _plusDataContext.ApiResourceProperties.ToList();
+            return _entityList.ToModel();
         }
     }
 }

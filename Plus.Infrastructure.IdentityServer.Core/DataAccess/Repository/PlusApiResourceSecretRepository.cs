@@ -18,67 +18,62 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public ApiResourceSecret GetById(int resourceId, int secretId)
+        public ApiResourceSecret GetById(int secretId)
         {
-            var _entity = _plusDataContext.ApiResources
-                .Single(r => r.Id.Equals(resourceId)).Secrets
-                .Single(s => s.Id.Equals(secretId));
+            var _entity = _plusDataContext.ApiResourceSecrets.Find(secretId);
             return _entity.ToModel();
         }
 
         public IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId)
         {
-            var _entityList = _plusDataContext.ApiResources
-              .Single(r => r.Id.Equals(resourceId)).Secrets.ToList();
+            var _entityList = _plusDataContext.ApiResourceSecrets.Where
+                (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(int resourceId, ApiResourceSecret apiSecret)
+        public void Insert(ApiResourceSecret apiSecret)
         {
             var _entity = apiSecret.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Secrets.Add(_entity);
+            _plusDataContext.ApiResourceSecrets.Add(_entity);
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(int resourceId, ApiResourceSecret apiSecret)
+        public void Update(ApiResourceSecret apiSecret)
         {
             var _entity = apiSecret.ToEntity();
-            _plusDataContext.Entry(_entity).State = EntityState.Modified;
-            Delete(resourceId, apiSecret.Id);
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Secrets.Add(_entity);
-            _plusDataContext.SaveChanges();
-        }
 
-        public void Delete(int resourceId, int secretId)
-        {
-            var _entity = _plusDataContext.ApiResources
-             .Single(r => r.Id.Equals(resourceId)).Secrets
-             .Single(s => s.Id.Equals(secretId));
-            _plusDataContext.ApiResources.Single(r => r.Id.Equals(resourceId)).Secrets.Remove(_entity);
-            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
-            _plusDataContext.SaveChanges();
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
+            if (_plusDataContext.Entry(_entity).State != EntityState.Detached)
             {
-                if (disposing)
-                {
-                    _plusDataContext.Dispose();
-                }
+                _plusDataContext.Entry(_entity).State = EntityState.Detached;
             }
-            this.disposed = true;
+            _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            _plusDataContext.SaveChanges();
         }
 
-        public void Dispose()
+        public void DeleteAll(int resourceId)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            var _scopes = GetSecretsByResourceId(resourceId);
+            _scopes.ToList().ForEach(s =>
+            {
+                _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
+                _plusDataContext.ApiResourceSecrets.Remove(s.ToEntity());
+            });
+            _plusDataContext.SaveChanges();
+        }
+      
+        public void Delete(int secretId)
+        {
+            var _entity = _plusDataContext.ApiResourceSecrets.Find(secretId);
+            _plusDataContext.Entry(_entity).State = EntityState.Deleted;
+            _plusDataContext.ApiResourceSecrets.Remove(_entity);
+            _plusDataContext.SaveChanges();
         }
 
+        public IEnumerable<ApiResourceSecret> GetAll()
+        {
+            var _entityList = _plusDataContext.ApiResourceSecrets.ToList();
+            return _entityList.ToModel();
+        }
     }
 }

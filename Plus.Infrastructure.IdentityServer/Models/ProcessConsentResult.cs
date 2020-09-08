@@ -6,7 +6,7 @@ namespace Plus.Infrastructure.IdentityServer.Models
     {
         public bool IsRedirect => RedirectUri != null;
         public string RedirectUri { get; set; }
-        public Client Client { get; set; }
+        public IdentityServer4.Models.Client Client { get; set; }
 
         public bool ShowView => ViewModel != null;
         public ConsentViewModel ViewModel { get; set; }

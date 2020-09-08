@@ -16,9 +16,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             _apiResoureClaimRepository = apiClaimRepository;
         }
 
-        public ApiResourceClaim GetById(int resourceId, int claimId)
+        public ApiResourceClaim GetById(int claimId)
         {
-            return _apiResoureClaimRepository.GetById(resourceId, claimId);
+            return _apiResoureClaimRepository.GetById(claimId);
         }
 
         public IEnumerable<ApiResourceClaim> GetClaimsByResourceId(int resourceId)
@@ -26,20 +26,29 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             return _apiResoureClaimRepository.GetClaimsByResourceId(resourceId);
         }
 
-        public void Insert(int resourceId, ApiResourceClaim apiClaim)
+        public void Insert(ApiResourceClaim apiClaim)
         {
-            _apiResoureClaimRepository.Insert(resourceId, apiClaim);
+            _apiResoureClaimRepository.Insert(apiClaim);
         }
 
-        public void Update(int resourceId, ApiResourceClaim apiClaim)
+        public void Update(ApiResourceClaim apiClaim)
         {
-            _apiResoureClaimRepository.Update(resourceId, apiClaim);
+            _apiResoureClaimRepository.Update(apiClaim);
         }
 
-        public void Delete(int resourceId, int claimId)
+        public void Delete(int claimId)
         {
-            _apiResoureClaimRepository.Delete(resourceId, claimId);
+            _apiResoureClaimRepository.Delete(claimId);
         }
 
+        public void DeleteAll(int resourceId)
+        {
+            _apiResoureClaimRepository.DeleteAll(resourceId);
+        }
+
+        public IEnumerable<ApiResourceClaim> GetAll()
+        {
+           return _apiResoureClaimRepository.GetAll();
+        }
     }
 }

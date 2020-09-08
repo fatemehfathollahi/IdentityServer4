@@ -19,15 +19,6 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
             this.domainService = domainService;
         }
 
-        //public new DbSet<Client> Clients { get; set; }
-
-        //public new DbSet<ClientCorsOrigin> ClientCorsOrigins { get; set; }
-
-        //public new DbSet<IdentityResource> IdentityResources { get; set; }
-
-        //public new DbSet<ApiResource> ApiResources { get; set; }
-
-        //public new DbSet<ApiScope> ApiScopes { get; set; }
 
         public DbSet<Entities.ApiResourceScope> ApiResourceScopes { get; set; }
 
@@ -36,6 +27,23 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
         public DbSet<Entities.ApiResourceClaim> ApiResourceClaims { get; set; }
 
         public DbSet<Entities.ApiResourceProperty> ApiResourceProperties { get; set; }
+
+        public DbSet<Entities.ClientIdPRestriction> ClientIdPRestrictions { get; set; }
+
+        public DbSet<Entities.ClientClaim> ClientClaims { get; set; }
+
+        public DbSet<Entities.ClientProperty> ClientProperties { get; set; }
+
+        public DbSet<Entities.ClientScope> ClientScopes { get; set; }
+
+        public DbSet<Entities.ClientSecret> ClientSecret { get; set; }
+
+        public DbSet<Entities.ClientGrantType> ClientGrantTypes { get; set; }
+
+        public DbSet<Entities.ClientRedirectUri> ClientRedirectUris { get; set; }
+
+        public DbSet<Entities.ClientPostLogoutRedirectUri> ClientPostLogoutRedirectUris { get; set; }
+
 
 
         public Task<int> SaveChangesAsync()
@@ -227,8 +235,6 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var connectionString = "Data source=.;Initial Catalog=Payamgostar3;User ID=payamgostardba;Password=12345";//Configuration.GetConnectionString("db");
-
             optionsBuilder.UseSqlServer(domainService.GetDomainInfo().ConnectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             base.OnConfiguring(optionsBuilder);

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Models
 {
-    public class ClientClaimViewModel
+    public class CorsOriginItem
     {
-        public string Type { get; set; }
-        public string Value { get; set; }
-
+        public int Id { get; set; }
+        public string Origin { get; set; }
     }
 }

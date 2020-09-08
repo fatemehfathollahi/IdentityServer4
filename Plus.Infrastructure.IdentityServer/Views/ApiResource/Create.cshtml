@@ -109,8 +109,6 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <input class="btn btn-secondary" type="button" id="btnAdd" value="Add Scope" />
-                        @*<span></span>
-                        <input class="btn btn-secondary" type="button" id="btnRemove" value="Remove Scope" />*@
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -118,6 +116,7 @@
                         <input class="btn btn-secondary" type="button" id="btnAddClaim" value="Add Claim" />
                     </div>
                 </div>
+
             </div>
 
             <div class="row">
@@ -152,38 +151,6 @@
 
 
 
-
-
-
-            @*<div class="form-group">
-                    <label asp-for="Scopes" class="control-label"></label>
-                    <select multiple="multiple" asp-for="Scopes"  class="form-control" id="#scopeList"></select>
-                    <span asp-validation-for="Scopes" class="text-danger"></span>
-                    <div id="PlaceHolderHere"></div>
-                    <span>
-                        <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addScope"
-                                data-url="@Url.Action("AddScope")">
-                            Add Scope
-                        </button>
-                    </span>
-                </div>*@
-
-            @*<div class="form-group">
-                    <label asp-for="Secrets" class="control-label"></label>
-                    <select multiple="multiple" asp-for="Secrets" class="form-control"></select>
-                    <span asp-validation-for="Secrets" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="UserClaims" class="control-label"></label>
-                    <select multiple="multiple" asp-for="UserClaims" class="form-control"></select>
-                    <span asp-validation-for="UserClaims" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Properties" class="control-label"></label>
-                    <select multiple="multiple" asp-for="Properties" class="form-control"></select>
-                    <span asp-validation-for="Properties" class="text-danger"></span>
-
-                </div>*@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -197,13 +164,8 @@
 </div>
 
 
-@*@section Scripts {
-        <script src="~/lib/dynamic-viewmodel-list/dvml.js"></script>
-    }*@
-
 
 @section Scripts {
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -222,10 +184,6 @@
                 }
             });
         });
-
-        //$("#btnRemove").on('click', function () {
-        //    $('#scopeItemsContainer').html("");
-        //});
 
 
         $("#btnAddClaim").on('click', function () {
@@ -271,20 +229,5 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-
-
-@*@section Scripts
-    {
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/js/modal.js"></script>
-
-
-       <partial name="_ValidationScriptsPartial" />
-
-
-    }*@
 
 

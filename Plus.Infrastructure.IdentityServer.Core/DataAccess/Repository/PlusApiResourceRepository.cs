@@ -3,10 +3,8 @@ using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -20,14 +18,15 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
         
         public IEnumerable<ApiResource> GetAll()
         {
-            var _entityList = _plusDataContext.ApiResources.ToList();
+            var _entityList = _plusDataContext.ApiResources.Include(r => r.Scopes)
+                .Include(r => r.Secrets).Include(r => r.Properties).Include(r => r.UserClaims).ToList();
             return _entityList.ToModel();
         }
 
         public ApiResource GetById(int id)
         {
-            var _entity = _plusDataContext.ApiResources.Find(id);
-            return _entity.ToModel();
+            var _entity = GetAll().Where(r => r.Id.Equals(id)).FirstOrDefault();
+            return _entity;
         }
 
         public int Insert(ApiResource apiResource)
@@ -41,17 +40,14 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 
         public int Update(ApiResource apiResource)
         {
-            var _entityorg = GetById(apiResource.Id).ToEntity();
             var _entity = apiResource.ToEntity();
-            if (_plusDataContext.Entry(_entity).State == EntityState.Modified)
+
+            if (_plusDataContext.Entry(_entity).State != EntityState.Detached)
             {
-                _plusDataContext.ApiResources.Update(_entity);
-
-                // _plusDataContext.Entry(_entity).State = EntityState.Modified;
+                _plusDataContext.Entry(_entity).State = EntityState.Detached;
             }
-
-
-            _plusDataContext.Entry(_entityorg).CurrentValues.SetValues(_entity);
+            _plusDataContext.Entry(_entity).State = EntityState.Modified;
+            _plusDataContext.ApiResources.Update(_entity);
             _plusDataContext.SaveChanges();
             return _entity.Id;
         }
@@ -62,27 +58,6 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.ApiResources.Remove(_entity);
             _plusDataContext.SaveChanges();
             return _entity.Id;
-        }
-
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    _plusDataContext.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
