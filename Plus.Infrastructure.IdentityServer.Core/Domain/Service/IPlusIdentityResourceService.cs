@@ -1,4 +1,5 @@
-﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,10 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface  IPlusIdentityResourceService
     {
-        void Insert(IdentityResource identityResource);
-        void Update(IdentityResource identityResource);
-        void Delete(int id);
-        IdentityResource GetById(int id);
-        IEnumerable<IdentityResource> GetAll();
+        Task Insert(IdentityResource identityResource);
+        Task Update(IdentityResource identityResource);
+        Task Delete(int id);
+        Task<IdentityResource> GetById(int id);
+        Task<IEnumerable<IdentityResource>> GetAll();
     }
 }

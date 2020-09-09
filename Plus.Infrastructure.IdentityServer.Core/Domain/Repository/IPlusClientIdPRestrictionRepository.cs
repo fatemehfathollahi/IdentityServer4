@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public  interface IPlusClientIdPRestrictionRepository //: IDisposable
+    public  interface IPlusClientIdPRestrictionRepository
     {
-        void Insert(ClientIdPRestriction clientIdPRestriction);
+        Task Insert(ClientIdPRestriction clientIdPRestriction);
 
-        void Update(ClientIdPRestriction clientIdPRestriction);
+        Task Update(ClientIdPRestriction clientIdPRestriction);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int clientIdPRestrictionId);
+        Task Delete(int clientIdPRestrictionId);
 
-        ClientIdPRestriction GetById(int clientIdPRestrictionId);
+        Task<ClientIdPRestriction> GetById(int clientIdPRestrictionId);
 
-        IEnumerable<ClientIdPRestriction> GetAll();
+        Task<IEnumerable<ClientIdPRestriction>> GetAll();
 
-        IEnumerable<ClientIdPRestriction> GetClientIdPRestrictionsByClientId(int clientId);
+        Task<IEnumerable<ClientIdPRestriction>> GetClientIdPRestrictionsByClientId(int clientId);
     }
 }

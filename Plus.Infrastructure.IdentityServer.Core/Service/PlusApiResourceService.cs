@@ -4,6 +4,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Service
 {
@@ -15,101 +16,101 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
             _identityUnitOfWork = identityUnitOfWork;
         }
 
-        public IEnumerable<ApiResource> GetAll()
+        public async Task<IEnumerable<ApiResource>> GetAll()
         {
-            return _identityUnitOfWork.PlusApiResourceRepository.GetAll();
+            return await _identityUnitOfWork.PlusApiResourceRepository.GetAll();
         }
-        public ApiResource GetById(int id)
+        public async Task<ApiResource> GetById(int id)
         {
-            return _identityUnitOfWork.PlusApiResourceRepository.GetById(id);
+            return await _identityUnitOfWork.PlusApiResourceRepository.GetById(id);
         }
-        public int Insert(ApiResource apiResource)
+        public async Task<int> Insert(ApiResource apiResource)
         {
-            return _identityUnitOfWork.PlusApiResourceRepository.Insert(apiResource);
+            return await _identityUnitOfWork.PlusApiResourceRepository.Insert(apiResource);
         }
-        public int Update(ApiResource apiResource)
+        public async Task<int> Update(ApiResource apiResource)
         {
-            return _identityUnitOfWork.PlusApiResourceRepository.Update(apiResource);
+            return await _identityUnitOfWork.PlusApiResourceRepository.Update(apiResource);
         }
-        public int Delete(int id)
+        public async Task Delete(int id)
         {
-            DeleteScopes(id);
-            DeleteSecrets(id);
-            DeleteClaims(id);
-            DeleteProperties(id);
-            return _identityUnitOfWork.PlusApiResourceRepository.Delete(id);
+           await DeleteScopes(id);
+           await DeleteSecrets(id);
+           await DeleteClaims(id);
+           await DeleteProperties(id);
+           await _identityUnitOfWork.PlusApiResourceRepository.Delete(id);
         }
 
         #region Scope
-        public void AddScope(ApiResourceScope apiScope)
+        public async Task AddScope(ApiResourceScope apiScope)
         {
-            _identityUnitOfWork.PlusApiResourceScopeRepository.Insert(apiScope);
+           await _identityUnitOfWork.PlusApiResourceScopeRepository.Insert(apiScope);
         }
-        public void UpdateScope(ApiResourceScope apiScope)
+        public async Task UpdateScope(ApiResourceScope apiScope)
         {
-            _identityUnitOfWork.PlusApiResourceScopeRepository.Update(apiScope);
+            await _identityUnitOfWork.PlusApiResourceScopeRepository.Update(apiScope);
         }
-        public IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceScope>> GetScopesByResourceId(int resourceId)
         {
-            return _identityUnitOfWork.PlusApiResourceScopeRepository.GetScopesByResourceId(resourceId);
+            return await _identityUnitOfWork.PlusApiResourceScopeRepository.GetScopesByResourceId(resourceId);
         }
-        private void DeleteScopes(int resourceId)
+        private async Task DeleteScopes(int resourceId)
         {
-            _identityUnitOfWork.PlusApiResourceScopeRepository.DeleteAll(resourceId);
+            await _identityUnitOfWork.PlusApiResourceScopeRepository.DeleteAll(resourceId);
         }
         #endregion
         #region Claim
-        public void AddClaim(ApiResourceClaim apiClaim)
+        public async Task AddClaim(ApiResourceClaim apiClaim)
         {
-            _identityUnitOfWork.PlusApiResourceClaimRepository.Insert(apiClaim);
+            await _identityUnitOfWork.PlusApiResourceClaimRepository.Insert(apiClaim);
         }
-        public void UpdateClaim(ApiResourceClaim apiClaim)
+        public async Task UpdateClaim(ApiResourceClaim apiClaim)
         {
-            _identityUnitOfWork.PlusApiResourceClaimRepository.Update(apiClaim);
+            await _identityUnitOfWork.PlusApiResourceClaimRepository.Update(apiClaim);
         }
-        public IEnumerable<ApiResourceClaim> GetClaimsByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceClaim>> GetClaimsByResourceId(int resourceId)
         {
-            return _identityUnitOfWork.PlusApiResourceClaimRepository.GetClaimsByResourceId(resourceId);
+            return await _identityUnitOfWork.PlusApiResourceClaimRepository.GetClaimsByResourceId(resourceId);
         }
-        private void DeleteClaims(int resourceId)
+        private async Task DeleteClaims(int resourceId)
         {
-            _identityUnitOfWork.PlusApiResourceClaimRepository.DeleteAll(resourceId);
+            await _identityUnitOfWork.PlusApiResourceClaimRepository.DeleteAll(resourceId);
         }
         #endregion
         #region Property
-        public void AddProperty(ApiResourceProperty apiProperty)
+        public async Task AddProperty(ApiResourceProperty apiProperty)
         {
-            _identityUnitOfWork.PlusApiResourcePropertyRepository.Insert(apiProperty);
+            await _identityUnitOfWork.PlusApiResourcePropertyRepository.Insert(apiProperty);
         }
-        public void UpdateProperty(ApiResourceProperty apiProperty)
+        public async Task UpdateProperty(ApiResourceProperty apiProperty)
         {
-            _identityUnitOfWork.PlusApiResourcePropertyRepository.Update(apiProperty);
+            await _identityUnitOfWork.PlusApiResourcePropertyRepository.Update(apiProperty);
         }
-        public IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceProperty>> GetPropertiesByResourceId(int resourceId)
         {
-            return _identityUnitOfWork.PlusApiResourcePropertyRepository.GetPropertiesByResourceId(resourceId);
+            return await _identityUnitOfWork.PlusApiResourcePropertyRepository.GetPropertiesByResourceId(resourceId);
         }
-        private void DeleteProperties(int resourceId)
+        private async Task DeleteProperties(int resourceId)
         {
-            _identityUnitOfWork.PlusApiResourcePropertyRepository.DeleteAll(resourceId);
+            await _identityUnitOfWork.PlusApiResourcePropertyRepository.DeleteAll(resourceId);
         }
         #endregion
         #region secret
-        public void AddSecret(ApiResourceSecret apiSecret)
+        public async Task AddSecret(ApiResourceSecret apiSecret)
         {
-            _identityUnitOfWork.PlusApiResourceSecretRepository.Insert(apiSecret);
+            await _identityUnitOfWork.PlusApiResourceSecretRepository.Insert(apiSecret);
         }
-        public void UpdateSecret(ApiResourceSecret apiSecret)
+        public async Task UpdateSecret(ApiResourceSecret apiSecret)
         {
-            _identityUnitOfWork.PlusApiResourceSecretRepository.Update(apiSecret);
+            await _identityUnitOfWork.PlusApiResourceSecretRepository.Update(apiSecret);
         }
-        public IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceSecret>> GetSecretsByResourceId(int resourceId)
         {
-            return _identityUnitOfWork.PlusApiResourceSecretRepository.GetSecretsByResourceId(resourceId);
+            return await _identityUnitOfWork.PlusApiResourceSecretRepository.GetSecretsByResourceId(resourceId);
         }
-        private void DeleteSecrets(int resourceId)
+        private async Task DeleteSecrets(int resourceId)
         {
-            _identityUnitOfWork.PlusApiResourceSecretRepository.DeleteAll(resourceId);
+            await _identityUnitOfWork.PlusApiResourceSecretRepository.DeleteAll(resourceId);
         }
         #endregion
     }

@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusApiResourceClaimRepository 
     {
-        void Insert(ApiResourceClaim apiClaim);
+        Task Insert(ApiResourceClaim apiClaim);
 
-        void Update(ApiResourceClaim apiClaim);
+        Task Update(ApiResourceClaim apiClaim);
 
-        void DeleteAll(int resourceId);
+        Task DeleteAll(int resourceId);
 
-        void Delete(int claimId);
+        Task Delete(int claimId);
 
-        ApiResourceClaim GetById(int claimId);
+        Task<ApiResourceClaim> GetById(int claimId);
 
-        IEnumerable<ApiResourceClaim> GetAll();
+        Task<IEnumerable<ApiResourceClaim>> GetAll();
 
-        IEnumerable<ApiResourceClaim> GetClaimsByResourceId(int resourceId);
+        Task<IEnumerable<ApiResourceClaim>> GetClaimsByResourceId(int resourceId);
     }
 }

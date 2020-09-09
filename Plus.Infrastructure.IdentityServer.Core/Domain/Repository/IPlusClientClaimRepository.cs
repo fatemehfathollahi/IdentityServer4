@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientClaimRepository//:IDisposable
+    public interface IPlusClientClaimRepository
     {
-        void Insert(ClientClaim clientClaim);
+        Task Insert(ClientClaim clientClaim);
 
-        void Update(ClientClaim clientClaim);
+        Task Update(ClientClaim clientClaim);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int claimId);
+        Task Delete(int claimId);
 
-        ClientClaim GetById(int claimId);
+        Task<ClientClaim> GetById(int claimId);
 
-        IEnumerable<ClientClaim> GetAll();
+        Task<IEnumerable<ClientClaim>> GetAll();
 
-        IEnumerable<ClientClaim> GetClaimsByClientId(int clientId);
+        Task<IEnumerable<ClientClaim>> GetClaimsByClientId(int clientId);
     }
 }

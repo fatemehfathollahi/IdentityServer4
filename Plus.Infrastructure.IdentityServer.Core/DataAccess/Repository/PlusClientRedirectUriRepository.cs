@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public void Delete(int clientRedirectUriId)
+        public async Task Delete(int clientRedirectUriId)
         {
             var _entity = _plusDataContext.ClientRedirectUris.Find(clientRedirectUriId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -24,9 +25,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _redirectUri = GetRedirectUriByClientId(clientId);
+            var _redirectUri = GetRedirectUriByClientId(clientId).Result;
             _redirectUri.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -35,26 +36,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientRedirectUri> GetAll()
+        public async Task<IEnumerable<ClientRedirectUri>> GetAll()
         {
             var _entityList = _plusDataContext.ClientRedirectUris.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientRedirectUri GetById(int clientRedirectUriId)
+        public async Task<ClientRedirectUri> GetById(int clientRedirectUriId)
         {
             var _entity = _plusDataContext.ClientRedirectUris.Find(clientRedirectUriId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientRedirectUri> GetRedirectUriByClientId(int clientId)
+        public async Task<IEnumerable<ClientRedirectUri>> GetRedirectUriByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientRedirectUris.Where
                (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientRedirectUri clientRedirectUri)
+        public async Task Insert(ClientRedirectUri clientRedirectUri)
         {
             var _entity = clientRedirectUri.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -62,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientRedirectUri clientRedirectUri)
+        public async Task Update(ClientRedirectUri clientRedirectUri)
         {
             var _entity = clientRedirectUri.ToEntity();
 

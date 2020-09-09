@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientPostLogoutRedirectUriRepository//: IDisposable
+    public interface IPlusClientPostLogoutRedirectUriRepository
     {
-        void Insert(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
+        Task Insert(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
 
-        void Update(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);//
+        Task Update(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int clientPostLogoutRedirectUriId);
+        Task Delete(int clientPostLogoutRedirectUriId);
 
-        ClientPostLogoutRedirectUri GetById(int clientPostLogoutRedirectUriId);
+        Task<ClientPostLogoutRedirectUri> GetById(int clientPostLogoutRedirectUriId);
 
-        IEnumerable<ClientPostLogoutRedirectUri> GetAll();
+        Task<IEnumerable<ClientPostLogoutRedirectUri>> GetAll();
 
-        IEnumerable<ClientPostLogoutRedirectUri> GetPostLogoutRedirectUrisByClientId(int clientId);
+        Task<IEnumerable<ClientPostLogoutRedirectUri>> GetPostLogoutRedirectUrisByClientId(int clientId);
     }
 }

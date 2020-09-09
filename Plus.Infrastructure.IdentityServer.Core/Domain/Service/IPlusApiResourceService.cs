@@ -7,27 +7,27 @@ namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
   
     public interface IPlusApiResourceService
     {
-        int Insert(ApiResource apiResource);
-        int Update(ApiResource apiResource);
-        int Delete(int id);
-        ApiResource GetById(int id);
-        IEnumerable<ApiResource> GetAll();
+        Task<int> Insert(ApiResource apiResource);
+        Task<int> Update(ApiResource apiResource);
+        Task Delete(int id);
+        Task<ApiResource> GetById(int id);
+        Task<IEnumerable<ApiResource>> GetAll();
 
-        void AddScope(ApiResourceScope apiScope);
-        void UpdateScope(ApiResourceScope apiScope);
-        IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId);
+        Task AddScope(ApiResourceScope apiScope);
+        Task UpdateScope(ApiResourceScope apiScope);
+        Task<IEnumerable<ApiResourceScope>> GetScopesByResourceId(int resourceId);
 
-        void AddClaim(ApiResourceClaim apiClaim);
-        void UpdateClaim(ApiResourceClaim apiClaim);
-        IEnumerable<ApiResourceClaim> GetClaimsByResourceId(int resourceId);
+        Task AddClaim(ApiResourceClaim apiClaim);
+        Task UpdateClaim(ApiResourceClaim apiClaim);
+        Task<IEnumerable<ApiResourceClaim>> GetClaimsByResourceId(int resourceId);
 
-        void AddProperty(ApiResourceProperty apiProperty);
-        void UpdateProperty(ApiResourceProperty apiProperty);
-        IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId);
+        Task AddProperty(ApiResourceProperty apiProperty);
+        Task UpdateProperty(ApiResourceProperty apiProperty);
+        Task<IEnumerable<ApiResourceProperty>> GetPropertiesByResourceId(int resourceId);
 
-        void AddSecret(ApiResourceSecret apiSecret);
-        void UpdateSecret(ApiResourceSecret apiSecret);
-        IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId);
+        Task AddSecret(ApiResourceSecret apiSecret);
+        Task UpdateSecret(ApiResourceSecret apiSecret);
+        Task<IEnumerable<ApiResourceSecret>> GetSecretsByResourceId(int resourceId);
 
     }
 

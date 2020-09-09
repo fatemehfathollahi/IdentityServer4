@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public void Delete(int claimId)
+        public async Task Delete(int claimId)
         {
             var _entity = _plusDataContext.ClientClaims.Find(claimId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -24,9 +25,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _claims = GetClaimsByClientId(clientId);
+            var _claims = GetClaimsByClientId(clientId).Result;
             _claims.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -35,26 +36,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientClaim> GetAll()
+        public async Task<IEnumerable<ClientClaim>> GetAll()
         {
             var _entityList = _plusDataContext.ClientClaims.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientClaim GetById(int claimId)
+        public async Task<ClientClaim> GetById(int claimId)
         {
             var _entity = _plusDataContext.ClientClaims.Find(claimId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientClaim> GetClaimsByClientId(int clientId)
+        public async Task<IEnumerable<ClientClaim>> GetClaimsByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientClaims.Where
                 (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientClaim clientClaim)
+        public async Task Insert(ClientClaim clientClaim)
         {
             var _entity = clientClaim.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -62,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientClaim clientClaim)
+        public async Task Update(ClientClaim clientClaim)
         {
             var _entity = clientClaim.ToEntity();
 

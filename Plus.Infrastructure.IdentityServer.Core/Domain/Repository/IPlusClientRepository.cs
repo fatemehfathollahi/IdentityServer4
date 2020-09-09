@@ -1,20 +1,19 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientRepository//: IDisposable
+    public interface IPlusClientRepository
     {
-        int Insert(Client client);
+        Task<int> Insert(Client client);
 
-        int Update(Client client);
+        Task<int> Update(Client client);
 
-        int Delete(int id);
+        Task Delete(int id);
 
-        Client GetById(int id);
+        Task<Client> GetById(int id);
 
-        IEnumerable<Client> GetAll();
+        Task<IEnumerable<Client>> GetAll();
     }
 }

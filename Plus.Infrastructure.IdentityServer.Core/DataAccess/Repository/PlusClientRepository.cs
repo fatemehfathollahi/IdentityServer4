@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public IEnumerable<Client> GetAll()
+        public async Task<IEnumerable<Client>> GetAll()
         {
             var _entityList = _plusDataContext.Clients.Include(r => r.ClientSecrets)
                 .Include(r => r.PostLogoutRedirectUris).Include(r => r.RedirectUris)
@@ -26,13 +27,13 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             return _entityList.ToModel();
         }
 
-        public Client GetById(int id)
+        public async Task<Client> GetById(int id)
         {
-            var _entity = GetAll().Where(r => r.Id.Equals(id)).FirstOrDefault();
+            var _entity = GetAll().Result.Where(r => r.Id.Equals(id)).FirstOrDefault();
             return _entity;
         }
 
-        public int Insert(Client client)
+        public async Task<int> Insert(Client client)
         {
             var _entity = client.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -41,7 +42,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             return _entity.Id;
         }
 
-        public int Update(Client client)
+        public async Task<int> Update(Client client)
         {
             var _entity = client.ToEntity();
             // plusDataContext.Entry(_entity).State = EntityState.Detached;
@@ -51,13 +52,12 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             return _entity.Id;
         }
 
-        public int Delete(int id)
+        public async Task Delete(int id)
         {
             var _entity = _plusDataContext.Clients.Find(id);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
             _plusDataContext.Clients.Remove(_entity);
             _plusDataContext.SaveChanges();
-            return _entity.Id;
         }
     }
 }

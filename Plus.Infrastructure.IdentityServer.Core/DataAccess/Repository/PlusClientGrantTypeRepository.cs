@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public void Delete(int grantTypeId)
+        public async Task  Delete(int grantTypeId)
         {
             var _entity = _plusDataContext.ClientGrantTypes.Find(grantTypeId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -24,9 +25,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _grantTypes = GetGrantTypesByClientId(clientId);
+            var _grantTypes = GetGrantTypesByClientId(clientId).Result;
             _grantTypes.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -35,26 +36,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientGrantType> GetAll()
+        public async Task<IEnumerable<ClientGrantType>> GetAll()
         {
             var _entityList = _plusDataContext.ClientGrantTypes.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientGrantType GetById(int grantTypeId)
+        public async Task<ClientGrantType> GetById(int grantTypeId)
         {
             var _entity = _plusDataContext.ClientGrantTypes.Find(grantTypeId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientGrantType> GetGrantTypesByClientId(int clientId)
+        public async Task<IEnumerable<ClientGrantType>> GetGrantTypesByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientGrantTypes.Where
                (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientGrantType clientGrantType)
+        public async Task Insert(ClientGrantType clientGrantType)
         {
             var _entity = clientGrantType.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -62,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientGrantType clientGrantType)
+        public async Task Update(ClientGrantType clientGrantType)
         {
             var _entity = clientGrantType.ToEntity();
 

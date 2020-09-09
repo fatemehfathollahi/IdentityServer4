@@ -1,50 +1,51 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using  Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Service
 {
     public interface IPlusClientService
     {
-        int Insert(Client client);
-        int Update(Client client);
-        int Delete(int id);
-        Client GetById(int id);
-        IEnumerable<Client> GetAll();
+        Task<int> Insert(Client client);
+        Task<int> Update(Client client);
+        Task Delete(int id);
+        Task<Client> GetById(int id);
+        Task<IEnumerable<Client>> GetAll();
 
-        IEnumerable<ClientScope> GetScopesByClientId(int clientId);
-        void AddScope(ClientScope clientScope);
-        void UpdateScope(ClientScope clientScope);
+        Task<IEnumerable<ClientScope>> GetScopesByClientId(int clientId);
+        Task AddScope(ClientScope clientScope);
+        Task UpdateScope(ClientScope clientScope);
 
-        IEnumerable<ClientSecret> GetSecretsByClientId(int clientId);
-        void AddSecret(ClientSecret clientSecret);
-        void UpdateSecret(ClientSecret clientSecret);
+        Task<IEnumerable<ClientSecret>> GetSecretsByClientId(int clientId);
+        Task AddSecret(ClientSecret clientSecret);
+        Task UpdateSecret(ClientSecret clientSecret);
 
-        IEnumerable<ClientRedirectUri> GetRedirectUriByClientId(int clientId);
-        void AddRedirectUri(ClientRedirectUri clientRedirectUri);
-        void UpdateRedirectUri(ClientRedirectUri clientRedirectUri);
+        Task<IEnumerable<ClientRedirectUri>> GetRedirectUriByClientId(int clientId);
+        Task AddRedirectUri(ClientRedirectUri clientRedirectUri);
+        Task UpdateRedirectUri(ClientRedirectUri clientRedirectUri);
 
-        IEnumerable<ClientProperty> GetPropertiesByClientId(int clientId);
-        void AddProperty(ClientProperty clientProperty);
-        void UpdateProperty(ClientProperty clientProperty);
+        Task<IEnumerable<ClientProperty>> GetPropertiesByClientId(int clientId);
+        Task AddProperty(ClientProperty clientProperty);
+        Task UpdateProperty(ClientProperty clientProperty);
 
-        IEnumerable<ClientPostLogoutRedirectUri> GetPostLogoutRedirectUrisByClientId(int clientId);
-        void AddPostLogoutRedirectUri(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
-        void UpdatePostLogoutRedirectUri(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
+        Task<IEnumerable<ClientPostLogoutRedirectUri>> GetPostLogoutRedirectUrisByClientId(int clientId);
+        Task AddPostLogoutRedirectUri(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
+        Task UpdatePostLogoutRedirectUri(ClientPostLogoutRedirectUri clientPostLogoutRedirectUri);
 
-        IEnumerable<ClientIdPRestriction> GetClientIdPRestrictionsByClientId(int clientId);
-        void AddRestriction(ClientIdPRestriction clientIdPRestriction);
-        void UpdateRestriction(ClientIdPRestriction clientIdPRestriction);
+        Task<IEnumerable<ClientIdPRestriction>> GetClientIdPRestrictionsByClientId(int clientId);
+        Task AddRestriction(ClientIdPRestriction clientIdPRestriction);
+        Task UpdateRestriction(ClientIdPRestriction clientIdPRestriction);
 
-        IEnumerable<ClientGrantType> GetGrantTypesByClientId(int clientId);
-        void AddGrantType(ClientGrantType clientGrantType);
-        void UpdateGrantType(ClientGrantType clientGrantType);
+        Task<IEnumerable<ClientGrantType>> GetGrantTypesByClientId(int clientId);
+        Task AddGrantType(ClientGrantType clientGrantType);
+        Task UpdateGrantType(ClientGrantType clientGrantType);
 
-        IEnumerable<ClientClaim> GetClaimsByClientId(int clientId);
-        void AddClaim(ClientClaim clientClaim);
-        void UpdateClaim(ClientClaim clientClaim);
+        Task<IEnumerable<ClientClaim>> GetClaimsByClientId(int clientId);
+        Task AddClaim(ClientClaim clientClaim);
+        Task UpdateClaim(ClientClaim clientClaim);
 
-        IEnumerable<ClientCorsOrigin> GetCorsOriginsByClientId(int clientId);
-        void AddCorsOrigin(ClientCorsOrigin clientCorsOrigin);
-        void UpdateCorsOrigin(ClientCorsOrigin clientCorsOrigin);
+        Task<IEnumerable<ClientCorsOrigin>> GetCorsOriginsByClientId(int clientId);
+        Task AddCorsOrigin(ClientCorsOrigin clientCorsOrigin);
+        Task UpdateCorsOrigin(ClientCorsOrigin clientCorsOrigin);
     }
 }

@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusApiResourceScopeRepository
     {
-        void Insert(ApiResourceScope apiScope);
+        Task Insert(ApiResourceScope apiScope);
 
-        void Update(ApiResourceScope apiScope);
+        Task Update(ApiResourceScope apiScope);
 
-        void DeleteAll(int resourceId);
+        Task DeleteAll(int resourceId);
 
-        void Delete(int scopeId);
+        Task Delete(int scopeId);
 
-        ApiResourceScope GetById(int scopeId);
+        Task<ApiResourceScope> GetById(int scopeId);
 
-        IEnumerable<ApiResourceScope> GetAll();
+        Task<IEnumerable<ApiResourceScope>> GetAll();
 
-        IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId);
+        Task<IEnumerable<ApiResourceScope>> GetScopesByResourceId(int resourceId);
     }
 }

@@ -9,12 +9,12 @@
 <a class="btn btn-sm btn-primary" asp-action="Create" asp-controller="Client">Create</a>
 
 <div class="row">
-    <div class="col-sm-6">
-        <table class="table table-hover data-table small" data-order-col="5" data-order-dir="asc" data-index="false">
+    <div class="col-sm-4">
+        <table class="table table-hover data-table small" data-order-col="1" data-order-dir="asc" data-index="false">
             <thead>
                 <tr>
                     <th> ClientId</th>
-                    <th> ProtocolType</th>
+                    @*<th> ProtocolType</th>
                     <th> RequireClientSecret</th>
                     <th> ClientName</th>
                     <th> Description</th>
@@ -34,10 +34,10 @@
                     <th> IncludeJwtId</th>
                     <th> AlwaysSendClientClaims</th>
                     <th> ClientClaimsPrefix</th>
-                    <th> PairWiseSubjectSalt</th>
+                    <th> PairWiseSubjectSalt</th>*@
                     <th> Created</th>
                     <th> Updated</th>
-                    <th> LastAccessed</th>
+                    @*<th> LastAccessed</th>
                     <th> UserSsoLifetime</th>
                     <th> UserCodeType</th>
                     <th> AllowedIdentityTokenSigningAlgorithms</th>
@@ -55,7 +55,7 @@
                     <th> BackChannelLogoutUri</th>
                     <th> BackChannelLogoutSessionRequired</th>
                     <th> AlwaysIncludeUserClaimsInIdToken</th>
-                    <th> NonEditable</th>
+                    <th> NonEditable</th>*@
                     <th>Scopes</th>
                     <th>Secrets</th>
                     <th>Claims</th>
@@ -75,7 +75,7 @@
                     <td>
                         @item.ClientId
                     </td>
-                    <td>
+                    @*<td>
                         @item.ProtocolType
                     </td>
                     <td>
@@ -128,16 +128,16 @@
                     <td>@item.BackChannelLogoutUri</td>
                     <td>@item.BackChannelLogoutSessionRequired</td>
                     <td>@item.AlwaysIncludeUserClaimsInIdToken</td>
-                    <td>@item.NonEditable</td>
+                    <td>@item.NonEditable</td>*@
                     <td>
                         @item.Created.ToShortDateString()
                     </td>
                     <td>
                         @item.Updated
                     </td>
-                    <td>
+                    @*<td>
                         @item.LastAccessed
-                    </td>
+                    </td>*@
                     <td>
                         @if (item.Scopes.Any())
                         {
@@ -164,7 +164,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                                        Secret Information
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         @foreach (var secret in item.Secrets)
@@ -183,7 +183,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                                        Claim Information
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         @foreach (var claim in item.Claims)
@@ -202,7 +202,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <span class="glyphicon glyphicon-user"></span>
-                                        Personal Information
+                                        Property Information
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         @foreach (var property in item.Properties)

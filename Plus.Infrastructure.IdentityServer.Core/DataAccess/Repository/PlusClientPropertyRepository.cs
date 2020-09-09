@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public void Delete(int propertyId)
+        public async Task Delete(int propertyId)
         {
             var _entity = _plusDataContext.ClientProperties.Find(propertyId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -24,9 +25,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _properties = GetPropertiesByClientId(clientId);
+            var _properties = GetPropertiesByClientId(clientId).Result;
             _properties.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -35,26 +36,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientProperty> GetAll()
+        public async Task<IEnumerable<ClientProperty>> GetAll()
         {
             var _entityList = _plusDataContext.ClientProperties.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientProperty GetById(int propertyId)
+        public async Task<ClientProperty> GetById(int propertyId)
         {
             var _entity = _plusDataContext.ClientProperties.Find(propertyId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientProperty> GetPropertiesByClientId(int clientId)
+        public async Task<IEnumerable<ClientProperty>> GetPropertiesByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientProperties.Where
                (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientProperty clientProperty)
+        public async Task Insert(ClientProperty clientProperty)
         {
             var _entity = clientProperty.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -62,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientProperty clientProperty)
+        public async Task Update(ClientProperty clientProperty)
         {
             var _entity = clientProperty.ToEntity();
 

@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusIdentityResourceRepository : IDisposable
     {
-        void Insert(IdentityResource identityResource);
+        Task Insert(IdentityResource identityResource);
 
-        void Update(IdentityResource identityResource);
+        Task Update(IdentityResource identityResource);
 
-        void Delete(int id);
+        Task Delete(int id);
 
-        IdentityResource GetById(int id);
+        Task<IdentityResource> GetById(int id);
 
-        IEnumerable<IdentityResource> GetAll();
+        Task<IEnumerable<IdentityResource>> GetAll();
     }
 }

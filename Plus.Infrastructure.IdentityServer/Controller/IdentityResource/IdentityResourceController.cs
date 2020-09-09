@@ -1,22 +1,17 @@
-using IdentityServer4.Events;
-using IdentityServer4.Extensions;
-using IdentityServer4.Models;
-using IdentityServer4.Services;
-using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model =Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Plus.Infrastructure.IdentityServer.Controllers
 {
-   // [SecurityHeaders]
+    // [SecurityHeaders]
     [AllowAnonymous]
     public class IdentityResourceController : Controller
     {
@@ -33,7 +28,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var _identityResourceList = _identityResourceService.GetAll();
+            var _identityResourceList = await _identityResourceService.GetAll();
             var _vm = new List<IdentityResourceViewModel>();
 
             _identityResourceList.ToList().ForEach(model => _vm.Add(new IdentityResourceViewModel
@@ -57,7 +52,11 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            return View("Create");
+            var model = new AddEditIdentityResourceViewModel
+            {
+                Created = DateTime.Now
+            };
+            return View("Create",model);
         }
 
         [HttpPost]
@@ -82,7 +81,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 Updated = model.Updated,
                 NonEditable = model.NonEditable
             };
-            _identityResourceService.Insert(obj);
+            await _identityResourceService.Insert(obj);
             return View("Success", model);
             // return View( Redirect("index"));
         }
@@ -90,7 +89,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var _model = _identityResourceService.GetById(id);
+            var _model = await _identityResourceService.GetById(id);
             if (_model != null)
             {
                 var vm = new AddEditIdentityResourceViewModel
@@ -121,7 +120,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 return View(model);
             }
 
-            var identityResource = _identityResourceService.GetById(model.Id);
+            var identityResource = await _identityResourceService.GetById(model.Id);
             identityResource.Name = model.Name;
             identityResource.DisplayName = model.DisplayName;
             identityResource.Description = model.Description;
@@ -133,7 +132,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             identityResource.Created = model.Created;
             identityResource.Updated = model.Updated;
 
-            _identityResourceService.Update(identityResource);
+            await _identityResourceService.Update(identityResource);
             return View("Success", model);
             //  return View( Redirect("index"));
         }
@@ -141,7 +140,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var _entity = _identityResourceService.GetById(id);
+            var _entity = await _identityResourceService.GetById(id);
             if (_entity != null)
             {
                 var _model = new DeleteIdentityResourceViewModel
@@ -158,7 +157,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(DeleteIdentityResourceViewModel model)
         {
-            _identityResourceService.Delete(model.Id);
+            await _identityResourceService.Delete(model.Id);
             return Redirect("Index");
         }
     }

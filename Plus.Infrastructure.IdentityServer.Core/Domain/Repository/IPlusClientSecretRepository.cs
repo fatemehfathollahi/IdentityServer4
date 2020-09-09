@@ -1,25 +1,24 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientSecretRepository//:IDisposable
+    public interface IPlusClientSecretRepository
     {
-        void Insert(ClientSecret clientSecret);
+        Task Insert(ClientSecret clientSecret);
 
-        void Update(ClientSecret clientSecret);
+        Task Update(ClientSecret clientSecret);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int secretId);
+        Task Delete(int secretId);
 
-        ClientSecret GetById(int secretId);
+        Task<ClientSecret> GetById(int secretId);
 
-        IEnumerable<ClientSecret> GetAll();
+        Task<IEnumerable<ClientSecret>> GetAll();
 
-        IEnumerable<ClientSecret> GetSecretsByClientId(int clientId);
+        Task<IEnumerable<ClientSecret>> GetSecretsByClientId(int clientId);
 
     }
 }

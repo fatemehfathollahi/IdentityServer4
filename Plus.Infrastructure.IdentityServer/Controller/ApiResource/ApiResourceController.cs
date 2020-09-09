@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Models;
 using Plus.Infrastructure.IdentityServer.Models.ApiResource;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var _apiResourceList = _apiResourceService.GetAll();
+            var _apiResourceList = await _apiResourceService.GetAll();
             var _vm = new List<ApiResourceViewModel>();
 
             _apiResourceList.ToList().ForEach(model => _vm.Add(new ApiResourceViewModel
@@ -46,14 +47,14 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             }));
 
             
-            _vm.ForEach(v => v.Scopes = _apiResourceService.GetScopesByResourceId(v.Id)
+            _vm.ForEach(v => v.Scopes = _apiResourceService.GetScopesByResourceId(v.Id).Result
             .ToList().Select(s => new ScopeItem
             {
                 Id = s.Id,
                 Scope = s.Scope
             }));
 
-            _vm.ForEach(v => v.Secrets = _apiResourceService.GetSecretsByResourceId(v.Id)
+            _vm.ForEach(v => v.Secrets = _apiResourceService.GetSecretsByResourceId(v.Id).Result
            .ToList().Select(s => new SecretItem
            {
                Id = s.Id,
@@ -64,14 +65,14 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                Created = s.Created
            }));
 
-            _vm.ForEach(v => v.UserClaims = _apiResourceService.GetClaimsByResourceId(v.Id)
+            _vm.ForEach(v => v.UserClaims = _apiResourceService.GetClaimsByResourceId(v.Id).Result
           .ToList().Select(s => new ClaimItem
           {
               Id = s.Id,
               Type = s.Type
           }));
 
-            _vm.ForEach(v => v.Properties = _apiResourceService.GetPropertiesByResourceId(v.Id)
+            _vm.ForEach(v => v.Properties = _apiResourceService.GetPropertiesByResourceId(v.Id).Result
        .ToList().Select(s => new PropertyItem
        {
            Id = s.Id,
@@ -85,7 +86,11 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            return View("Create");
+            var model = new AddEditApiResourceViewModel
+            {
+                Created = DateTime.Now
+            };
+            return View("Create",model);
         }
 
         [HttpPost]
@@ -111,7 +116,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 AllowedAccessTokenSigningAlgorithms = model.AllowedAccessTokenSigningAlgorithms
             };
 
-            var _resourceId = _apiResourceService.Insert(obj);
+            var _resourceId = await _apiResourceService.Insert(obj);
 
 
             model.Scopes.ForEach(s => _apiResourceService.AddScope(
@@ -155,7 +160,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var _model = _apiResourceService.GetById(id);
+            var _model = await _apiResourceService.GetById(id);
             if (_model != null)
             {
                 var vm = new AddEditApiResourceViewModel
@@ -217,7 +222,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 return View(model);
             }
 
-            var apiResource = _apiResourceService.GetById(model.Id);
+            var apiResource = await _apiResourceService.GetById(model.Id);
             apiResource.Name = model.Name;
             apiResource.DisplayName = model.DisplayName;
             apiResource.Description = model.Description;
@@ -229,7 +234,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             apiResource.AllowedAccessTokenSigningAlgorithms = model.AllowedAccessTokenSigningAlgorithms;
             apiResource.ShowInDiscoveryDocument = model.ShowInDiscoveryDocument;
 
-            var _resourceId = _apiResourceService.Update(apiResource);
+            var _resourceId = await _apiResourceService.Update(apiResource);
 
            
 
@@ -237,7 +242,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             {
                 var _scope = apiResource.Scopes.Where(s => s.Id.Equals(scope.Id)).FirstOrDefault();
                 _scope.Scope = scope.Scope;
-                _apiResourceService.UpdateScope(_scope);
+               await _apiResourceService.UpdateScope(_scope);
             }
 
             foreach (var secret in model.Secrets)
@@ -249,14 +254,14 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 _secret.Created = secret.Created;
                 _secret.Expiration = secret.Expiration;
                 _secret.ApiResourceId = _resourceId;
-                _apiResourceService.UpdateSecret(_secret);
+               await _apiResourceService.UpdateSecret(_secret);
             }
 
             foreach (var claim in model.Claims)
             {
                 var _claim = apiResource.UserClaims.Where(s => s.Id.Equals(claim.Id)).FirstOrDefault();
                 _claim.Type = claim.Type;
-                _apiResourceService.UpdateClaim(_claim);
+               await _apiResourceService.UpdateClaim(_claim);
             }
 
             foreach (var property in model.Properties)
@@ -264,7 +269,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 var _property = apiResource.Properties.Where(s => s.Id.Equals(property.Id)).FirstOrDefault();
                 _property.Key = property.Key;
                 _property.Value = property.Value;
-                _apiResourceService.UpdateProperty(_property);
+               await _apiResourceService.UpdateProperty(_property);
             }
 
             ViewBag.Message = "Edited";
@@ -275,7 +280,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var _entity = _apiResourceService.GetById(id);
+            var _entity = await _apiResourceService.GetById(id);
             if (_entity != null)
             {
                 var _model = new DeleteApiResourceViewModel
@@ -292,7 +297,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(DeleteApiResourceViewModel model)
         {
-            _apiResourceService.Delete(model.Id);
+           await _apiResourceService.Delete(model.Id);
             return Redirect("Index");
         }
 

@@ -1,9 +1,12 @@
-﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Service
 {
@@ -17,29 +20,28 @@ namespace Plus.Infrastructure.IdentityServer.Core.Service
         }
 
 
-        public IEnumerable<IdentityResource> GetAll()
+        public async Task<IEnumerable<IdentityResource>> GetAll()
         {
-           return _identityResourceRepository.GetAll();
+           return await _identityResourceRepository.GetAll();
         }
 
-        public IdentityResource GetById(int id)
+        public async Task<IdentityResource> GetById(int id)
         {
-           return _identityResourceRepository.GetById(id);
+           return await _identityResourceRepository.GetById(id);
         }
 
-        public void Insert(IdentityResource identityResource)
+        public async Task Insert(IdentityResource identityResource)
         {
-            _identityResourceRepository.Insert(identityResource);
+           await _identityResourceRepository.Insert(identityResource);
         }
 
-        public void Update(IdentityResource identityResource)
+        public async Task Update(IdentityResource identityResource)
         {
-            _identityResourceRepository.Update(identityResource);
+           await  _identityResourceRepository.Update(identityResource);
         }
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _identityResourceRepository.Delete(id);
+           await  _identityResourceRepository.Delete(id);
         }
-
     }
 }

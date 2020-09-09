@@ -6,6 +6,7 @@ using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -17,20 +18,20 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public ApiResourceScope GetById(int scopeId)
+        public async Task<ApiResourceScope> GetById(int scopeId)
         {
             var _entity = _plusDataContext.ApiResourceScopes.AsNoTracking().FirstOrDefault(r => r.Id.Equals(scopeId));
             return _entity.ToModel();
         }
 
-        public IEnumerable<ApiResourceScope> GetScopesByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceScope>> GetScopesByResourceId(int resourceId)
         {
             var _entityList = _plusDataContext.ApiResourceScopes.Where
                 (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ApiResourceScope apiScope)
+        public async Task Insert(ApiResourceScope apiScope)
         {
             var _entity = apiScope.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -38,7 +39,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ApiResourceScope apiScope)
+        public async Task Update(ApiResourceScope apiScope)
         {
             var _entity = apiScope.ToEntity();
             if (_plusDataContext.Entry(_entity).State != EntityState.Detached)
@@ -49,9 +50,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
       
-        public void DeleteAll(int resourceId)
+        public async Task DeleteAll(int resourceId)
         {
-            var _scopes = GetScopesByResourceId(resourceId);
+            var _scopes = GetScopesByResourceId(resourceId).Result;
             _scopes.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -60,7 +61,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Delete(int scopeId)
+        public async Task Delete(int scopeId)
         {
             var _entity = _plusDataContext.ApiResourceScopes.Find(scopeId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -68,7 +69,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ApiResourceScope> GetAll()
+        public async Task<IEnumerable<ApiResourceScope>> GetAll()
         {
             var _entityList = _plusDataContext.ApiResourceScopes.ToList();
             return _entityList.ToModel();

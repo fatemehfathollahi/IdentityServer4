@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusApiResourcePropertyRepository
     {
-        void Insert(ApiResourceProperty apiProperty);
+        Task Insert(ApiResourceProperty apiProperty);
 
-        void Update(ApiResourceProperty apiProperty);
+        Task Update(ApiResourceProperty apiProperty);
 
-        void Delete(int propertyId);
+        Task Delete(int propertyId);
 
-        void DeleteAll(int resourceId);
+        Task DeleteAll(int resourceId);
 
-        ApiResourceProperty GetById(int propertyId);
+        Task<ApiResourceProperty> GetById(int propertyId);
 
-        IEnumerable<ApiResourceProperty> GetAll();
+        Task<IEnumerable<ApiResourceProperty>> GetAll();
 
-        IEnumerable<ApiResourceProperty> GetPropertiesByResourceId(int resourceId);
+        Task<IEnumerable<ApiResourceProperty>> GetPropertiesByResourceId(int resourceId);
     }
 }

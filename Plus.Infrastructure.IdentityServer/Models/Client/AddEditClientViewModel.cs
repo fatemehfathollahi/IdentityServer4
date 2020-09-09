@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Models.Client
 {
@@ -15,7 +13,7 @@ namespace Plus.Infrastructure.IdentityServer.Models.Client
         public int AuthorizationCodeLifetime { get; set; }
         public int? ConsentLifetime { get; set; }
         [Required]
-        public int AbsoluteRefreshTokenLifetime { get; set; }
+        public int AbsoluteRefreshTokenLifetime { get; set; } 
         [Required]
         public int SlidingRefreshTokenLifetime { get; set; }
         [Required]
@@ -38,11 +36,11 @@ namespace Plus.Infrastructure.IdentityServer.Models.Client
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime? LastAccessed { get; set; }
-        public int? UserSsoLifetime { get; set; }
+        public int? UserSsoLifetime { get; set; } 
         public string UserCodeType { get; set; }
         public string AllowedIdentityTokenSigningAlgorithms { get; set; }
         [Required]
-        public int IdentityTokenLifetime { get; set; }
+        public int IdentityTokenLifetime { get; set; } 
         [Required]
         public bool AllowOfflineAccess { get; set; }
         [Required]
@@ -60,7 +58,7 @@ namespace Plus.Infrastructure.IdentityServer.Models.Client
         [Required]
         public bool RequireConsent { get; set; }
         [Required]
-        public int DeviceCodeLifetime { get; set; }
+        public int DeviceCodeLifetime { get; set; } 
         [Required]
         public bool AllowRememberConsent { get; set; }
         [Required]

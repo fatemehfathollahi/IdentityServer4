@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -17,7 +18,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
         }
 
 
-        public void Delete(int clientIdPRestrictionId)
+        public async Task Delete(int clientIdPRestrictionId)
         {
             var _entity = _plusDataContext.ClientIdPRestrictions.Find(clientIdPRestrictionId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -25,9 +26,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _restrictions = GetClientIdPRestrictionsByClientId(clientId);
+            var _restrictions = GetClientIdPRestrictionsByClientId(clientId).Result;
             _restrictions.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -36,26 +37,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientIdPRestriction> GetAll()
+        public async Task<IEnumerable<ClientIdPRestriction>> GetAll()
         {
             var _entityList = _plusDataContext.ClientIdPRestrictions.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientIdPRestriction GetById(int clientIdPRestrictionId)
+        public async Task<ClientIdPRestriction> GetById(int clientIdPRestrictionId)
         {
             var _entity = _plusDataContext.ClientIdPRestrictions.Find(clientIdPRestrictionId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientIdPRestriction> GetClientIdPRestrictionsByClientId(int clientId)
+        public async Task<IEnumerable<ClientIdPRestriction>> GetClientIdPRestrictionsByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientIdPRestrictions.Where
                 (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientIdPRestriction clientIdPRestriction)
+        public async Task Insert(ClientIdPRestriction clientIdPRestriction)
         {
             var _entity = clientIdPRestriction.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -63,7 +64,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientIdPRestriction clientIdPRestriction)
+        public async Task Update(ClientIdPRestriction clientIdPRestriction)
         {
             var _entity = clientIdPRestriction.ToEntity();
 

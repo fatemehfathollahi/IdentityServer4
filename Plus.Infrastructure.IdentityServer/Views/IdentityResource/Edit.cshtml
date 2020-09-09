@@ -10,63 +10,96 @@
 <partial name="_ValidationSummary" />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-9">
         <form method="post" asp-action="Edit">
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Created" class="control-label"></label>
+                        <input asp-for="Created" type="date" class="form-control" />
+                        <span asp-validation-for="Created" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DisplayName" class="control-label"></label>
-                <input asp-for="DisplayName" class="form-control" />
-                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="DisplayName" class="control-label"></label>
+                        <input asp-for="DisplayName" class="form-control" />
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Updated" class="control-label"></label>
+                        <input asp-for="Updated" type="date" class="form-control" />
+                        <span asp-validation-for="Updated" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="NonEditable" type="checkbox" class="form-check-input" />
+                        <label asp-for="NonEditable" class="form-check-label"></label>
+                        <span asp-validation-for="NonEditable" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Enabled" /> @Html.DisplayNameFor(model => model.Enabled)
-                </label>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="Enabled" type="checkbox" class="form-check-input" />
+                        <label asp-for="Enabled" class="form-check-label"></label>
+                        <span asp-validation-for="Enabled" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="Required" type="checkbox" class="form-check-input" />
+                        <label asp-for="Required" class="form-check-label"></label>
+                        <span asp-validation-for="Required" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Required" /> @Html.DisplayNameFor(model => model.Required)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Emphasize" /> @Html.DisplayNameFor(model => model.Emphasize)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="ShowInDiscoveryDocument" /> @Html.DisplayNameFor(model => model.ShowInDiscoveryDocument)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="NonEditable" /> @Html.DisplayNameFor(model => model.NonEditable)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" type="date" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Updated" class="control-label"></label>
-                <input asp-for="Updated" type="date" class="form-control" />
-                <span asp-validation-for="Updated" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="Emphasize" type="checkbox" class="form-check-input" />
+                        <label asp-for="Emphasize" class="form-check-label"></label>
+                        <span asp-validation-for="Emphasize" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-check">
+                        <input asp-for="ShowInDiscoveryDocument" type="checkbox" class="form-check-input" />
+                        <label asp-for="ShowInDiscoveryDocument" class="form-check-label"></label>
+                        <span asp-validation-for="ShowInDiscoveryDocument" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-success" />
             </div>
         </form>
     </div>

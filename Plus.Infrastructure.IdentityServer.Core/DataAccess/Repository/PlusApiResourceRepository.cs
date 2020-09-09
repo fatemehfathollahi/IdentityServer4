@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,20 +17,20 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
         
-        public IEnumerable<ApiResource> GetAll()
+        public async Task<IEnumerable<ApiResource>> GetAll()
         {
             var _entityList = _plusDataContext.ApiResources.Include(r => r.Scopes)
                 .Include(r => r.Secrets).Include(r => r.Properties).Include(r => r.UserClaims).ToList();
             return _entityList.ToModel();
         }
 
-        public ApiResource GetById(int id)
+        public async Task<ApiResource> GetById(int id)
         {
-            var _entity = GetAll().Where(r => r.Id.Equals(id)).FirstOrDefault();
+            var _entity =  GetAll().Result.Where(r => r.Id.Equals(id)).FirstOrDefault();
             return _entity;
         }
 
-        public int Insert(ApiResource apiResource)
+        public async Task<int> Insert(ApiResource apiResource)
         {
             var _entity = apiResource.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -38,7 +39,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             return _entity.Id;
         }
 
-        public int Update(ApiResource apiResource)
+        public async Task<int> Update(ApiResource apiResource)
         {
             var _entity = apiResource.ToEntity();
 
@@ -51,13 +52,12 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
             return _entity.Id;
         }
-        public int Delete(int id)
+        public async Task Delete(int id)
         {
             var _entity = _plusDataContext.ApiResources.Find(id);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
             _plusDataContext.ApiResources.Remove(_entity);
             _plusDataContext.SaveChanges();
-            return _entity.Id;
         }
     }
 }

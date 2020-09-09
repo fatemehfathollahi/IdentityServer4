@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientRedirectUriRepository //: IDisposable
+    public interface IPlusClientRedirectUriRepository 
     {
-        void Insert(ClientRedirectUri clientRedirectUri);
+        Task Insert(ClientRedirectUri clientRedirectUri);
 
-        void Update(ClientRedirectUri clientRedirectUri);
+        Task Update(ClientRedirectUri clientRedirectUri);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int clientRedirectUriId);
+        Task Delete(int clientRedirectUriId);
 
-        ClientRedirectUri GetById(int clientRedirectUriId);
+        Task<ClientRedirectUri> GetById(int clientRedirectUriId);
 
-        IEnumerable<ClientRedirectUri> GetAll();
+        Task<IEnumerable<ClientRedirectUri>> GetAll();
 
-        IEnumerable<ClientRedirectUri> GetRedirectUriByClientId(int clientId);
+        Task<IEnumerable<ClientRedirectUri>> GetRedirectUriByClientId(int clientId);
     }
 }

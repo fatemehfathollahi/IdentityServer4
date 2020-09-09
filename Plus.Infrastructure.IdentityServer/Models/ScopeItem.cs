@@ -9,7 +9,7 @@ namespace Plus.Infrastructure.IdentityServer.Models
     public class ScopeItem
     {
         public int Id { get; set; }
-       [Required]
+        [Required]
         public string Scope { get; set; }
     }
 }

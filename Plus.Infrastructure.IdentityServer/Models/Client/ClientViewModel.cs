@@ -1,8 +1,5 @@
-﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Enumeration;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Models.Client
 {

@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientPropertyRepository//:IDisposable
+    public interface IPlusClientPropertyRepository
     {
-        void Insert(ClientProperty clientProperty);
+        Task Insert(ClientProperty clientProperty);
 
-        void Update(ClientProperty clientProperty);
+        Task Update(ClientProperty clientProperty);
 
-        void Delete(int propertyId);
+        Task Delete(int propertyId);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        ClientProperty GetById(int propertyId);
+        Task<ClientProperty> GetById(int propertyId);
 
-        IEnumerable<ClientProperty> GetAll();
+        Task<IEnumerable<ClientProperty>> GetAll();
 
-        IEnumerable<ClientProperty> GetPropertiesByClientId(int clientId);
+        Task<IEnumerable<ClientProperty>> GetPropertiesByClientId(int clientId);
     }
 }

@@ -1,12 +1,9 @@
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -14,24 +11,16 @@ using Microsoft.Extensions.Hosting;
 using Plus.Infrastructure.Core.Domain.Model;
 using Plus.Infrastructure.Core.Domain.Service;
 using Plus.Infrastructure.Domain.DataAccess.DataContext;
-using Plus.Infrastructure.IdentityServer.Core.DataAccess;
+using Plus.Infrastructure.IdentityServer.Configuration;
 using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
-using Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository;
-using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
-using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
-using Plus.Infrastructure.IdentityServer.Core.Options;
 using Plus.Infrastructure.IdentityServer.Core.Service;
-using Plus.Infrastructure.IdentityServer.Core.Stors;
-using Septa.PayamGostar.CommonLayer.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Plus.Infrastructure.IdentityServer
 {
-
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -47,6 +36,7 @@ namespace Plus.Infrastructure.IdentityServer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterDependencyInjection();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -59,48 +49,6 @@ namespace Plus.Infrastructure.IdentityServer
 
             services.AddHttpContextAccessor();
 
-            services.AddTransient<ConfigurationDbContext>();
-            services.AddTransient<PersistedGrantDbContext>();
-
-            services.AddTransient<OperationalStoreOptions>();
-
-            services.AddTransient<DbContextOptions<ConfigurationDbContext>>();
-            services.AddTransient<DbContextOptions<PersistedGrantDbContext>>();
-
-           
-
-            services.AddDbContext<PlusDataContext>();
-            services.AddDbContext<PlusConfigurationDbContext>();
-            services.AddDbContext<PlusOperationalDbContext>();
-
-
-            services.AddScoped<IIdentityUnitOfWork, IdentityUnitOfWork>();
-            services.AddScoped<IPlusClientClaimRepository, PlusClientClaimRepository>();
-            services.AddScoped<IPlusClientCorsOriginRepository, PlusClientCorsOriginRepository>();
-            services.AddScoped<IPlusClientGrantTypeRepository, PlusClientGrantTypeRepository>();
-            services.AddScoped<IPlusClientIdPRestrictionRepository, PlusClientIdPRestrictionRepository>();
-            services.AddScoped<IPlusClientPostLogoutRedirectUriRepository, PlusClientPostLogoutRedirectUriRepository>();
-            services.AddScoped<IPlusClientPropertyRepository, PlusClientPropertyRepository>();
-            services.AddScoped<IPlusClientRedirectUriRepository, PlusClientRedirectUriRepository>();
-            services.AddScoped<IPlusClientScopeRepository, PlusClientScopeRepository>();
-            services.AddScoped<IPlusClientSecretRepository, PlusClientSecretRepository>();
-            services.AddScoped<IPlusClientRepository, PlusClientRepository>();
-            services.AddScoped<IPlusClientService, PlusClientService>();
-            services.AddScoped<IPlusIdentityResourceRepository, PlusIdentityResourceRepository>();
-            services.AddScoped<IPlusIdentityResourceService, PlusIdentityResourceService>();
-            services.AddScoped<IPlusApiResourceRepository, PlusApiResourceRepository>();
-            services.AddScoped<IPlusApiResourceService, PlusApiResourceService>();
-            services.AddScoped<IPlusApiResourceScopeRepository, PlusApiResourceScopeRepository>();
-            services.AddScoped<IPlusApiResourceScopeService, PlusApiResourceScopeService>();
-            services.AddScoped<IPlusApiResourceSecretRepository, PlusApiResourceSecretRepository>();
-            services.AddScoped<IPlusApiResourceSecretService, PlusApiResourceSecretService>();
-            services.AddScoped<IPlusApiResourceClaimRepository, PlusApiResourceClaimRepository>();
-            services.AddScoped<IPlusApiResourceClaimService, PlusApiResourceClaimService>();
-            services.AddScoped<IPlusApiResourcePropertyRepository, PlusApiResourcePropertyRepository>();
-            services.AddScoped<IPlusApiResourcePropertyService, PlusApiResourcePropertyService>();
-
-
-
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<PlusDataContext>()
@@ -109,8 +57,6 @@ namespace Plus.Infrastructure.IdentityServer
                 .AddSignInManager<PlusSignInManager>()
                 .AddDefaultTokenProviders();
 
-            
-            
             services
                 .AddIdentityServer(options =>
                 {
@@ -119,42 +65,9 @@ namespace Plus.Infrastructure.IdentityServer
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
-              //  .AddClientStore<PlusClientStore>()
                .AddSigningCredential(IdentityServerHelper.GetCertificate2(webHostEnvironment))
                .AddAspNetIdentity<ApplicationUser>()
                .AddConfigurationStore<PlusConfigurationDbContext>();
-
-
-           
-
-            #region MyConfigure
-
-            //   services.AddDbContext<IdentityConfigurationDbContext>();
-
-            //services.AddOperationalDbContext<IdentityPersistedGrantDbContext>();
-
-            // services.AddConfigurationDbContext<PlusIdentityConfigurationDbContext>();
-
-
-            //var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            //var connectionString = "Data source=.;Initial Catalog=Payamgostar3;User ID=payamgostardba;Password=12345";//Configuration.GetConnectionString("db");
-
-            //services.AddOperationalDbContext(options =>
-            //{
-            //    options.ConfigureDbContext = b =>
-            //        b.UseSqlServer(connectionString, dbOpts => dbOpts.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-            //});
-
-            //services.AddConfigurationDbContext(options =>
-            //{
-            //    options.ConfigureDbContext = b =>
-            //        b.UseSqlServer(connectionString, dbOpts => dbOpts.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-            //});
-
-            #endregion
-
-
-
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                      .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => configuration.Bind(Constant.JwtSettingsName, options))
@@ -165,8 +78,6 @@ namespace Plus.Infrastructure.IdentityServer
                      });
 
             services.AddAuthorization();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,8 +100,6 @@ namespace Plus.Infrastructure.IdentityServer
             }
 
             app.UseRouting();
-             
-
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {

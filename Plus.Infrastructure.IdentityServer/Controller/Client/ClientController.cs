@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Service;
 using Plus.Infrastructure.IdentityServer.Models;
 using Plus.Infrastructure.IdentityServer.Models.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var _allClient = _clientService.GetAll();
+            var _allClient = await _clientService.GetAll();
             var _vm = new List<ClientViewModel>();
 
             _allClient.ToList().ForEach(model => _vm.Add(new ClientViewModel
@@ -84,14 +85,14 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             }));
 
 
-            _vm.ForEach(v => v.Scopes = _clientService.GetScopesByClientId(v.Id)
+            _vm.ForEach(v => v.Scopes = _clientService.GetScopesByClientId(v.Id).Result
             .ToList().Select(s => new ScopeItem
             {
                 Id = s.Id,
                 Scope = s.Scope
             }));
 
-            _vm.ForEach(v => v.Secrets = _clientService.GetSecretsByClientId(v.Id)
+            _vm.ForEach(v => v.Secrets = _clientService.GetSecretsByClientId(v.Id).Result
            .ToList().Select(s => new SecretItem
            {
                Id = s.Id,
@@ -102,7 +103,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                Created = s.Created
            }));
 
-            _vm.ForEach(v => v.Claims = _clientService.GetClaimsByClientId(v.Id)
+            _vm.ForEach(v => v.Claims = _clientService.GetClaimsByClientId(v.Id).Result
           .ToList().Select(s => new ClientClaimItem
           {
               Id = s.Id,
@@ -110,7 +111,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
               Value = s.Value
           }));
 
-            _vm.ForEach(v => v.Properties = _clientService.GetPropertiesByClientId(v.Id)
+            _vm.ForEach(v => v.Properties = _clientService.GetPropertiesByClientId(v.Id).Result
        .ToList().Select(s => new PropertyItem
        {
            Id = s.Id,
@@ -119,35 +120,35 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
        }));
 
 
-            _vm.ForEach(v => v.CorsOrigins = _clientService.GetCorsOriginsByClientId(v.Id)
+            _vm.ForEach(v => v.CorsOrigins = _clientService.GetCorsOriginsByClientId(v.Id).Result
             .ToList().Select(s => new CorsOriginItem
             {
                 Id = s.Id,
                 Origin = s.Origin
             }));
 
-            _vm.ForEach(v => v.PostLogoutRedirectUris = _clientService.GetPostLogoutRedirectUrisByClientId(v.Id)
+            _vm.ForEach(v => v.PostLogoutRedirectUris = _clientService.GetPostLogoutRedirectUrisByClientId(v.Id).Result
            .ToList().Select(s => new PostLogoutRedirectUriItem
            {
                Id = s.Id,
                PostLogoutRedirectUri = s.PostLogoutRedirectUri
            }));
 
-            _vm.ForEach(v => v.RedirectUris = _clientService.GetRedirectUriByClientId(v.Id)
+            _vm.ForEach(v => v.RedirectUris = _clientService.GetRedirectUriByClientId(v.Id).Result
           .ToList().Select(s => new RedirectUriItem
           {
               Id = s.Id,
               RedirectUri = s.RedirectUri
           }));
 
-            _vm.ForEach(v => v.IdentityProviderRestrictions = _clientService.GetClientIdPRestrictionsByClientId(v.Id)
+            _vm.ForEach(v => v.IdentityProviderRestrictions = _clientService.GetClientIdPRestrictionsByClientId(v.Id).Result
        .ToList().Select(s => new IdPRestrictionItem
        {
            Id = s.Id,
            Provider = s.Provider
        }));
 
-            _vm.ForEach(v => v.GrantTypes = _clientService.GetGrantTypesByClientId(v.Id)
+            _vm.ForEach(v => v.GrantTypes = _clientService.GetGrantTypesByClientId(v.Id).Result
        .ToList().Select(s => new GrantTypeItem
        {
            Id = s.Id,
@@ -161,7 +162,20 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            return View("Create");
+            var model = new AddEditClientViewModel
+            {
+                AccessTokenLifetime = 0,
+                AuthorizationCodeLifetime = 0,
+                AbsoluteRefreshTokenLifetime = 0,
+                SlidingRefreshTokenLifetime=0,
+                RefreshTokenUsage = 0,
+                RefreshTokenExpiration = 0,
+                AccessTokenType = 0,
+                IdentityTokenLifetime = 0,
+                Created = DateTime.Now,
+                DeviceCodeLifetime = 0,
+            };
+            return View("Create",model);
         }
 
         [HttpPost]
@@ -221,10 +235,10 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
 
             };
 
-            var _clientId = _clientService.Insert(obj);
+            var _clientId = await _clientService.Insert(obj);
 
 
-            model.Scopes.ForEach(s => _clientService.AddScope(
+            model.Scopes.ForEach(s =>  _clientService.AddScope(
                new ClientScope
                {
                    ClientId = _clientId,
@@ -272,13 +286,6 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                  PostLogoutRedirectUri = s.PostLogoutRedirectUri
              }));
 
-            model.PostLogoutRedirectUris.ForEach(s => _clientService.AddPostLogoutRedirectUri(
-            new ClientPostLogoutRedirectUri
-            {
-                ClientId = _clientId,
-                PostLogoutRedirectUri = s.PostLogoutRedirectUri
-            }));
-
             model.RedirectUris.ForEach(s => _clientService.AddRedirectUri(
             new ClientRedirectUri
             {
@@ -301,7 +308,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var model = _clientService.GetById(id);
+            var model = await _clientService.GetById(id);
             if (model != null)
             {
                 var vm = new AddEditClientViewModel
@@ -428,7 +435,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 return View(model);
             }
 
-            var client = _clientService.GetById(model.Id);
+            var client = await _clientService.GetById(model.Id);
 
             client.AccessTokenLifetime = model.AccessTokenLifetime;
             client.AuthorizationCodeLifetime = model.AuthorizationCodeLifetime;
@@ -474,7 +481,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             client.AlwaysIncludeUserClaimsInIdToken = model.AlwaysIncludeUserClaimsInIdToken;
             client.NonEditable = model.NonEditable;
 
-            var _clientId = _clientService.Update(client);
+            var _clientId = await _clientService.Update(client);
 
 
 
@@ -482,7 +489,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
             {
                 var _scope = client.AllowedScopes.Where(s => s.Id.Equals(scope.Id)).FirstOrDefault();
                 _scope.Scope = scope.Scope;
-                _clientService.UpdateScope(_scope);
+               await _clientService.UpdateScope(_scope);
             }
 
             foreach (var secret in model.Secrets)
@@ -493,7 +500,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 _secret.Type = secret.Type;
                 _secret.Created = secret.Created;
                 _secret.Expiration = secret.Expiration;
-                _clientService.UpdateSecret(_secret);
+               await _clientService.UpdateSecret(_secret);
             }
 
             foreach (var claim in model.Claims)
@@ -501,7 +508,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 var _claim = client.Claims.Where(s => s.Id.Equals(claim.Id)).FirstOrDefault();
                 _claim.Type = claim.Type;
                 _claim.Value = claim.Value;
-                _clientService.UpdateClaim(_claim);
+               await _clientService.UpdateClaim(_claim);
             }
 
             foreach (var property in model.Properties)
@@ -509,42 +516,42 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
                 var _property = client.Properties.Where(s => s.Id.Equals(property.Id)).FirstOrDefault();
                 _property.Key = property.Key;
                 _property.Value = property.Value;
-                _clientService.UpdateProperty(_property);
+               await _clientService.UpdateProperty(_property);
             }
 
             foreach (var corsOrigin in model.CorsOrigins)
             {
                 var _corsOrigin = client.AllowedCorsOrigins.Where(s => s.Id.Equals(corsOrigin.Id)).FirstOrDefault();
                 _corsOrigin.Origin = corsOrigin.Origin;
-                _clientService.UpdateCorsOrigin(_corsOrigin);
+               await _clientService.UpdateCorsOrigin(_corsOrigin);
             }
 
             foreach (var grantType in model.GrantTypes)
             {
                 var _grantType = client.AllowedGrantTypes.Where(s => s.Id.Equals(grantType.Id)).FirstOrDefault();
                 _grantType.GrantType = grantType.GrantType;
-                _clientService.UpdateGrantType(_grantType);
+               await _clientService.UpdateGrantType(_grantType);
             }
 
             foreach (var postLogoutRedirect in model.PostLogoutRedirectUris)
             {
                 var _postLogoutRedirect = client.PostLogoutRedirectUris.Where(s => s.Id.Equals(postLogoutRedirect.Id)).FirstOrDefault();
                 _postLogoutRedirect.PostLogoutRedirectUri = postLogoutRedirect.PostLogoutRedirectUri;
-                _clientService.UpdatePostLogoutRedirectUri(_postLogoutRedirect);
+               await  _clientService.UpdatePostLogoutRedirectUri(_postLogoutRedirect);
             }
 
             foreach (var redirectUri in model.RedirectUris)
             {
                 var _redirectUri = client.RedirectUris.Where(s => s.Id.Equals(redirectUri.Id)).FirstOrDefault();
                 _redirectUri.RedirectUri = redirectUri.RedirectUri;
-                _clientService.UpdateRedirectUri(_redirectUri);
+               await _clientService.UpdateRedirectUri(_redirectUri);
             }
 
             foreach (var restriction in model.Restrictions)
             {
                 var _restriction = client.IdentityProviderRestrictions.Where(s => s.Id.Equals(restriction.Id)).FirstOrDefault();
                 _restriction.Provider = restriction.Provider;
-                _clientService.UpdateRestriction(_restriction);
+               await _clientService.UpdateRestriction(_restriction);
             }
             ViewBag.Message = "Edited";
             return View("Success", model);
@@ -554,7 +561,7 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var _entity = _clientService.GetById(id);
+            var _entity =await _clientService.GetById(id);
             if (_entity != null)
             {
                 var _model = new DeleteClientViewModel
@@ -571,10 +578,11 @@ namespace Plus.Infrastructure.IdentityServer.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(DeleteClientViewModel model)
         {
-            _clientService.Delete(model.Id);
+           await _clientService.Delete(model.Id);
             return Redirect("Index");
         }
 
+      
         #region EditorFor
         [HttpPost]
         [ValidateAntiForgeryToken]

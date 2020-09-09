@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Models.ApiResource
 {
@@ -15,7 +13,7 @@ namespace Plus.Infrastructure.IdentityServer.Models.ApiResource
         public string Description { get; set; }
         public string AllowedAccessTokenSigningAlgorithms { get; set; }
         [Required]
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } 
         public DateTime? Updated { get; set; }
         public DateTime? LastAccessed { get; set; }
         public bool Enabled { get; set; } = false;
@@ -26,8 +24,6 @@ namespace Plus.Infrastructure.IdentityServer.Models.ApiResource
         public List<SecretItem> Secrets { get; set; } 
         public List<ClaimItem> Claims { get; set; }
         public List<PropertyItem> Properties { get; set; }
-
-       // public bool IsEdit { get; set; }
 
         public AddEditApiResourceViewModel()
         {

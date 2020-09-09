@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,7 +17,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public void Delete(int clientId)
+        public async Task Delete(int clientId)
         {
             var _entity = _plusDataContext.ClientSecret.Find(clientId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -24,9 +25,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _secrets = GetSecretsByClientId(clientId);
+            var _secrets = GetSecretsByClientId(clientId).Result;
             _secrets.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -35,26 +36,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ClientSecret> GetAll()
+        public async Task<IEnumerable<ClientSecret>> GetAll()
         {
             var _entityList = _plusDataContext.ClientSecret.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientSecret GetById(int secretId)
+        public async Task<ClientSecret> GetById(int secretId)
         {
             var _entity = _plusDataContext.ClientSecret.Find(secretId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientSecret> GetSecretsByClientId(int clientId)
+        public async Task<IEnumerable<ClientSecret>> GetSecretsByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientSecret.Where
                 (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientSecret clientSecret)
+        public async Task Insert(ClientSecret clientSecret)
         {
             var _entity = clientSecret.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -62,7 +63,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientSecret clientSecret)
+        public async Task Update(ClientSecret clientSecret)
         {
             var _entity = clientSecret.ToEntity();
 

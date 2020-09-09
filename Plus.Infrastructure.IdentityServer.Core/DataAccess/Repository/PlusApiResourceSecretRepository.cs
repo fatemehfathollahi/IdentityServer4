@@ -3,10 +3,9 @@ using Plus.Infrastructure.IdentityServer.Core.DataAccess.DataContext;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
 using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -18,20 +17,20 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public ApiResourceSecret GetById(int secretId)
+        public async Task<ApiResourceSecret> GetById(int secretId)
         {
             var _entity = _plusDataContext.ApiResourceSecrets.Find(secretId);
             return _entity.ToModel();
         }
 
-        public IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId)
+        public async Task<IEnumerable<ApiResourceSecret>> GetSecretsByResourceId(int resourceId)
         {
             var _entityList = _plusDataContext.ApiResourceSecrets.Where
                 (s => s.ApiResourceId.Equals(resourceId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ApiResourceSecret apiSecret)
+        public async Task Insert(ApiResourceSecret apiSecret)
         {
             var _entity = apiSecret.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -39,7 +38,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ApiResourceSecret apiSecret)
+        public async Task Update(ApiResourceSecret apiSecret)
         {
             var _entity = apiSecret.ToEntity();
 
@@ -51,9 +50,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int resourceId)
+        public async Task DeleteAll(int resourceId)
         {
-            var _scopes = GetSecretsByResourceId(resourceId);
+            var _scopes = GetSecretsByResourceId(resourceId).Result;
             _scopes.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;
@@ -62,7 +61,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
       
-        public void Delete(int secretId)
+        public async Task Delete(int secretId)
         {
             var _entity = _plusDataContext.ApiResourceSecrets.Find(secretId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -70,7 +69,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public IEnumerable<ApiResourceSecret> GetAll()
+        public async Task<IEnumerable<ApiResourceSecret>> GetAll()
         {
             var _entityList = _plusDataContext.ApiResourceSecrets.ToList();
             return _entityList.ToModel();

@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusClientCorsOriginRepository
     {
-        void Insert(ClientCorsOrigin clientCorsOrigin);
+        Task Insert(ClientCorsOrigin clientCorsOrigin);
 
-        void Update(ClientCorsOrigin clientCorsOrigin);
+        Task Update(ClientCorsOrigin clientCorsOrigin);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int corsOriginId);
+        Task Delete(int corsOriginId);
 
-        ClientCorsOrigin GetById(int corsOriginId);
+        Task<ClientCorsOrigin> GetById(int corsOriginId);
 
-        IEnumerable<ClientCorsOrigin> GetAll();
+        Task<IEnumerable<ClientCorsOrigin>> GetAll();
 
-        IEnumerable<ClientCorsOrigin> GetCorsOriginByClientId(int clientId);
+        Task<IEnumerable<ClientCorsOrigin>> GetCorsOriginByClientId(int clientId);
     }
 }

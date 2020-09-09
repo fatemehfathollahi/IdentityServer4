@@ -5,6 +5,7 @@ using Plus.Infrastructure.IdentityServer.Core.Domain.Repository;
 using Plus.Infrastructure.IdentityServer.Core.Mapping;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -16,26 +17,26 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             this._plusDataContext = plusDataContext;
         }
 
-        public IEnumerable<ClientScope> GetAll()
+        public async Task<IEnumerable<ClientScope>> GetAll()
         {
             var _entityList = _plusDataContext.ClientScopes.ToList();
             return _entityList.ToModel();
         }
 
-        public ClientScope GetById(int scopeId)
+        public async Task<ClientScope> GetById(int scopeId)
         {
             var _entity = _plusDataContext.ClientScopes.AsNoTracking().FirstOrDefault(r => r.Id.Equals(scopeId));
             return _entity.ToModel();
         }
 
-        public IEnumerable<ClientScope> GetScopesByClientId(int clientId)
+        public async Task<IEnumerable<ClientScope>> GetScopesByClientId(int clientId)
         {
             var _entityList = _plusDataContext.ClientScopes.Where
                (s => s.ClientId.Equals(clientId)).ToList();
             return _entityList.ToModel();
         }
 
-        public void Insert(ClientScope clientScope)
+        public async Task Insert(ClientScope clientScope)
         {
             var _entity = clientScope.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -43,7 +44,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(ClientScope clientScope)
+        public async Task Update(ClientScope clientScope)
         {
             var _entity = clientScope.ToEntity();
 
@@ -55,7 +56,7 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Delete(int scopeId)
+        public async Task Delete(int scopeId)
         {
             var _entity = _plusDataContext.ClientScopes.Find(scopeId);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;
@@ -63,9 +64,9 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void DeleteAll(int clientId)
+        public async Task DeleteAll(int clientId)
         {
-            var _scopes = GetScopesByClientId(clientId);
+            var _scopes = GetScopesByClientId(clientId).Result;
             _scopes.ToList().ForEach(s =>
             {
                 _plusDataContext.Entry(s.ToEntity()).State = EntityState.Deleted;

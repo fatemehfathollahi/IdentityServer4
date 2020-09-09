@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
-    public interface IPlusClientGrantTypeRepository//:IDisposable
+    public interface IPlusClientGrantTypeRepository
     {
-        void Insert(ClientGrantType clientGrantType);
+        Task Insert(ClientGrantType clientGrantType);
 
-        void Update(ClientGrantType clientGrantType);
+        Task Update(ClientGrantType clientGrantType);
 
-        void DeleteAll(int clientId);
+        Task DeleteAll(int clientId);
 
-        void Delete(int grantTypeId);
+        Task Delete(int grantTypeId);
 
-        ClientGrantType GetById(int grantTypeId);
+        Task<ClientGrantType> GetById(int grantTypeId);
 
-        IEnumerable<ClientGrantType> GetAll();
+        Task<IEnumerable<ClientGrantType>> GetAll();
 
-        IEnumerable<ClientGrantType> GetGrantTypesByClientId(int clientId);
+        Task<IEnumerable<ClientGrantType>> GetGrantTypesByClientId(int clientId);
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
 {
@@ -18,19 +19,19 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext = plusDataContext;
         }
 
-        public IEnumerable<IdentityResource> GetAll()
+        public async Task<IEnumerable<IdentityResource>> GetAll()
         {
             var _entityList = _plusDataContext.IdentityResources.ToList();
-            return _entityList.ToModel();
+            return  _entityList.ToModel();
         }
 
-        public IdentityResource GetById(int id)
+        public async Task<IdentityResource> GetById(int id)
         {
             var _entity = _plusDataContext.IdentityResources.Find(id);
             return _entity.ToModel();
         }
 
-        public void Insert(IdentityResource identityResource)
+        public async Task Insert(IdentityResource identityResource)
         {
             var _entity = identityResource.ToEntity();
             _plusDataContext.Entry(_entity).State = EntityState.Added;
@@ -38,16 +39,15 @@ namespace Plus.Infrastructure.IdentityServer.Core.DataAccess.Repository
             _plusDataContext.SaveChanges();
         }
 
-        public void Update(IdentityResource identityResource)
+        public async Task Update(IdentityResource identityResource)
         {
             var _entity = identityResource.ToEntity();
-            // plusDataContext.Entry(_entity).State = EntityState.Detached;
             _plusDataContext.Entry(_entity).State = EntityState.Modified;
              _plusDataContext.IdentityResources.Update(_entity);
             _plusDataContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             var _entity = _plusDataContext.IdentityResources.Find(id);
             _plusDataContext.Entry(_entity).State = EntityState.Deleted;

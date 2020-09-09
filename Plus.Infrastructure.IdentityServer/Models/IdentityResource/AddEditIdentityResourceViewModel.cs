@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Models
 {
@@ -13,13 +10,13 @@ namespace Plus.Infrastructure.IdentityServer.Models
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
-        public bool Enabled { get; set; } = false;
-        public bool Required { get; set; } = false;
-        public bool Emphasize { get; set; } = false;
-        public bool ShowInDiscoveryDocument { get; set; } = false;
+        public bool Enabled { get; set; } 
+        public bool Required { get; set; } 
+        public bool Emphasize { get; set; }
+        public bool ShowInDiscoveryDocument { get; set; } 
         [Required]
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } 
         public DateTime? Updated { get; set; }
-        public bool NonEditable { get; set; } = false;
+        public bool NonEditable { get; set; } 
     }
 }

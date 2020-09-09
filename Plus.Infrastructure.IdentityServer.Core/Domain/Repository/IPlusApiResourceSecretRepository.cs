@@ -1,24 +1,23 @@
 ﻿using Plus.Infrastructure.IdentityServer.Core.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Plus.Infrastructure.IdentityServer.Core.Domain.Repository
 {
     public interface IPlusApiResourceSecretRepository
     {
-        void Insert(ApiResourceSecret apiSecret);
+        Task Insert(ApiResourceSecret apiSecret);
 
-        void Update(ApiResourceSecret apiSecret);
+        Task Update(ApiResourceSecret apiSecret);
 
-        void DeleteAll(int resourceId);
+        Task DeleteAll(int resourceId);
 
-        void Delete(int secretId);
+        Task Delete(int secretId);
 
-        ApiResourceSecret GetById(int secretId);
+        Task<ApiResourceSecret> GetById(int secretId);
 
-        IEnumerable<ApiResourceSecret> GetAll();
+        Task<IEnumerable<ApiResourceSecret>> GetAll();
 
-        IEnumerable<ApiResourceSecret> GetSecretsByResourceId(int resourceId);
+        Task<IEnumerable<ApiResourceSecret>> GetSecretsByResourceId(int resourceId);
     }
 }
