@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Plus.Infrastructure.IdentityServer</id>
+    <version>1.0.0</version>
+    <authors>Plus</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Plus.Infrastructure.IdentityServer.Core" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="DynamicVML" version="1.3.3" exclude="Build,Analyzers" />
+        <dependency id="IdentityServer4" version="4.0.4" exclude="Build,Analyzers" />
+        <dependency id="IdentityServer4.AspNetIdentity" version="4.0.4" exclude="Build,Analyzers" />
+        <dependency id="IdentityServer4.EntityFramework" version="4.0.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNet.Identity.Core" version="2.2.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Authentication.JwtBearer" version="3.1.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="3.1.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="3.1.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="3.1.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.VisualStudio.Web.CodeGeneration.Design" version="3.1.4" exclude="Build,Analyzers" />
+        <dependency id="Plus.Infrastructure.Core" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Plus.Infrastructure.Domain" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Scrutor" version="3.2.1" exclude="Build,Analyzers" />
+        <dependency id="SeptaNSFCore.Core" version="1.0.5" exclude="Build,Analyzers" />
+        <dependency id="SeptaNSFCore.Helper" version="1.0.5" exclude="Build,Analyzers" />
+        <dependency id="Serilog.AspNetCore" version="3.4.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+    <contentFiles>
+      <files include="any/netcoreapp3.1/bundleconfig.json" buildAction="Content" />
+      <files include="any/netcoreapp3.1/appsettings.Development.json" buildAction="Content" />
+      <files include="any/netcoreapp3.1/appsettings.json" buildAction="Content" />
+      <files include="any/netcoreapp3.1/libman.json" buildAction="Content" />
+      <files include="any/netcoreapp3.1/Properties/launchSettings.json" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Views.dll" target="lib\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Views.dll" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.runtimeconfig.json" target="lib\netcoreapp3.1\Plus.Infrastructure.IdentityServer.runtimeconfig.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.dll" target="lib\netcoreapp3.1\Plus.Infrastructure.IdentityServer.dll" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.Plus.Infrastructure.IdentityServer.Microsoft.AspNetCore.StaticWebAssets.props" target="build\Microsoft.AspNetCore.StaticWebAssets.props" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.Plus.Infrastructure.IdentityServer.props" target="build\Plus.Infrastructure.IdentityServer.props" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.Plus.Infrastructure.IdentityServer.props" target="buildMultiTargeting\Plus.Infrastructure.IdentityServer.props" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.Plus.Infrastructure.IdentityServer.props" target="buildTransitive\Plus.Infrastructure.IdentityServer.props" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\css\site.css" target="staticwebassets\css\site.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\css\site.min.css" target="staticwebassets\css\site.min.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\css\site.scss" target="staticwebassets\css\site.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\favicon.ico" target="staticwebassets\favicon.ico" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\icon.jpg" target="staticwebassets\icon.jpg" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\icon.png" target="staticwebassets\icon.png" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\js\modal.js" target="staticwebassets\js\modal.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\js\signin-redirect.js" target="staticwebassets\js\signin-redirect.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\js\signout-redirect.js" target="staticwebassets\js\signout-redirect.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" target="staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" target="staticwebassets\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.js" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" target="staticwebassets\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\README.md" target="staticwebassets\lib\bootstrap\README.md" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\bootstrap-grid.scss" target="staticwebassets\lib\bootstrap\scss\bootstrap-grid.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\bootstrap-reboot.scss" target="staticwebassets\lib\bootstrap\scss\bootstrap-reboot.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\bootstrap.scss" target="staticwebassets\lib\bootstrap\scss\bootstrap.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_alert.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_alert.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_background-variant.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_background-variant.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_badge.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_badge.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_border-radius.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_border-radius.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_box-shadow.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_box-shadow.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_breakpoints.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_breakpoints.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_buttons.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_buttons.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_caret.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_caret.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_clearfix.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_clearfix.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_deprecate.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_deprecate.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_float.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_float.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_forms.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_forms.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_gradients.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_gradients.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_grid-framework.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_grid-framework.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_grid.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_grid.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_hover.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_hover.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_image.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_image.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_list-group.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_list-group.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_lists.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_lists.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_nav-divider.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_nav-divider.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_pagination.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_pagination.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_reset-text.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_reset-text.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_resize.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_resize.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_screen-reader.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_screen-reader.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_size.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_size.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_table-row.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_table-row.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_text-emphasis.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_text-emphasis.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_text-hide.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_text-hide.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_text-truncate.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_text-truncate.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_transition.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_transition.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\mixins\_visibility.scss" target="staticwebassets\lib\bootstrap\scss\mixins\_visibility.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_align.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_align.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_background.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_background.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_borders.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_borders.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_clearfix.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_clearfix.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_display.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_display.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_embed.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_embed.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_flex.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_flex.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_float.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_float.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_overflow.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_overflow.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_position.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_position.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_screenreaders.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_screenreaders.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_shadows.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_shadows.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_sizing.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_sizing.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_spacing.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_spacing.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_stretched-link.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_stretched-link.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_text.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_text.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\utilities\_visibility.scss" target="staticwebassets\lib\bootstrap\scss\utilities\_visibility.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\vendor\_rfs.scss" target="staticwebassets\lib\bootstrap\scss\vendor\_rfs.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_alert.scss" target="staticwebassets\lib\bootstrap\scss\_alert.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_badge.scss" target="staticwebassets\lib\bootstrap\scss\_badge.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_breadcrumb.scss" target="staticwebassets\lib\bootstrap\scss\_breadcrumb.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_button-group.scss" target="staticwebassets\lib\bootstrap\scss\_button-group.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_buttons.scss" target="staticwebassets\lib\bootstrap\scss\_buttons.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_card.scss" target="staticwebassets\lib\bootstrap\scss\_card.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_carousel.scss" target="staticwebassets\lib\bootstrap\scss\_carousel.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_close.scss" target="staticwebassets\lib\bootstrap\scss\_close.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_code.scss" target="staticwebassets\lib\bootstrap\scss\_code.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_custom-forms.scss" target="staticwebassets\lib\bootstrap\scss\_custom-forms.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_dropdown.scss" target="staticwebassets\lib\bootstrap\scss\_dropdown.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_forms.scss" target="staticwebassets\lib\bootstrap\scss\_forms.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_functions.scss" target="staticwebassets\lib\bootstrap\scss\_functions.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_grid.scss" target="staticwebassets\lib\bootstrap\scss\_grid.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_images.scss" target="staticwebassets\lib\bootstrap\scss\_images.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_input-group.scss" target="staticwebassets\lib\bootstrap\scss\_input-group.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_jumbotron.scss" target="staticwebassets\lib\bootstrap\scss\_jumbotron.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_list-group.scss" target="staticwebassets\lib\bootstrap\scss\_list-group.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_media.scss" target="staticwebassets\lib\bootstrap\scss\_media.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_mixins.scss" target="staticwebassets\lib\bootstrap\scss\_mixins.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_modal.scss" target="staticwebassets\lib\bootstrap\scss\_modal.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_nav.scss" target="staticwebassets\lib\bootstrap\scss\_nav.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_navbar.scss" target="staticwebassets\lib\bootstrap\scss\_navbar.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_pagination.scss" target="staticwebassets\lib\bootstrap\scss\_pagination.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_popover.scss" target="staticwebassets\lib\bootstrap\scss\_popover.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_print.scss" target="staticwebassets\lib\bootstrap\scss\_print.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_progress.scss" target="staticwebassets\lib\bootstrap\scss\_progress.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_reboot.scss" target="staticwebassets\lib\bootstrap\scss\_reboot.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_root.scss" target="staticwebassets\lib\bootstrap\scss\_root.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_spinners.scss" target="staticwebassets\lib\bootstrap\scss\_spinners.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_tables.scss" target="staticwebassets\lib\bootstrap\scss\_tables.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_toasts.scss" target="staticwebassets\lib\bootstrap\scss\_toasts.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_tooltip.scss" target="staticwebassets\lib\bootstrap\scss\_tooltip.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_transitions.scss" target="staticwebassets\lib\bootstrap\scss\_transitions.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_type.scss" target="staticwebassets\lib\bootstrap\scss\_type.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_utilities.scss" target="staticwebassets\lib\bootstrap\scss\_utilities.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\bootstrap\scss\_variables.scss" target="staticwebassets\lib\bootstrap\scss\_variables.scss" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.js" target="staticwebassets\lib\jquery\dist\jquery.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.min.js" target="staticwebassets\lib\jquery\dist\jquery.min.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.min.map" target="staticwebassets\lib\jquery\dist\jquery.min.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.slim.js" target="staticwebassets\lib\jquery\dist\jquery.slim.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.slim.min.js" target="staticwebassets\lib\jquery\dist\jquery.slim.min.js" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\dist\jquery.slim.min.map" target="staticwebassets\lib\jquery\dist\jquery.slim.min.map" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\LICENSE.txt" target="staticwebassets\lib\jquery\LICENSE.txt" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\wwwroot\lib\jquery\README.md" target="staticwebassets\lib\jquery\README.md" />
+    <file src="C:\Users\f.fathollahi\.nuget\packages\dynamicvml\1.3.3\contentFiles\any\netcoreapp3.1\bundleconfig.json" target="content\bundleconfig.json" />
+    <file src="C:\Users\f.fathollahi\.nuget\packages\dynamicvml\1.3.3\contentFiles\any\netcoreapp3.1\bundleconfig.json" target="contentFiles\any\netcoreapp3.1\bundleconfig.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\appsettings.Development.json" target="content\appsettings.Development.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\appsettings.Development.json" target="contentFiles\any\netcoreapp3.1\appsettings.Development.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\appsettings.json" target="content\appsettings.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\appsettings.json" target="contentFiles\any\netcoreapp3.1\appsettings.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\libman.json" target="content\libman.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\libman.json" target="contentFiles\any\netcoreapp3.1\libman.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\Properties\launchSettings.json" target="content\Properties\launchSettings.json" />
+    <file src="F:\IdentityServer\Plus.Infrastructure.IdentityServer\Properties\launchSettings.json" target="contentFiles\any\netcoreapp3.1\Properties\launchSettings.json" />
+  </files>
+</package>

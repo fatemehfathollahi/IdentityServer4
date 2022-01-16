@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\IdentityServer\\Plus.Infrastructure.IdentityServerClient\\Plus.Infrastructure.IdentityServerClient.csproj": {}
+  },
+  "projects": {
+    "F:\\IdentityServer\\Plus.Infrastructure.IdentityServerClient\\Plus.Infrastructure.IdentityServerClient.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\IdentityServer\\Plus.Infrastructure.IdentityServerClient\\Plus.Infrastructure.IdentityServerClient.csproj",
+        "projectName": "Plus.Infrastructure.IdentityServerClient",
+        "projectPath": "F:\\IdentityServer\\Plus.Infrastructure.IdentityServerClient\\Plus.Infrastructure.IdentityServerClient.csproj",
+        "packagesPath": "C:\\Users\\f.fathollahi\\.nuget\\packages\\",
+        "outputPath": "F:\\IdentityServer\\Plus.Infrastructure.IdentityServerClient\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "F:\\IdentityServer\\.nuget\\NuGet.Config",
+          "C:\\Users\\f.fathollahi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "\\\\server-develop\\nuget-packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "Plus.Infrastructure.Core": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "SeptaNSFCore.Helper": {
+              "target": "Package",
+              "version": "[1.0.5, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.7.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

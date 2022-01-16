@@ -1,0 +1,12 @@
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.deps.json
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.runtimeconfig.json
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.runtimeconfig.dev.json
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.dll
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\bin\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.pdb
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.AssemblyInfoInputs.cache
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.AssemblyInfo.cs
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.dll
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.pdb
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.genruntimeconfig.cache
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.csproj.CoreCompileInputs.cache
+F:\IdentityServer\Plus.Infrastructure.IdentityServer.Core\obj\Debug\netcoreapp3.1\Plus.Infrastructure.IdentityServer.Core.csprojAssemblyReference.cache

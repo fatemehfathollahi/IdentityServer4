@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = Plus.Infrastructure.IdentityServer.Core
+build_property.ProjectDir = C:\project\IdentityServer\Plus.Infrastructure.IdentityServer.Core\
